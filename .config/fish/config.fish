@@ -40,7 +40,7 @@ set -gx TERM xterm-256color
 set -gx EDITOR nvim
 set -g mouse on
 
-
+alias python "python3"
 alias nv "nvim"
 alias lg "lazygit"
 alias lzd "lazydocker"
