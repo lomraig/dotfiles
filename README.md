@@ -2,17 +2,17 @@
 
 ## Install dependencies
 
-- ghostty: Terminal Emulator
-- fish: Shell
-- starship: Custom prompt
-- stow: dotfiles manager
-- git: Version Control
-- ripgrep: Search inside files
-- fd: File search
-- vivid: color generator for ls/fd
-- fzf: fuzzy finder
-- bat: better cat
-- eza: better ls
+- [ghostty](https://ghostty.org/): Terminal Emulator
+- [fish](https://fishshell.com/): Shell
+- [starship](https://starship.rs/): Custom prompt
+- [stow](https://www.gnu.org/software/stow/): dotfiles manager
+- [git](https://git-scm.com/): Version Control
+- [ripgrep](https://github.com/BurntSushi/ripgrep): Search inside files
+- [fd](https://github.com/sharkdp/fd): File search
+- [vivid](https://github.com/sharkdp/vivid): color generator for ls/fd
+- [fzf](https://junegunn.github.io/fzf/): fuzzy finder
+- [bat](https://github.com/sharkdp/bat): better cat
+- [eza](https://github.com/eza-community/eza): better ls
 
 ### MacOS
 
@@ -41,6 +41,7 @@ lazygit
 git-delta
 tldr
 thefuck
+dust https://github.com/bootandy/dust
 ```
 
 ## Change default shell to Fish
@@ -63,4 +64,4 @@ stow .
 
 ### rust
 
-use (rustup)[https://rustup.rs/]
+use [rustup](https://rustup.rs/)

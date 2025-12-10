@@ -64,12 +64,12 @@ set -x MANPAGER "sh -c 'awk '\''{ gsub(/\x1B\[[0-9;]*m/, \"\", \$0); gsub(/.\x08
 set -x FZF_DEFAULT_COMMAND "fd --type file --strip-cwd-prefix --hidden --follow --exclude .git"
 
 # Generates colors for fd
-set -gx LS_COLORS "$(vivid generate ayu)"
+set -gx LS_COLORS "$(vivid generate 'rose-pine-dawn')"
 
 
 ######## SDKs
 
-# golang (gobrew)
+# golang
 set -x GOPATH $HOME/.go
 fish_add_path $GOPATH
 
