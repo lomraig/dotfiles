@@ -41,10 +41,13 @@ set -gx EDITOR nvim
 set -g mouse on
 
 alias python "python3"
+alias pip "pip3"
+
 alias nv "nvim"
 alias lg "lazygit"
 alias lzd "lazydocker"
 # alias cat "bat"
+
 alias fzv 'fzf --preview "bat --color=always --style=numbers --line-range=:500 {}" --bind "enter:become(nvim {})"'
 alias fzp "fzf --preview 'fzf-preview.sh {}'"
 
@@ -52,7 +55,6 @@ alias ls='eza'
 alias l='eza -lbF --git'
 alias la='eza -lbhHigUmuSa --time-style=long-iso --git'
 
-# bat theme
 set -x BAT_THEME "base16"
 
 # Use bat for man
@@ -78,5 +80,4 @@ fish_add_path $HOME/.cargo/bin
 
 fzf --fish | source
 zoxide init --cmd cd fish | source
-carapace _carapace | source
 starship init fish | source

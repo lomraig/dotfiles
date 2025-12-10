@@ -13,13 +13,10 @@
 - fzf: fuzzy finder
 - bat: better cat
 - eza: better ls
-- carapace: library of completions
 
 ### MacOS
 
-```sh
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" # installs homebrew
-```
+install [homebrew](https://brew.sh/)
 
 ```sh
 brew install ghostty fish starship stow git ripgrep fd vivid fzf bat eza
@@ -29,10 +26,6 @@ brew install ghostty fish starship stow git ripgrep fd vivid fzf bat eza
 
 ```sh
 sudo pacman -S ghostty fish starship stow git ripgrep fd vivid fzf bat eza
-```
-
-```sh
-pamac install carapace-bin
 ```
 
 ```sh
@@ -46,6 +39,8 @@ deno
 zoxide
 lazygit
 git-delta
+tldr
+thefuck
 ```
 
 ## Change default shell to Fish
@@ -68,6 +63,4 @@ stow .
 
 ### rust
 
-```sh
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-```
+use (rustup)[https://rustup.rs/]
