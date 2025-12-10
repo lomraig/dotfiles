@@ -35,8 +35,6 @@ set -gx TERM xterm-256color
 # end
 
 
-
-
 set -gx EDITOR nvim
 set -g mouse on
 
@@ -46,14 +44,14 @@ alias pip "pip3"
 alias nv "nvim"
 alias lg "lazygit"
 alias lzd "lazydocker"
-# alias cat "bat"
+alias cat "bat"
 
 alias fzv 'fzf --preview "bat --color=always --style=numbers --line-range=:500 {}" --bind "enter:become(nvim {})"'
 alias fzp "fzf --preview 'fzf-preview.sh {}'"
 
-alias ls='eza'
-alias l='eza -lbF --git'
-alias la='eza -lbhHigUmuSa --time-style=long-iso --git'
+alias ls 'eza'
+alias l 'eza -lbF --git'
+alias la 'eza -lbhHigUmuSa --time-style=long-iso --git'
 
 set -x BAT_THEME "base16"
 

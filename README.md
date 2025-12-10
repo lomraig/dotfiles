@@ -2,13 +2,13 @@
 
 ## Install dependencies
 
-- [ghostty](https://ghostty.org/): Terminal Emulator
-- [fish](https://fishshell.com/): Shell
-- [starship](https://starship.rs/): Custom prompt
+- [ghostty](https://ghostty.org/): terminal emulator
+- [fish](https://fishshell.com/): my shell of choice
+- [starship](https://starship.rs/): prompt generator
 - [stow](https://www.gnu.org/software/stow/): dotfiles manager
-- [git](https://git-scm.com/): Version Control
-- [ripgrep](https://github.com/BurntSushi/ripgrep): Search inside files
-- [fd](https://github.com/sharkdp/fd): File search
+- [git](https://git-scm.com/): version control
+- [ripgrep](https://github.com/BurntSushi/ripgrep): search inside files
+- [fd](https://github.com/sharkdp/fd): file search
 - [vivid](https://github.com/sharkdp/vivid): color generator for ls/fd
 - [fzf](https://junegunn.github.io/fzf/): fuzzy finder
 - [bat](https://github.com/sharkdp/bat): better cat
@@ -20,6 +20,20 @@ install [homebrew](https://brew.sh/)
 
 ```sh
 brew install ghostty fish starship stow git ripgrep fd vivid fzf bat eza
+```
+
+### Fedora
+
+add [Terra](https://terra.fyralabs.com/) repo
+
+```sh
+dnf install ghostty fish starship stow git ripgrep fd-find fzf bat eza 
+```
+
+then install [rustup](#rust)
+
+```sh
+cargo install vivid
 ```
 
 ### Arch Linux
