@@ -19,7 +19,7 @@
 install [homebrew](https://brew.sh/)
 
 ```sh
-brew install ghostty fish starship stow git ripgrep fd vivid fzf bat eza
+brew install ghostty fish starship stow git ripgrep fd vivid fzf bat eza gcc
 ```
 
 ### Fedora
@@ -27,7 +27,7 @@ brew install ghostty fish starship stow git ripgrep fd vivid fzf bat eza
 add [Terra](https://terra.fyralabs.com/) repo
 
 ```sh
-dnf install ghostty fish starship stow git ripgrep fd-find fzf bat eza 
+sudo dnf install ghostty fish starship stow git ripgrep fd-find fzf bat eza gcc
 ```
 
 then install [rustup](#rust)
@@ -39,7 +39,7 @@ cargo install vivid
 ### Arch Linux
 
 ```sh
-sudo pacman -S ghostty fish starship stow git ripgrep fd vivid fzf bat eza
+sudo pacman -S ghostty fish starship stow git ripgrep fd vivid fzf bat eza gcc
 ```
 
 ```sh
@@ -61,9 +61,7 @@ dust https://github.com/bootandy/dust
 ## Change default shell to Fish
 
 ```sh
-echo /usr/local/bin/fish | sudo tee -a /etc/shells
-
-chsh -s /usr/local/bin/fish
+chsh -s $(which fish)
 ```
 
 ## Install dotfiles
