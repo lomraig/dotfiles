@@ -75,6 +75,3 @@ fish_add_path $GOPATH
 fzf --fish | source
 zoxide init --cmd cd fish | source
 starship init fish | source
-
-# Created by `pipx` on 2026-01-30 15:02:20
-set PATH $PATH /Users/tymofiikliuiev/.local/bin

@@ -40,6 +40,7 @@ sudo zypper in ghostty fish starship stow git ripgrep fd fzf bat eza gcc neovim 
 ```sh
 yazi
 tmux
+zoxide
 glow
 make
 deno
