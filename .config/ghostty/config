@@ -1,9 +1,7 @@
 window-width=128
 window-height=34
 
-# Alabaster, Iceberg Light, Xcode Light
 theme = oxocarbon-dark
-# background = #FFF
 
 font-size = 15
 font-feature = -calt, -liga, -dlig
