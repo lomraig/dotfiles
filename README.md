@@ -9,7 +9,6 @@
 - [git](https://git-scm.com/): version control
 - [ripgrep](https://github.com/BurntSushi/ripgrep): search inside files
 - [fd](https://github.com/sharkdp/fd): file search
-- [vivid](https://github.com/sharkdp/vivid): color generator for ls/fd
 - [fzf](https://junegunn.github.io/fzf/): fuzzy finder
 - [bat](https://github.com/sharkdp/bat): better cat
 - [eza](https://github.com/eza-community/eza): better ls
@@ -19,7 +18,7 @@
 install [homebrew](https://brew.sh/)
 
 ```sh
-brew install ghostty fish starship stow git ripgrep fd vivid fzf bat eza gcc neovim
+brew install ghostty fish starship stow git ripgrep fd fzf bat eza gcc neovim
 ```
 
 ### Fedora
@@ -27,13 +26,13 @@ brew install ghostty fish starship stow git ripgrep fd vivid fzf bat eza gcc neo
 add [Terra](https://terra.fyralabs.com/) repo
 
 ```sh
-sudo dnf install ghostty fish starship stow git ripgrep fd-find fzf bat eza gcc neovim rust && cargo install vivid
+sudo dnf install ghostty fish starship stow git ripgrep fd-find fzf bat eza gcc neovim 
 ```
 
 ### OpenSUSE
 
 ```sh
-sudo zypper in ghostty fish starship stow git ripgrep fd fzf bat eza gcc neovim rust && cargo install vivid
+sudo zypper in ghostty fish starship stow git ripgrep fd fzf bat eza gcc neovim 
 ```
 
 
@@ -49,6 +48,7 @@ lazygit
 git-delta
 tldr
 thefuck
+vivid
 dust https://github.com/bootandy/dust
 ```
 
