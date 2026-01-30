@@ -3,7 +3,7 @@
 ## Install dependencies
 
 - [ghostty](https://ghostty.org/): terminal emulator
-- [fish](https://fishshell.com/): my shell of choice
+- [fish](https://fishshell.com/): shell
 - [starship](https://starship.rs/): prompt generator
 - [stow](https://www.gnu.org/software/stow/): dotfiles manager
 - [git](https://git-scm.com/): version control
@@ -19,7 +19,7 @@
 install [homebrew](https://brew.sh/)
 
 ```sh
-brew install ghostty fish starship stow git ripgrep fd vivid fzf bat eza gcc
+brew install ghostty fish starship stow git ripgrep fd vivid fzf bat eza gcc neovim
 ```
 
 ### Fedora
@@ -27,26 +27,19 @@ brew install ghostty fish starship stow git ripgrep fd vivid fzf bat eza gcc
 add [Terra](https://terra.fyralabs.com/) repo
 
 ```sh
-sudo dnf install ghostty fish starship stow git ripgrep fd-find fzf bat eza gcc
+sudo dnf install ghostty fish starship stow git ripgrep fd-find fzf bat eza gcc neovim rust && cargo install vivid
 ```
 
-then install [rustup](#rust)
+### OpenSUSE
 
 ```sh
-cargo install vivid
+sudo zypper in ghostty fish starship stow git ripgrep fd fzf bat eza gcc neovim rust && cargo install vivid
 ```
 
-### Arch Linux
 
 ```sh
-sudo pacman -S ghostty fish starship stow git ripgrep fd vivid fzf bat eza gcc
-```
-
-```sh
-neovim
 yazi
 tmux
-gcc
 glow
 make
 deno
