@@ -45,6 +45,7 @@ make
 deno
 zoxide
 lazygit
+lazydocker
 git-delta
 tldr
 thefuck
