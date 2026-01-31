@@ -1,0 +1,39 @@
+# Xcode Light Theme for Ghostty
+background = #FFFFFF
+foreground = #000000
+cursor-color = #000000
+selection-background = #B2D7FF
+selection-foreground = #000000
+
+# ANSI Colors (Mapping Xcode syntax to terminal classes)
+# Black / Grey
+palette = 0=#000000
+palette = 8=#5D6C79
+
+# Red (Xcode Strings)
+palette = 1=#C41A16
+palette = 9=#C41A16
+
+# Green (Xcode Comments / Documentation)
+palette = 2=#007400
+palette = 10=#007400
+
+# Yellow/Orange (Xcode Preprocessor)
+palette = 3=#643820
+palette = 11=#643820
+
+# Blue (Xcode Types/Blue)
+palette = 4=#1C00CF
+palette = 12=#1C00CF
+
+# Magenta (Xcode Keywords)
+palette = 5=#9B2393
+palette = 13=#9B2393
+
+# Cyan (Xcode Functions)
+palette = 6=#326D74
+palette = 14=#326D74
+
+# White
+palette = 7=#A2A2A2
+palette = 15=#FFFFFF

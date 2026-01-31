@@ -6,13 +6,10 @@ end
 set -l os (uname)
 
 if test "$os" = Darwin
-    # Homebrew integration
     eval "$(/opt/homebrew/bin/brew shellenv)"
 else if test "$os" = Linux
     # stuff for linux
 end
-
-fish_add_path $HOME/.cargo/bin
 
 # if test "$TERM_PROGRAM" = ghostty
 #     if status is-interactive
@@ -43,22 +40,44 @@ alias pip "pip3"
 alias nv "nvim"
 alias lg "lazygit"
 alias lzd "lazydocker"
-alias cat "bat"
 
-alias fzv 'fzf --preview "bat --color=always --style=numbers --line-range=:500 {}" --bind "enter:become(nvim {})"'
+################################################## Some Colors ##################################################
 
-alias ls 'eza'
-alias l 'eza -lbF --git'
-alias la 'eza -lbhHigUmuSa --time-style=long-iso --git'
+set -gx BAT_THEME "xcode-light"
+set -gx LS_COLORS "di=1;34:ln=36:ex=1;32:fi=0:mi=31:pi=33:so=35:bd=33;01:cd=33;01:or=31:ow=34;42"
 
-set -x BAT_THEME "oxocarbon-dark"
+if type -q eza
+    alias ls='eza --icons --group-directories-first --color=always'
+    alias ll='eza -lh --icons --group-directories-first --git'
+    alias la='eza -a --icons --group-directories-first'
+    alias lt='eza --tree --level=2 --icons'
+else
+    alias ls='ls -G'
+    alias ll='ls -lhG'
+    alias la='ls -aG'
+end
 
 # Use bat for man
-set -gx MANPAGER "sh -c 'awk '\''{ gsub(/\x1B\[[0-9;]*m/, \"\", \$0); gsub(/.\x08/, \"\", \$0); print }'\'' | bat -p -lman'"
+set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
 
-################################################## Set up fzf ##################################################
+set -U fish_color_normal normal
+set -U fish_color_command 9b2393 --bold   
+set -U fish_color_keyword 9b2393 --bold   
+set -U fish_color_quote c41a16             
+set -U fish_color_redirection 326d74       
+set -U fish_color_end 5d6c79              
+set -U fish_color_error ff0000
+set -U fish_color_param 000000          
+set -U fish_color_comment 5d6c79           
+set -U fish_color_selection --background=b2d7ff
+set -U fish_color_search_match --background=b2d7ff
+set -U fish_color_operator 326d74
+set -U fish_color_escape 1c00cf
+set -U fish_color_autosuggestion 5d6c79 --italics
 
-set -gx FZF_DEFAULT_OPTS "$FZF_DEFAULT_OPTS --color=fg:#ffffff,bg:#161616,hl:#08bdba --color=fg+:#f2f4f8,bg+:#262626,hl+:#3ddbd9 --color=info:#78a9ff,prompt:#33b1ff,pointer:#42be65 --color=marker:#ee5396,spinner:#ff7eb6,header:#be95ff"
+################################################## Setup fzf ##################################################
+
+set -gx FZF_DEFAULT_OPTS '--color=light --color=fg:#000000,bg:#ffffff,hl:#9b2393 --color=fg+:#000000,bg+:#f4f4f4,hl+:#9b2393 --color=info:#5d6c79,prompt:#1c00cf,pointer:#1c00cf --color=marker:#c41a16,spinner:#326d74,header:#5d6c79'
 
 function ff
     fd --hidden --follow --exclude .git --color=always \
@@ -69,7 +88,7 @@ function ff
         --bind 'enter:execute(nvim {})'
 end
 
-# firstly load serach results into ram and then search
+# firstly loads serach results into ram and then searches
 function fc
     rg --column --line-number --no-heading --color=never --smart-case \
        --hidden \
@@ -88,7 +107,7 @@ function fc
         --bind 'enter:execute(nvim {1} +{2})'
 end
 
-# search on every type
+# searches on every type
 function fcl
     set RG_PREFIX "rg --column --line-number --no-heading --color=never --smart-case --hidden --glob '!.git' --glob '!node_modules' --glob '!venv' --glob '!target' --glob '!dist'"
 
@@ -104,9 +123,10 @@ end
 
 ################################################## PATHs ##################################################
 
-# golang
 set -x GOPATH $HOME/.go
 fish_add_path $GOPATH
+
+fish_add_path $HOME/.cargo/bin
 
 # fish_add_path "~/.local/bin"
 # register-python-argcomplete --shell fish pipx >~/.config/fish/completions/pipx.fish

@@ -1,7 +1,8 @@
 window-width=128
 window-height=34
 
-theme = oxocarbon-dark
+# theme = oxocarbon-dark
+theme = xcode-light
 
 font-size = 15
 font-feature = -calt, -liga, -dlig
