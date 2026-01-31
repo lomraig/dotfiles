@@ -11,3 +11,5 @@ shell-integration-features = no-cursor
 mouse-hide-while-typing = true
 
 shell-integration-features = ssh-terminfo,ssh-env
+
+macos-option-as-alt = true
