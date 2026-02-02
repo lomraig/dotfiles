@@ -118,6 +118,7 @@ local groups = {
     Visual = {bg = colors.selection},
     LineNr = {fg = colors.line_nr},
     VertSplit = {fg = colors.border},
+
     -- Standard Syntax
     Comment = {fg = colors.comment, italic = true},
     String = {fg = colors.string},
@@ -125,13 +126,23 @@ local groups = {
     Function = {fg = colors.func},
     Type = {fg = colors.type},
     Constant = {fg = colors.const},
+
     -- Tree-sitter Support
     ["@method"] = {fg = colors.func},
     ["@parameter"] = {fg = colors.fg},
     ["@variable"] = {fg = colors.fg},
     ["@variable.builtin"] = {fg = colors.const},
     ["@tag"] = {fg = colors.keyword},
-    ["@keyword.return"] = {fg = colors.keyword, bold = true}
+    ["@keyword.return"] = {fg = colors.keyword, bold = true},
+
+    -- Mini.tabline highlights
+    MiniTablineActive = { fg = colors.fg, bg = colors.bg, bold = true },
+    MiniTablineVisible = { fg = colors.comment, bg = colors.cursor_l }, 
+    MiniTablineHidden = { fg = colors.line_nr, bg = colors.cursor_l },   
+    MiniTablineModifiedActive = { fg = colors.string, bg = colors.bg, bold = true },
+    MiniTablineModifiedVisible = { fg = colors.string, bg = colors.cursor_l },
+    MiniTablineModifiedHidden = { fg = colors.string, bg = colors.cursor_l },
+    MiniTablineFill = { bg = colors.cursor_l }, 
 }
 
 -- Apply Highlights
