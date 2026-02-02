@@ -194,6 +194,7 @@ vim.pack.add(
         "https://github.com/nvim-mini/mini.tabline",
         "https://github.com/nvim-mini/mini.bufremove",
         "https://github.com/nvim-mini/mini.comment",
+        "https://github.com/nvim-mini/mini.cursorword",
         "https://github.com/nvim-tree/nvim-web-devicons",
         "https://github.com/folke/which-key.nvim",
         "https://github.com/nvim-tree/nvim-tree.lua",
@@ -201,11 +202,14 @@ vim.pack.add(
 )
 
 require("nvim-web-devicons").setup()
-
 require("mini.pairs").setup()
 require("mini.move").setup()
 require("mini.tabline").setup()
 require("mini.bufremove").setup()
+
+require("mini.cursorword").setup({
+      delay = 0,
+})
 
 require("mini.comment").setup(
     {

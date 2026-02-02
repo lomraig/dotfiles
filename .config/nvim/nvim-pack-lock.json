@@ -8,6 +8,10 @@
       "rev": "a0c721115faff8d05505c0a12dab410084d9e536",
       "src": "https://github.com/nvim-mini/mini.comment"
     },
+    "mini.cursorword": {
+      "rev": "dda0f57d55bb1fa19423b7201b2ba892c7d2bb3c",
+      "src": "https://github.com/nvim-mini/mini.cursorword"
+    },
     "mini.move": {
       "rev": "4d214202d71e0a4066b6288176bbe88f268f9777",
       "src": "https://github.com/nvim-mini/mini.move"
