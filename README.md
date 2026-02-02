@@ -51,6 +51,8 @@ tldr
 thefuck
 vivid
 dust https://github.com/bootandy/dust
+aerospace
+sketchybar
 ```
 
 ## Change default shell to Fish
