@@ -1,6 +1,6 @@
 # dotfiles
 
-## Install dependencies
+## dependencies
 
 - [ghostty](https://ghostty.org/): terminal emulator
 - [fish](https://fishshell.com/): shell
@@ -15,7 +15,7 @@
 - neovim 0.12.0+ is required
 - [gum](https://github.com/charmbracelet/gum), [terminal-notifier](https://github.com/julienXX/terminal-notifier) and [timer](https://github.com/caarlos0/timer): [pom](https://gist.github.com/bashbunni/e311f07e100d51a883ab0414b46755fa) dependencies
 
-### MacOS
+### macos
 
 - installs [homebrew](https://brew.sh/)
 
@@ -24,7 +24,7 @@
 brew install ghostty fish starship stow git ripgrep fd fzf bat eza gcc neovim gum jq caarlos0/tap/timer terminal-notifier go
 ```
 
-### Fedora
+### fedora
 
 - adds [terra](https://terra.fyralabs.com/) repository
 
@@ -33,7 +33,7 @@ sudo dnf install -y --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.co
 sudo dnf install -y go ghostty fish starship stow git ripgrep fd-find fzf bat eza gcc neovim jq $(curl -s https://api.github.com/repos/caarlos0/timer/releases/latest | jq -r --arg arch "$(uname -m)" '.assets[] | select(.name | endswith($arch + ".rpm")) | .browser_download_url')
 ```
 
-### OpenSUSE
+### opensuse
 
 ```sh
 sudo zypper in -y --allow-unsigned-rpm go ghostty fish starship stow git ripgrep fd fzf bat eza gcc neovim jq $(curl -s https://api.github.com/repos/caarlos0/timer/releases/latest | jq -r --arg arch "$(uname -m)" '.assets[] | select(.name | endswith($arch + ".rpm")) | .browser_download_url')
@@ -55,13 +55,13 @@ aerospace
 sketchybar
 ```
 
-## Change default shell to Fish
+## change default shell to fish
 
 ```sh
 chsh -s $(which fish)
 ```
 
-## Install dotfiles
+## install dotfiles
 
 ```sh
 git clone https://github.com/lomraig/dotfiles ~/.dotfiles
@@ -69,7 +69,7 @@ cd ~/.dotfiles
 stow .
 ```
 
-## Install Additional packages
+## install additional packages
 
 Fedora & OpenSUSE Only
 
