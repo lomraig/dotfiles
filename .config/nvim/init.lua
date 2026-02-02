@@ -184,7 +184,8 @@ vim.pack.add(
         "https://github.com/nvim-mini/mini.bufremove",
         "https://github.com/nvim-mini/mini.comment",
         "https://github.com/nvim-tree/nvim-web-devicons",
-        "https://github.com/folke/which-key.nvim"
+        "https://github.com/folke/which-key.nvim",
+        "https://github.com/nvim-tree/nvim-tree.lua",
     }
 )
 
@@ -232,10 +233,55 @@ which_key.add(
         },
         {
             "<leader>c",
-            function()
-                MiniBufremove.delete()
-            end,
             desc = "[C]omment"
+        },
+        { '<leader>e', '<cmd>NvimTreeToggle<CR>', { silent = true }},
+    }
+)
+
+
+require("nvim-tree").setup(
+    {
+        view = {
+            float = {
+                enable = true,
+                open_win_config = function()
+                    local screen_w = vim.opt.columns:get()
+                    local screen_h = vim.opt.lines:get() - vim.opt.cmdheight:get()
+                    local window_w = screen_w * 0.6
+                    local window_h = screen_h * 0.6
+                    local window_w_int = math.floor(window_w)
+                    local window_h_int = math.floor(window_h)
+                    local center_x = (screen_w - window_w) / 2
+                    local center_y = ((vim.opt.lines:get() - window_h) / 2) - vim.opt.cmdheight:get()
+                    return {
+                        border = "rounded",
+                        relative = "editor",
+                        row = center_y,
+                        col = center_x,
+                        width = window_w_int,
+                        height = window_h_int
+                    }
+                end
+            },
+            width = function()
+                return math.floor(vim.opt.columns:get() * 0.8)
+            end
+        },
+        actions = {
+            open_file = {
+                window_picker = {
+                    enable = false
+                }
+            }
+        },
+        filters = {
+            dotfiles = false,
+            git_ignored = false
+        },
+        renderer = {
+            indent_width = 4
         }
     }
 )
+
