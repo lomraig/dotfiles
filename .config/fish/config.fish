@@ -48,13 +48,21 @@ set -gx LS_COLORS "di=1;34:ln=36:ex=1;32:fi=0:mi=31:pi=33:so=35:bd=33;01:cd=33;0
 
 if type -q eza
     alias ls='eza --icons --group-directories-first --color=always'
-    alias ll='eza -lh --icons --group-directories-first --git'
     alias la='eza -a --icons --group-directories-first'
+    alias ll='eza -lh --icons --group-directories-first --git'
+    alias lla='eza -la --icons --group-directories-first --git'
     alias lt='eza --tree --level=2 --icons'
 else
     alias ls='ls -G'
-    alias ll='ls -lhG'
     alias la='ls -aG'
+    alias ll='ls -lhG'
+    alias lla='ls -laG'
+
+    if type -q tree
+        alias lt='tree -C -L 2'
+    else
+        alias lt='find . -maxdepth 2 -not -path "*/.*"'
+    end
 end
 
 # Use bat for man
@@ -119,6 +127,35 @@ function fcl
         --preview 'bat --style=numbers --color=always --highlight-line {2} {1}' \
         --preview-window '~3,+{2}+3/3' \
         --bind 'enter:execute(nvim {1} +{2})'
+end
+
+################################################## Functions ##################################################
+
+function pom
+    set split $POMO_SPLIT
+    if ! test -n "$split"
+        set split $(gum choose "25/5" "50/10" "all done" --header "Choose a pomodoro split.")
+    end
+
+    switch $split
+        case 25/5
+            set work 25m
+            set break 5m
+        case 50/10
+            set work 50m
+            set break 10m
+        case 'all done'
+            return
+    end
+
+    timer $work && terminal-notifier -message Pomodoro \
+        -title 'Work Timer is up! Take a Break 😊' \
+        -sound Crystal
+
+    gum confirm "Ready for a break?" && timer $break && terminal-notifier -message Pomodoro \
+            -title 'Break is over! Get back to work 😬' \
+        -sound Crystal \
+        || pom
 end
 
 ################################################## PATHs ##################################################

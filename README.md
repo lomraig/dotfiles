@@ -12,44 +12,44 @@
 - [fzf](https://junegunn.github.io/fzf/): fuzzy finder
 - [bat](https://github.com/sharkdp/bat): better cat
 - [eza](https://github.com/eza-community/eza): better ls
+- neovim 0.12.0+ is required
+- [gum](https://github.com/charmbracelet/gum), [terminal-notifier](https://github.com/julienXX/terminal-notifier) and [timer](https://github.com/caarlos0/timer): [pom](https://gist.github.com/bashbunni/e311f07e100d51a883ab0414b46755fa) dependencies
 
 ### MacOS
 
-install [homebrew](https://brew.sh/)
+- installs [homebrew](https://brew.sh/)
 
 ```sh
-brew install ghostty fish starship stow git ripgrep fd fzf bat eza gcc neovim
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" # installs homebrew
+brew install ghostty fish starship stow git ripgrep fd fzf bat eza gcc neovim gum jq caarlos0/tap/timer terminal-notifier go
 ```
 
 ### Fedora
 
-add [Terra](https://terra.fyralabs.com/) repo
+- adds [terra](https://terra.fyralabs.com/) repository
 
 ```sh
-sudo dnf install ghostty fish starship stow git ripgrep fd-find fzf bat eza gcc neovim 
+sudo dnf install -y --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release # adds terra repo
+sudo dnf install -y go ghostty fish starship stow git ripgrep fd-find fzf bat eza gcc neovim jq $(curl -s https://api.github.com/repos/caarlos0/timer/releases/latest | jq -r --arg arch "$(uname -m)" '.assets[] | select(.name | endswith($arch + ".rpm")) | .browser_download_url')
 ```
 
 ### OpenSUSE
 
 ```sh
-sudo zypper in ghostty fish starship stow git ripgrep fd fzf bat eza gcc neovim 
+sudo zypper in -y --allow-unsigned-rpm go ghostty fish starship stow git ripgrep fd fzf bat eza gcc neovim jq $(curl -s https://api.github.com/repos/caarlos0/timer/releases/latest | jq -r --arg arch "$(uname -m)" '.assets[] | select(.name | endswith($arch + ".rpm")) | .browser_download_url')
 ```
-
 
 ```sh
 yazi
 tmux
 zoxide
 glow
-make
-deno
-zoxide
 lazygit
 lazydocker
 git-delta
 tldr
 thefuck
-vivid
+jq
 dust https://github.com/bootandy/dust
 aerospace
 sketchybar
@@ -69,8 +69,10 @@ cd ~/.dotfiles
 stow .
 ```
 
-## Install SDKs
+## Install Additional packages
 
-### rust
+Fedora & OpenSUSE Only
 
-use [rustup](https://rustup.rs/)
+```sh
+go install github.com/charmbracelet/gum@latest
+```
