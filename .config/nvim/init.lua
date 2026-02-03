@@ -112,14 +112,12 @@ vim.o.background = "light"
 vim.o.termguicolors = true
 
 local groups = {
-    -- Base UI
     Normal = {fg = colors.fg, bg = colors.bg},
     CursorLine = {bg = colors.cursor_l},
     Visual = {bg = colors.selection},
     LineNr = {fg = colors.line_nr},
     VertSplit = {fg = colors.border},
 
-    -- Standard Syntax
     Comment = {fg = colors.comment, italic = true},
     String = {fg = colors.string},
     Keyword = {fg = colors.keyword, bold = true},
@@ -127,7 +125,6 @@ local groups = {
     Type = {fg = colors.type},
     Constant = {fg = colors.const},
 
-    -- Tree-sitter Support
     ["@method"] = {fg = colors.func},
     ["@parameter"] = {fg = colors.fg},
     ["@variable"] = {fg = colors.fg},
@@ -135,14 +132,27 @@ local groups = {
     ["@tag"] = {fg = colors.keyword},
     ["@keyword.return"] = {fg = colors.keyword, bold = true},
 
-    -- Mini.tabline highlights
     MiniTablineActive = { fg = colors.fg, bg = colors.bg, bold = true },
-    MiniTablineVisible = { fg = colors.comment, bg = colors.cursor_l }, 
-    MiniTablineHidden = { fg = colors.line_nr, bg = colors.cursor_l },   
+    MiniTablineVisible = { fg = colors.comment, bg = colors.cursor_l },
+    MiniTablineHidden = { fg = colors.line_nr, bg = colors.cursor_l },
     MiniTablineModifiedActive = { fg = colors.string, bg = colors.bg, bold = true },
     MiniTablineModifiedVisible = { fg = colors.string, bg = colors.cursor_l },
     MiniTablineModifiedHidden = { fg = colors.string, bg = colors.cursor_l },
-    MiniTablineFill = { bg = colors.cursor_l }, 
+    MiniTablineFill = { bg = colors.cursor_l },
+
+    MiniStatuslineModeNormal  = { fg = colors.bg, bg = colors.func, bold = true },
+    MiniStatuslineModeInsert  = { fg = colors.bg, bg = colors.string, bold = true },
+    MiniStatuslineModeVisual  = { fg = colors.bg, bg = colors.keyword, bold = true },
+    MiniStatuslineModeReplace = { fg = colors.bg, bg = colors.const, bold = true },
+    MiniStatuslineModeCommand = { fg = colors.bg, bg = colors.type, bold = true },
+
+    MiniStatuslineDevinfo = { fg = colors.comment, bg = colors.border },
+    MiniStatuslineFilename    = { fg = colors.fg, bg = colors.border },
+    MiniStatuslineFileinfo    = { fg = colors.comment, bg = colors.cursor_l },
+    MiniStatuslineInactive    = { fg = colors.line_nr, bg = colors.cursor_l },
+    StatuslineGitAdd    = { fg = colors.func, bg = colors.border },
+    StatuslineGitChange = { fg = colors.type, bg = colors.border },
+    StatuslineGitDelete = { fg = colors.string, bg = colors.border },
 }
 
 -- Apply Highlights
@@ -175,7 +185,7 @@ vim.keymap.set("n", "<C-l>", "<C-w><C-l>", {desc = "Move focus to the right wind
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", {desc = "Move focus to the lower window"})
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", {desc = "Move focus to the upper window"})
 
--- TODO: WINDOW MOVING
+-- TODO WINDOW MOVING
 -- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
 -- vim.keymap.set("n", "<C-S-l>", "<C-w>L", { desc = "Move window to the right" })
 -- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
@@ -195,6 +205,9 @@ vim.pack.add(
         "https://github.com/nvim-mini/mini.bufremove",
         "https://github.com/nvim-mini/mini.comment",
         "https://github.com/nvim-mini/mini.cursorword",
+        "https://github.com/nvim-mini/mini.hipatterns",
+        "https://github.com/nvim-mini/mini.trailspace",
+        "https://github.com/nvim-mini/mini.statusline",
         "https://github.com/nvim-tree/nvim-web-devicons",
         "https://github.com/folke/which-key.nvim",
         "https://github.com/nvim-tree/nvim-tree.lua",
@@ -206,10 +219,55 @@ require("mini.pairs").setup()
 require("mini.move").setup()
 require("mini.tabline").setup()
 require("mini.bufremove").setup()
+require("mini.trailspace").setup()
+
+require('mini.statusline').setup({
+  content = {
+    active = function()
+      local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
+      local git           = MiniStatusline.section_git({ trunc_width = 75 })
+      local diagnostics   = MiniStatusline.section_diagnostics({ trunc_width = 75 })
+      local filename      = MiniStatusline.section_filename({ trunc_width = 140 })
+      local fileinfo      = MiniStatusline.section_fileinfo({ trunc_width = 120 })
+      local location      = MiniStatusline.section_location({ trunc_width = 75 })
+      local search        = MiniStatusline.section_searchcount({ trunc_width = 75 })
+
+      -- Custom LSP section
+      local lsp = (function()
+        local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+        if #clients > 0 then
+          return '󰄭 ' .. clients[1].name -- Xcode-ish icon
+        end
+        return ''
+      end)()
+
+      return MiniStatusline.combine_groups({
+        { hl = mode_hl,                  strings = { mode } },
+        { hl = 'MiniStatuslineDevinfo',  strings = { git, diagnostics } },
+        '%<', -- Mark general truncate point
+        { hl = 'MiniStatuslineFilename', strings = { filename } },
+        '%=', -- End left alignment
+        { hl = 'MiniStatuslineFileinfo', strings = { lsp, fileinfo } },
+        { hl = mode_hl,                  strings = { location } },
+      })
+    end
+  }
+})
 
 require("mini.cursorword").setup({
       delay = 0,
 })
+
+require("mini.hipatterns").setup({
+    highlighters = {
+        fixme = { pattern = 'FIXME', group = 'MiniHipatternsFixme' },
+        hack  = { pattern = 'HACK',  group = 'MiniHipatternsHack'  },
+        todo  = { pattern = 'TODO',  group = 'MiniHipatternsTodo'  },
+        note  = { pattern = 'NOTE',  group = 'MiniHipatternsNote'  },
+hex_color = require("mini.hipatterns").gen_highlighter.hex_color(),
+
+    }}
+)
 
 require("mini.comment").setup(
     {
@@ -228,11 +286,13 @@ which_key.setup(
     {
         preset = "modern",
         notify = true,
+        icons = {
+            mappings = false
+        },
         spec = {
-            {"<leader>s", group = "[S]earch", mode = {"n", "v"}},
-            {"<leader>t", group = "[T]oggle"},
-            {"<leader>h", group = "Git [H]unk", mode = {"n", "v"}},
-            {"<leader>b", group = "[B]uffers"}
+            {"<leader>s", group = "[s]earch", mode = {"n", "v"}},
+            {"<leader>h", group = "git [h]unk", mode = {"n", "v"}},
+            {"<leader>b", group = "[b]uffers"}
         }
     }
 )
@@ -244,13 +304,15 @@ which_key.add(
             function()
                 MiniBufremove.delete()
             end,
-            desc = "[C]lose Current Buffer"
+            desc = "[c]lose current buffer"
         },
         {
             "<leader>c",
-            desc = "[C]omment"
+            desc = "[c]omment"
         },
-        { '<leader>e', '<cmd>NvimTreeToggle<CR>', { silent = true }},
+        { '<leader>e', '<cmd>NvimTreeToggle<CR>', desc = "toggle [e]xplorer"},
+        { "<leader>t", MiniTrailspace.trim, desc = "remove [t]railing whitespaces"},
+
     }
 )
 

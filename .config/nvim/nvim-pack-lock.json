@@ -12,6 +12,10 @@
       "rev": "dda0f57d55bb1fa19423b7201b2ba892c7d2bb3c",
       "src": "https://github.com/nvim-mini/mini.cursorword"
     },
+    "mini.hipatterns": {
+      "rev": "add8d8abad602787377ec5d81f6b248605828e0f",
+      "src": "https://github.com/nvim-mini/mini.hipatterns"
+    },
     "mini.move": {
       "rev": "4d214202d71e0a4066b6288176bbe88f268f9777",
       "src": "https://github.com/nvim-mini/mini.move"
@@ -20,9 +24,17 @@
       "rev": "4089aa6ea6423e02e1a8326a7a7a00159f6f5e04",
       "src": "https://github.com/nvim-mini/mini.pairs"
     },
+    "mini.statusline": {
+      "rev": "3e96596ebe51b899874d8174409cdc4f3c749d9a",
+      "src": "https://github.com/nvim-mini/mini.statusline"
+    },
     "mini.tabline": {
       "rev": "caf23615b9b99bacc79ecd60f61c4e6a8ec18c84",
       "src": "https://github.com/nvim-mini/mini.tabline"
+    },
+    "mini.trailspace": {
+      "rev": "f8083ca969e1b2098480c10f3c3c4d2ce3586680",
+      "src": "https://github.com/nvim-mini/mini.trailspace"
     },
     "nvim-tree.lua": {
       "rev": "037d89e60fb01a6c11a48a19540253b8c72a3c32",
