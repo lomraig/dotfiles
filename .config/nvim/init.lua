@@ -162,6 +162,18 @@ end
 
 ------------------- keys -------------------
 
+-- removes all default lsp mappings
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    local keys = { 'K', 'grn', 'gra', 'grr', 'gri', 'gO', '<C-S>' }
+
+    for _, key in ipairs(keys) do
+      pcall(vim.keymap.del, 'n', key, { buffer = args.buf })
+    end
+  end,
+})
+
+
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
@@ -195,6 +207,31 @@ vim.keymap.set("n", "<C-k>", "<C-w><C-k>", {desc = "Move focus to the upper wind
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
 
+------------------- lsp -------------------
+
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border })
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border })
+
+vim.lsp.config.lua_ls = {
+  cmd = { 'lua-language-server' },
+  filetypes = { 'lua' },
+  root_markers = { '.luarc.json', '.luarc.jsonc', '.git' },
+  settings = {
+    Lua = {
+      runtime = { version = 'LuaJIT' },
+      diagnostics = {
+        globals = { 'vim' },
+      },
+      workspace = {
+        library = vim.api.nvim_get_runtime_file("", true),
+        checkThirdParty = false,
+      },
+    },
+  },
+}
+
+vim.lsp.enable({ 'lua_ls' })
+
 ------------------- plugins -------------------
 
 vim.pack.add(
@@ -207,7 +244,9 @@ vim.pack.add(
         "https://github.com/nvim-mini/mini.cursorword",
         "https://github.com/nvim-mini/mini.hipatterns",
         "https://github.com/nvim-mini/mini.trailspace",
+
         "https://github.com/nvim-mini/mini.statusline",
+
         "https://github.com/nvim-tree/nvim-web-devicons",
         "https://github.com/folke/which-key.nvim",
         "https://github.com/nvim-tree/nvim-tree.lua",
@@ -232,11 +271,10 @@ require('mini.statusline').setup({
       local location      = MiniStatusline.section_location({ trunc_width = 75 })
       local search        = MiniStatusline.section_searchcount({ trunc_width = 75 })
 
-      -- Custom LSP section
       local lsp = (function()
         local clients = vim.lsp.get_active_clients({ bufnr = 0 })
         if #clients > 0 then
-          return '󰄭 ' .. clients[1].name -- Xcode-ish icon
+          return '󰄭 ' .. clients[1].name
         end
         return ''
       end)()
@@ -244,9 +282,9 @@ require('mini.statusline').setup({
       return MiniStatusline.combine_groups({
         { hl = mode_hl,                  strings = { mode } },
         { hl = 'MiniStatuslineDevinfo',  strings = { git, diagnostics } },
-        '%<', -- Mark general truncate point
+        '%<',
         { hl = 'MiniStatuslineFilename', strings = { filename } },
-        '%=', -- End left alignment
+        '%=',
         { hl = 'MiniStatuslineFileinfo', strings = { lsp, fileinfo } },
         { hl = mode_hl,                  strings = { location } },
       })
