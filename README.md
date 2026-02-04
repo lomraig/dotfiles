@@ -12,7 +12,8 @@
 - [fzf](https://junegunn.github.io/fzf/): fuzzy finder
 - [bat](https://github.com/sharkdp/bat): better cat
 - [eza](https://github.com/eza-community/eza): better ls
-- neovim 0.12.0+ is required
+- [neovim](https://neovim.io/) 0.12.0+ is required: the best text editor
+- [make](https://www.gnu.org/software/make/): is required to compile [telescope-fzf-native](https://github.com/nvim-telescope/telescope-fzf-native.nvim) plugin for neovim
 - [gum](https://github.com/charmbracelet/gum), [terminal-notifier](https://github.com/julienXX/terminal-notifier) and [timer](https://github.com/caarlos0/timer): [pom](https://gist.github.com/bashbunni/e311f07e100d51a883ab0414b46755fa) dependencies
 
 ### macos
@@ -21,7 +22,7 @@
 
 ```sh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" # installs homebrew
-brew install ghostty fish starship stow git ripgrep fd fzf bat eza gcc neovim gum jq caarlos0/tap/timer terminal-notifier go
+brew install ghostty fish make starship stow git ripgrep fd fzf bat eza gcc neovim gum jq caarlos0/tap/timer terminal-notifier go
 ```
 
 ### fedora
@@ -30,19 +31,20 @@ brew install ghostty fish starship stow git ripgrep fd fzf bat eza gcc neovim gu
 
 ```sh
 sudo dnf install -y --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release # adds terra repo
-sudo dnf install -y go ghostty fish starship stow git ripgrep fd-find fzf bat eza gcc neovim jq $(curl -s https://api.github.com/repos/caarlos0/timer/releases/latest | jq -r --arg arch "$(uname -m)" '.assets[] | select(.name | endswith($arch + ".rpm")) | .browser_download_url')
+sudo dnf install -y go ghostty fish make starship stow git ripgrep fd-find fzf bat eza gcc neovim jq $(curl -s https://api.github.com/repos/caarlos0/timer/releases/latest | jq -r --arg arch "$(uname -m)" '.assets[] | select(.name | endswith($arch + ".rpm")) | .browser_download_url')
 ```
 
 ### opensuse
 
 ```sh
-sudo zypper in -y --allow-unsigned-rpm go ghostty fish starship stow git ripgrep fd fzf bat eza gcc neovim jq $(curl -s https://api.github.com/repos/caarlos0/timer/releases/latest | jq -r --arg arch "$(uname -m)" '.assets[] | select(.name | endswith($arch + ".rpm")) | .browser_download_url')
+sudo zypper in -y --allow-unsigned-rpm go ghostty fish make starship stow git ripgrep fd fzf bat eza gcc neovim jq $(curl -s https://api.github.com/repos/caarlos0/timer/releases/latest | jq -r --arg arch "$(uname -m)" '.assets[] | select(.name | endswith($arch + ".rpm")) | .browser_download_url')
 ```
 
 ```sh
 yazi
 tmux
 zoxide
+delta
 glow
 lazygit
 lazydocker
@@ -67,6 +69,26 @@ chsh -s $(which fish)
 git clone https://github.com/lomraig/dotfiles ~/.dotfiles
 cd ~/.dotfiles
 stow .
+```
+
+## install language servers, formatters and linters
+
+### macos
+
+```sh
+brew install lua-language-server
+```
+
+### fedora
+
+```sh
+sudo dnf install lua-language-server
+```
+
+### opensuse
+
+```sh
+sudo zypper install lua-language-server
 ```
 
 ## install additional packages

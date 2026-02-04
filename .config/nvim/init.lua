@@ -19,16 +19,14 @@ vim.o.updatetime = 250
 vim.o.timeoutlen = 300
 vim.o.completeopt = "menu,menuone,noselect"
 vim.o.softtabstop = 2
+vim.o.winborder = 'rounded'
+vim.o.pumborder = 'rounded'
 
 -- hide the mode
 vim.o.showmode = false
 
 -- enables clipboard syncing between nvim and system
-vim.schedule(
-    function()
-        vim.o.clipboard = vim.env.SSH_CONNECTION and "" or "unnamedplus"
-    end
-)
+vim.schedule(function() vim.o.clipboard = vim.env.SSH_CONNECTION and "" or "unnamedplus" end)
 
 -- some formatting shit
 vim.o.breakindent = true
@@ -50,39 +48,33 @@ vim.o.splitbelow = true
 vim.o.splitkeep = "screen"
 
 -- highlight when yanking text
-vim.api.nvim_create_autocmd(
-    "TextYankPost",
-    {
-        desc = "highlight when yanking text",
-        group = vim.api.nvim_create_augroup("highlight-yank", {clear = true}),
-        callback = function()
-            vim.hl.on_yank()
-        end
-    }
-)
+vim.api.nvim_create_autocmd("TextYankPost", {
+    desc = "highlight when yanking text",
+    group = vim.api.nvim_create_augroup("highlight-yank", {clear = true}),
+    callback = function()
+        vim.hl.on_yank()
+    end
+})
 
 -- Restore last cursor position
-vim.api.nvim_create_autocmd(
-    "BufWinEnter",
-    {
-        callback = function(ev)
-            local lastpos = vim.api.nvim_buf_get_mark(ev.buf, '"')
-            if
-                vim.wo.diff or
-                    ({
-                        gitcommit = true,
-                        gitrebase = true,
-                        xxd = true
-                    })[vim.bo[ev.buf].filetype]
-             then
-                return
-            end
-            if pcall(vim.api.nvim_win_set_cursor, 0, lastpos) then
-                vim.cmd("normal! zz")
-            end
+vim.api.nvim_create_autocmd("BufWinEnter", {
+    callback = function(ev)
+        local lastpos = vim.api.nvim_buf_get_mark(ev.buf, '"')
+        if
+            vim.wo.diff or
+                ({
+                    gitcommit = true,
+                    gitrebase = true,
+                    xxd = true
+                })[vim.bo[ev.buf].filetype]
+         then
+            return
         end
-    }
-)
+        if pcall(vim.api.nvim_win_set_cursor, 0, lastpos) then
+            vim.cmd("normal! zz")
+        end
+    end
+})
 
 ------------------- colors -------------------
 
@@ -117,6 +109,8 @@ local groups = {
     Visual = {bg = colors.selection},
     LineNr = {fg = colors.line_nr},
     VertSplit = {fg = colors.border},
+    FloatBorder = {fg = colors.border, bg = colors.bg},
+    NormalFloat = {fg = colors.fg, bg = colors.bg},
 
     Comment = {fg = colors.comment, italic = true},
     String = {fg = colors.string},
@@ -125,12 +119,12 @@ local groups = {
     Type = {fg = colors.type},
     Constant = {fg = colors.const},
 
-    ["@method"] = {fg = colors.func},
-    ["@parameter"] = {fg = colors.fg},
-    ["@variable"] = {fg = colors.fg},
-    ["@variable.builtin"] = {fg = colors.const},
-    ["@tag"] = {fg = colors.keyword},
-    ["@keyword.return"] = {fg = colors.keyword, bold = true},
+    Pmenu = { bg = colors.bg, fg = colors.fg },
+    PmenuSel = { bg = colors.selection, fg = colors.fg, bold = true },
+    PmenuKind = { bg = colors.bg, fg = colors.func },
+    PmenuExtra = { bg = colors.bg, fg = colors.comment },
+    PmenuSbar = { bg = colors.bg },
+    PmenuThumb = { bg = colors.border },
 
     MiniTablineActive = { fg = colors.fg, bg = colors.bg, bold = true },
     MiniTablineVisible = { fg = colors.comment, bg = colors.cursor_l },
@@ -150,9 +144,6 @@ local groups = {
     MiniStatuslineFilename    = { fg = colors.fg, bg = colors.border },
     MiniStatuslineFileinfo    = { fg = colors.comment, bg = colors.cursor_l },
     MiniStatuslineInactive    = { fg = colors.line_nr, bg = colors.cursor_l },
-    StatuslineGitAdd    = { fg = colors.func, bg = colors.border },
-    StatuslineGitChange = { fg = colors.type, bg = colors.border },
-    StatuslineGitDelete = { fg = colors.string, bg = colors.border },
 }
 
 -- Apply Highlights
@@ -160,22 +151,14 @@ for group, settings in pairs(groups) do
     vim.api.nvim_set_hl(0, group, settings)
 end
 
-------------------- keys -------------------
-
--- removes all default lsp mappings
-vim.api.nvim_create_autocmd('LspAttach', {
-  callback = function(args)
-    local keys = { 'K', 'grn', 'gra', 'grr', 'gri', 'gO', '<C-S>' }
-
-    for _, key in ipairs(keys) do
-      pcall(vim.keymap.del, 'n', key, { buffer = args.buf })
-    end
-  end,
-})
-
+------------------- mappings -------------------
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+
+-- better indenting
+vim.keymap.set("v", "<", "<gv")
+vim.keymap.set("v", ">", ">gv")
 
 -- speed up movement
 vim.keymap.set("n", "J", "15j")
@@ -203,97 +186,147 @@ vim.keymap.set("n", "<C-k>", "<C-w><C-k>", {desc = "Move focus to the upper wind
 -- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
 -- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
 
--- better indenting
-vim.keymap.set("v", "<", "<gv")
-vim.keymap.set("v", ">", ">gv")
+-- autocompletion mappings
+vim.keymap.set("i", "<C-j>", function()
+  return vim.fn.pumvisible() == 1 and "<C-n>" or "<Tab>"
+end, { expr = true, silent = true, desc = "Next completion item" })
+
+vim.keymap.set("i", "<C-k>", function()
+  return vim.fn.pumvisible() == 1 and "<C-p>" or "<S-Tab>"
+end, { expr = true, silent = true, desc = "Previous completion item" })
+
+vim.keymap.set("i", "<CR>", function()
+  return vim.fn.pumvisible() == 1 and "<C-y>" or "<CR>"
+end, { expr = true, silent = true, desc = "Confirm completion" })
+
+vim.keymap.set("i", "<C-Space>", function()
+  return vim.fn.pumvisible() == 1 and "<C-e>" or "<C-x><C-o>"
+end, { expr = true, silent = true, desc = "Toggle completion" })
 
 ------------------- lsp -------------------
 
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border })
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border })
+vim.diagnostic.config({ virtual_text = true })
 
 vim.lsp.config.lua_ls = {
-  cmd = { 'lua-language-server' },
-  filetypes = { 'lua' },
-  root_markers = { '.luarc.json', '.luarc.jsonc', '.git' },
-  settings = {
-    Lua = {
-      runtime = { version = 'LuaJIT' },
-      diagnostics = {
-        globals = { 'vim' },
-      },
-      workspace = {
-        library = vim.api.nvim_get_runtime_file("", true),
-        checkThirdParty = false,
-      },
-    },
-  },
+    cmd = { 'lua-language-server' },
+    filetypes = { 'lua' },
+    root_markers = { '.luarc.json', '.luarc.jsonc', 'init.lua' },
+    settings = {
+        Lua = {
+            runtime = { version = 'LuaJIT' },
+            diagnostics = {
+                globals = { 'vim' },
+            },
+            workspace = {
+                library = { vim.fn.expand("$VIMRUNTIME/lua") },
+                checkThirdParty = false,
+                ignoreDir = { ".git" },
+            },
+            telemetry = { enable = false },
+        }
+    }
 }
 
 vim.lsp.enable({ 'lua_ls' })
 
+vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        if client and client:supports_method('textDocument/completion') then
+            vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
+        end
+
+        -- removes all builtin lsp mappings
+        for _, key in ipairs({ 'K', 'grn', 'gra', 'grr', 'gri', 'gO', '<C-S>' }) do
+            pcall(vim.keymap.del, 'n', key, { buffer = args.buf})
+        end
+    end,
+})
+
+local lsp_progress = ""
+vim.api.nvim_create_autocmd('LspProgress', {
+    callback = function(args)
+        local val = args.data.params.value
+        if val.kind == "end" then
+            lsp_progress = ""
+        else
+            local title = val.title or ""
+            local message = val.message or ""
+            local percentage = val.percentage and (val.percentage .. "%%") or ""
+            lsp_progress = string.format("%s %s %s", title, message, percentage):gsub("%s+", " "):gsub("^%s+", ""):gsub("%s+$", "")
+        end
+        vim.cmd.redrawstatus()
+    end,
+})
+
 ------------------- plugins -------------------
 
-vim.pack.add(
-    {
-        "https://github.com/nvim-mini/mini.pairs",
-        "https://github.com/nvim-mini/mini.move",
-        "https://github.com/nvim-mini/mini.tabline",
-        "https://github.com/nvim-mini/mini.bufremove",
-        "https://github.com/nvim-mini/mini.comment",
-        "https://github.com/nvim-mini/mini.cursorword",
-        "https://github.com/nvim-mini/mini.hipatterns",
-        "https://github.com/nvim-mini/mini.trailspace",
+vim.pack.add({
+    "https://github.com/nvim-tree/nvim-web-devicons",
 
-        "https://github.com/nvim-mini/mini.statusline",
+    "https://github.com/nvim-mini/mini.pairs",
+    "https://github.com/nvim-mini/mini.move",
+    "https://github.com/nvim-mini/mini.tabline",
+    "https://github.com/nvim-mini/mini.bufremove",
+    "https://github.com/nvim-mini/mini.comment",
+    "https://github.com/nvim-mini/mini.cursorword",
+    "https://github.com/nvim-mini/mini.hipatterns",
+    "https://github.com/nvim-mini/mini.trailspace",
 
-        "https://github.com/nvim-tree/nvim-web-devicons",
-        "https://github.com/folke/which-key.nvim",
-        "https://github.com/nvim-tree/nvim-tree.lua",
-    }
-)
+    "https://github.com/nvim-mini/mini.statusline",
+
+    "https://github.com/folke/which-key.nvim",
+    "https://github.com/nvim-tree/nvim-tree.lua",
+    "https://github.com/rachartier/tiny-code-action.nvim",
+
+    "https://github.com/nvim-lua/plenary.nvim",
+    "https://github.com/nvim-telescope/telescope.nvim",
+    "https://github.com/nvim-telescope/telescope-fzf-native.nvim",
+})
+
+----------- small plugins configuration -----------
 
 require("nvim-web-devicons").setup()
+
 require("mini.pairs").setup()
 require("mini.move").setup()
 require("mini.tabline").setup()
 require("mini.bufremove").setup()
 require("mini.trailspace").setup()
 
-require('mini.statusline').setup({
-  content = {
-    active = function()
-      local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
-      local git           = MiniStatusline.section_git({ trunc_width = 75 })
-      local diagnostics   = MiniStatusline.section_diagnostics({ trunc_width = 75 })
-      local filename      = MiniStatusline.section_filename({ trunc_width = 140 })
-      local fileinfo      = MiniStatusline.section_fileinfo({ trunc_width = 120 })
-      local location      = MiniStatusline.section_location({ trunc_width = 75 })
-      local search        = MiniStatusline.section_searchcount({ trunc_width = 75 })
-
-      local lsp = (function()
-        local clients = vim.lsp.get_active_clients({ bufnr = 0 })
-        if #clients > 0 then
-          return '󰄭 ' .. clients[1].name
-        end
-        return ''
-      end)()
-
-      return MiniStatusline.combine_groups({
-        { hl = mode_hl,                  strings = { mode } },
-        { hl = 'MiniStatuslineDevinfo',  strings = { git, diagnostics } },
-        '%<',
-        { hl = 'MiniStatuslineFilename', strings = { filename } },
-        '%=',
-        { hl = 'MiniStatuslineFileinfo', strings = { lsp, fileinfo } },
-        { hl = mode_hl,                  strings = { location } },
-      })
-    end
-  }
+require("tiny-code-action").setup({
+    backend = "delta",
 })
 
 require("mini.cursorword").setup({
-      delay = 0,
+    delay = 0,
+})
+
+require('mini.statusline').setup({
+    content = {
+        active = function()
+            local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
+            local git           = MiniStatusline.section_git({ trunc_width = 40 })
+            local diff          = MiniStatusline.section_diff({ trunc_width = 75 })
+            local diagnostics   = MiniStatusline.section_diagnostics({ trunc_width = 75 })
+            local filename      = MiniStatusline.section_filename({ trunc_width = 140 })
+            local fileinfo      = MiniStatusline.section_fileinfo({ trunc_width = 120 })
+            local location      = MiniStatusline.section_location({ trunc_width = 75 })
+
+            -- LSP progress
+            local lsp = lsp_progress ~= "" and lsp_progress or ""
+
+            return MiniStatusline.combine_groups({
+                { hl = mode_hl,                  strings = { mode } },
+                { hl = 'MiniStatuslineDevinfo',  strings = { git, diff, diagnostics } },
+                '%<',
+                { hl = 'MiniStatuslineFilename', strings = { filename } },
+                '%=',
+                { hl = 'MiniStatuslineFileinfo', strings = { lsp, fileinfo } },
+                { hl = mode_hl,                  strings = { location } },
+            })
+        end
+    }
 })
 
 require("mini.hipatterns").setup({
@@ -302,101 +335,153 @@ require("mini.hipatterns").setup({
         hack  = { pattern = 'HACK',  group = 'MiniHipatternsHack'  },
         todo  = { pattern = 'TODO',  group = 'MiniHipatternsTodo'  },
         note  = { pattern = 'NOTE',  group = 'MiniHipatternsNote'  },
-hex_color = require("mini.hipatterns").gen_highlighter.hex_color(),
-
-    }}
-)
-
-require("mini.comment").setup(
-    {
-        mappings = {
-            comment = "<leader>c",
-            comment_line = "<leader>c",
-            comment_visual = "<leader>c",
-            textobject = "<leader>c"
-        }
+        hex_color = require("mini.hipatterns").gen_highlighter.hex_color(),
     }
-)
+})
 
-local which_key = require("which-key")
-
-which_key.setup(
-    {
-        preset = "modern",
-        notify = true,
-        icons = {
-            mappings = false
-        },
-        spec = {
-            {"<leader>s", group = "[s]earch", mode = {"n", "v"}},
-            {"<leader>h", group = "git [h]unk", mode = {"n", "v"}},
-            {"<leader>b", group = "[b]uffers"}
-        }
+require("mini.comment").setup({
+    mappings = {
+        comment = "<leader>c",
+        comment_line = "<leader>c",
+        comment_visual = "<leader>c",
+        textobject = "<leader>c"
     }
-)
+})
 
-which_key.add(
-    {
-        {
-            "<leader>bc",
-            function()
-                MiniBufremove.delete()
-            end,
-            desc = "[c]lose current buffer"
-        },
-        {
-            "<leader>c",
-            desc = "[c]omment"
-        },
-        { '<leader>e', '<cmd>NvimTreeToggle<CR>', desc = "toggle [e]xplorer"},
-        { "<leader>t", MiniTrailspace.trim, desc = "remove [t]railing whitespaces"},
-
-    }
-)
-
-
-require("nvim-tree").setup(
-    {
-        view = {
-            float = {
-                enable = true,
-                open_win_config = function()
-                    local screen_w = vim.opt.columns:get()
-                    local screen_h = vim.opt.lines:get() - vim.opt.cmdheight:get()
-                    local window_w = screen_w * 0.6
-                    local window_h = screen_h * 0.6
-                    local window_w_int = math.floor(window_w)
-                    local window_h_int = math.floor(window_h)
-                    local center_x = (screen_w - window_w) / 2
-                    local center_y = ((vim.opt.lines:get() - window_h) / 2) - vim.opt.cmdheight:get()
-                    return {
-                        border = "rounded",
-                        relative = "editor",
-                        row = center_y,
-                        col = center_x,
-                        width = window_w_int,
-                        height = window_h_int
-                    }
-                end
-            },
-            width = function()
-                return math.floor(vim.opt.columns:get() * 0.8)
+require("nvim-tree").setup({
+    view = {
+        float = {
+            enable = true,
+            open_win_config = function()
+                local screen_w = vim.opt.columns:get()
+                local screen_h = vim.opt.lines:get() - vim.opt.cmdheight:get()
+                local window_w = screen_w * 0.6
+                local window_h = screen_h * 0.6
+                local window_w_int = math.floor(window_w)
+                local window_h_int = math.floor(window_h)
+                local center_x = (screen_w - window_w) / 2
+                local center_y = ((vim.opt.lines:get() - window_h) / 2) - vim.opt.cmdheight:get()
+                return {
+                    border = "rounded",
+                    relative = "editor",
+                    row = center_y,
+                    col = center_x,
+                    width = window_w_int,
+                    height = window_h_int
+                }
             end
         },
-        actions = {
-            open_file = {
-                window_picker = {
-                    enable = false
-                }
+        width = function()
+            return math.floor(vim.opt.columns:get() * 0.8)
+        end
+    },
+    actions = {
+        open_file = {
+            window_picker = {
+                enable = false
             }
+        }
+    },
+    filters = {
+        dotfiles = false,
+        git_ignored = false
+    },
+    renderer = {
+        indent_width = 4
+    }
+})
+
+----------- telescope -----------
+
+-- Check if telescope-fzf-native is compiled and compile it if not
+local fzf_path = vim.fn.stdpath("data") .. "/site/pack/core/opt/telescope-fzf-native.nvim"
+if vim.fn.isdirectory(fzf_path) == 1 then
+    local build_file = fzf_path .. "/build/libfzf.so"
+    if vim.fn.filereadable(build_file) == 0 then
+        print("Compiling telescope-fzf-native...")
+        vim.fn.system("cd " .. fzf_path .. " && make")
+        print("Compiling telescope-fzf-native done!")
+    end
+end
+
+require('telescope').setup {
+    defaults = {
+        mappings = {
+            i = {
+                ["<C-j>"] = "move_selection_next",
+                ["<C-k>"] = "move_selection_previous",
+                ["<C-h>"] = "results_scrolling_left",
+                ["<C-l>"] = "results_scrolling_right",
+            },
+            n = {
+                ["<C-j>"] = "move_selection_next",
+                ["<C-k>"] = "move_selection_previous",
+                ["<C-h>"] = "results_scrolling_left",
+                ["<C-l>"] = "results_scrolling_right",
+            },
         },
-        filters = {
-            dotfiles = false,
-            git_ignored = false
-        },
-        renderer = {
-            indent_width = 4
+    },
+    extensions = {
+        fzf = {
+            fuzzy = true,
+            override_generic_sorter = true,
+            override_file_sorter = true,
+            case_mode = "smart_case",
         }
     }
-)
+}
+require('telescope').load_extension('fzf')
+
+----------- which key -----------
+
+local wk = require("which-key")
+
+wk.setup({
+    preset = "modern",
+    notify = true,
+    icons = {
+        mappings = false
+    }
+})
+
+wk.add({
+    { "<leader>f", group = "[f]ind", mode = {"n", "v"} },
+    { "<leader>ff", require('telescope.builtin').find_files, desc = "[f]iles" },
+    { "<leader>fw", require('telescope.builtin').live_grep, desc = "[w]ord" },
+    { "<leader>fb", require('telescope.builtin').buffers, desc = "[b]uffers" },
+    { "<leader>fh", require('telescope.builtin').help_tags, desc = "[h]elp" },
+
+
+    {"<leader>h", group = "git [h]unk", mode = {"n", "v"}},
+
+
+    { "<leader>b", group = "[b]uffers" },
+    { "<leader>bc", function()
+        local bd = require('mini.bufremove').delete
+        if bd(0, false) then
+            local wins = vim.api.nvim_list_wins()
+            if #wins > 1 then
+                vim.api.nvim_win_close(0, false)
+            end
+        end
+    end, desc = "[c]lose buffer"},
+
+
+    { "<leader>c", desc = "[c]omment"},
+    { '<leader>e', '<cmd>NvimTreeToggle<CR>', desc = "toggle [e]xplorer"},
+    { "<leader>t", MiniTrailspace.trim, desc = "remove [t]railing whitespaces"},
+
+    { "<leader>l", group = "[l]sp" },
+    { "<leader>la", require("tiny-code-action").code_action, desc = "[a]ction" },
+    { "<leader>ld", require('telescope.builtin').lsp_definitions, desc = "[d]efinition" },
+    { "<leader>lD", vim.lsp.buf.declaration, desc = "[D]eclaration" },
+    { "<leader>lx", require('telescope.builtin').diagnostics, desc = "diagnostics" },
+    { "<leader>lh", vim.lsp.buf.hover, desc = "[h]over" },
+    { "<leader>li", require('telescope.builtin').lsp_implementations, desc = "[i]mplementation" },
+    { "<leader>lr", require('telescope.builtin').lsp_references, desc = "[r]eferences" },
+    { "<leader>ls", require('telescope.builtin').lsp_document_symbols, desc = "document [s]ymbols" },
+    { "<leader>lS", require('telescope.builtin').lsp_dynamic_workspace_symbols, desc = "workspace [S]ymbols" },
+    { "<leader>ln", vim.lsp.buf.rename, desc = "re[n]ame" },
+    { "<leader>lk", vim.lsp.buf.signature_help, desc = "signature [k]ey" },
+})
 
