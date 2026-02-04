@@ -22,7 +22,7 @@
 
 ```sh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" # installs homebrew
-brew install ghostty fish make starship stow git ripgrep fd fzf bat eza gcc neovim gum jq caarlos0/tap/timer terminal-notifier go lua-language-server
+brew install ghostty fish make starship stow git ripgrep fd fzf bat eza gcc neovim gum jq caarlos0/tap/timer terminal-notifier go lua-language-server pipx
 
 ```
 
@@ -32,13 +32,13 @@ brew install ghostty fish make starship stow git ripgrep fd fzf bat eza gcc neov
 
 ```sh
 sudo dnf install -y --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release # adds terra repo
-sudo dnf install -y ghostty fish make starship stow git ripgrep fd-find fzf bat eza gcc neovim jq lua-language-server go $(curl -s https://api.github.com/repos/caarlos0/timer/releases/latest | jq -r --arg arch "$(uname -m)" '.assets[] | select(.name | endswith($arch + ".rpm")) | .browser_download_url')
+sudo dnf install -y ghostty fish make starship stow git ripgrep fd-find fzf bat eza gcc neovim jq lua-language-server go pipx $(curl -s https://api.github.com/repos/caarlos0/timer/releases/latest | jq -r --arg arch "$(uname -m)" '.assets[] | select(.name | endswith($arch + ".rpm")) | .browser_download_url')
 ```
 
 ### opensuse
 
 ```sh
-sudo zypper in -y --allow-unsigned-rpm ghostty fish make starship stow git ripgrep fd fzf bat eza gcc neovim jq lua-language-server go $(curl -s https://api.github.com/repos/caarlos0/timer/releases/latest | jq -r --arg arch "$(uname -m)" '.assets[] | select(.name | endswith($arch + ".rpm")) | .browser_download_url')
+sudo zypper in -y --allow-unsigned-rpm ghostty fish make starship stow git ripgrep fd fzf bat eza gcc neovim jq lua-language-server go pipx $(curl -s https://api.github.com/repos/caarlos0/timer/releases/latest | jq -r --arg arch "$(uname -m)" '.assets[] | select(.name | endswith($arch + ".rpm")) | .browser_download_url')
 ```
 
 ```sh
@@ -58,15 +58,10 @@ aerospace
 sketchybar
 ```
 
-## change default shell to fish
-
-```sh
-chsh -s $(which fish)
-```
-
 ## install dotfiles
 
 ```sh
+chsh -s $(which fish)
 git clone https://github.com/lomraig/dotfiles ~/.dotfiles
 cd ~/.dotfiles
 stow .
@@ -76,5 +71,6 @@ stow .
 
 ```sh
 go install golang.org/x/tools/gopls@latest github.com/golangci/golangci-lint/cmd/golangci-lint@latest golang.org/x/tools/cmd/goimports@latest github.com/charmbracelet/gum@latest
-pip install ruff basedpyright
+pipx install ruff
+pipx install basedpyright
 ```
