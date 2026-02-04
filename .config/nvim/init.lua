@@ -22,6 +22,10 @@ vim.o.softtabstop = 2
 vim.o.winborder = 'rounded'
 vim.o.pumborder = 'rounded'
 
+-- for nvimtree
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 -- hide the mode
 vim.o.showmode = false
 
@@ -56,6 +60,17 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     end
 })
 
+-- check if we need to reload the file when it changed
+vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
+    group = vim.api.nvim_create_augroup("checktime", {clear = true}),
+    callback = function()
+        if vim.o.buftype ~= "nofile" then
+            vim.cmd("checktime")
+        end
+    end,
+})
+
+
 -- Restore last cursor position
 vim.api.nvim_create_autocmd("BufWinEnter", {
     callback = function(ev)
@@ -74,6 +89,18 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
             vim.cmd("normal! zz")
         end
     end
+})
+
+-- creates dir if not exits
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+    group = vim.api.nvim_create_augroup("auto_create_dir", {clear = true}),
+	callback = function(event)
+		if event.match:match("^%w%w+:[\\/][\\/]") then
+			return
+		end
+		local file = vim.uv.fs_realpath(event.match) or event.match
+		vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
+	end,
 })
 
 ------------------- colors -------------------
@@ -412,12 +439,16 @@ require('telescope').setup {
                 ["<C-k>"] = "move_selection_previous",
                 ["<C-h>"] = "results_scrolling_left",
                 ["<C-l>"] = "results_scrolling_right",
+                ["jk"] = "close",
+                ["kj"] = "close",
             },
             n = {
                 ["<C-j>"] = "move_selection_next",
                 ["<C-k>"] = "move_selection_previous",
                 ["<C-h>"] = "results_scrolling_left",
                 ["<C-l>"] = "results_scrolling_right",
+                ["jk"] = "close",
+                ["kj"] = "close",
             },
         },
     },
@@ -483,5 +514,7 @@ wk.add({
     { "<leader>lS", require('telescope.builtin').lsp_dynamic_workspace_symbols, desc = "workspace [S]ymbols" },
     { "<leader>ln", vim.lsp.buf.rename, desc = "re[n]ame" },
     { "<leader>lk", vim.lsp.buf.signature_help, desc = "signature [k]ey" },
+
+    -- TODO find todos
 })
 
