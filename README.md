@@ -22,7 +22,8 @@
 
 ```sh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" # installs homebrew
-brew install ghostty fish make starship stow git ripgrep fd fzf bat eza gcc neovim gum jq caarlos0/tap/timer terminal-notifier go
+brew install ghostty fish make starship stow git ripgrep fd fzf bat eza gcc neovim gum jq caarlos0/tap/timer terminal-notifier go lua-language-server
+
 ```
 
 ### fedora
@@ -31,13 +32,13 @@ brew install ghostty fish make starship stow git ripgrep fd fzf bat eza gcc neov
 
 ```sh
 sudo dnf install -y --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release # adds terra repo
-sudo dnf install -y go ghostty fish make starship stow git ripgrep fd-find fzf bat eza gcc neovim jq $(curl -s https://api.github.com/repos/caarlos0/timer/releases/latest | jq -r --arg arch "$(uname -m)" '.assets[] | select(.name | endswith($arch + ".rpm")) | .browser_download_url')
+sudo dnf install -y ghostty fish make starship stow git ripgrep fd-find fzf bat eza gcc neovim jq lua-language-server go $(curl -s https://api.github.com/repos/caarlos0/timer/releases/latest | jq -r --arg arch "$(uname -m)" '.assets[] | select(.name | endswith($arch + ".rpm")) | .browser_download_url')
 ```
 
 ### opensuse
 
 ```sh
-sudo zypper in -y --allow-unsigned-rpm go ghostty fish make starship stow git ripgrep fd fzf bat eza gcc neovim jq $(curl -s https://api.github.com/repos/caarlos0/timer/releases/latest | jq -r --arg arch "$(uname -m)" '.assets[] | select(.name | endswith($arch + ".rpm")) | .browser_download_url')
+sudo zypper in -y --allow-unsigned-rpm ghostty fish make starship stow git ripgrep fd fzf bat eza gcc neovim jq lua-language-server go $(curl -s https://api.github.com/repos/caarlos0/timer/releases/latest | jq -r --arg arch "$(uname -m)" '.assets[] | select(.name | endswith($arch + ".rpm")) | .browser_download_url')
 ```
 
 ```sh
@@ -73,31 +74,7 @@ stow .
 
 ## install language servers, formatters and linters
 
-### macos
-
 ```sh
-brew install tree-sitter-cli lua-language-server go gopls golangci-lint goimports ruff basedpyright
-
-```
-
-### fedora
-
-```sh
-sudo dnf install tree-sitter-cli lua-language-server go gopls golangci-lint goimports ruff pyright
-```
-
-### opensuse
-
-TODO fix this command
-
-```sh
-sudo zypper install lua-language-server
-```
-
-## install additional packages
-
-Fedora & OpenSUSE Only
-
-```sh
-go install github.com/charmbracelet/gum@latest
+go install golang.org/x/tools/gopls@latest github.com/golangci/golangci-lint/cmd/golangci-lint@latest golang.org/x/tools/cmd/goimports@latest github.com/charmbracelet/gum@latest
+pip install ruff basedpyright
 ```

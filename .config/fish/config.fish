@@ -161,7 +161,7 @@ end
 ################################################## PATHs ##################################################
 
 set -x GOPATH $HOME/.go
-fish_add_path $GOPATH
+fish_add_path $GOPATH/bin
 
 fish_add_path $HOME/.cargo/bin
 
