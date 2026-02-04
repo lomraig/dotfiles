@@ -146,13 +146,32 @@ local groups = {
 
     ["@variable"] = { fg = colors.fg },
     ["@variable.builtin"] = { fg = colors.keyword },
+    ["@variable.member"] = { fg = colors.fg },
     ["@function.builtin"] = { fg = colors.func, bold = true },
+    ["@function.call"] = { fg = colors.func },
+    ["@method"] = { fg = colors.func },
+    ["@method.call"] = { fg = colors.func },
+    ["@constructor"] = { fg = colors.type },
     ["@keyword.directive"] = { fg = colors.keyword },
+    ["@keyword.function"] = { fg = colors.keyword },
+    ["@keyword.operator"] = { fg = colors.keyword },
+    ["@keyword.return"] = { fg = colors.keyword },
     ["@string.special"] = { fg = colors.string },
     ["@type.builtin"] = { fg = colors.type },
     ["@property"] = { fg = colors.func },
     ["@field"] = { fg = colors.fg },
     ["@parameter"] = { fg = colors.fg },
+    ["@attribute"] = { fg = colors.func },
+    ["@module"] = { fg = colors.fg },
+    ["@constant.builtin"] = { fg = colors.const },
+    ["@boolean"] = { fg = colors.const },
+    ["@number"] = { fg = colors.type },
+    ["@operator"] = { fg = colors.fg },
+    ["@punctuation.delimiter"] = { fg = colors.fg },
+    ["@punctuation.bracket"] = { fg = colors.fg },
+    ["@tag"] = { fg = colors.keyword },
+    ["@tag.attribute"] = { fg = colors.func },
+    ["@tag.delimiter"] = { fg = colors.fg },
 
     Pmenu = { bg = colors.bg, fg = colors.fg },
     PmenuSel = { bg = colors.selection, fg = colors.fg, bold = true },
@@ -273,6 +292,7 @@ vim.pack.add({
     "https://github.com/folke/which-key.nvim",
     "https://github.com/nvim-tree/nvim-tree.lua",
 
+    "https://github.com/nvim-treesitter/nvim-treesitter",
     "https://github.com/neovim/nvim-lspconfig",
     "https://github.com/rachartier/tiny-code-action.nvim",
     "https://github.com/stevearc/conform.nvim",
@@ -281,7 +301,6 @@ vim.pack.add({
     "https://github.com/nvim-lua/plenary.nvim",
     "https://github.com/nvim-telescope/telescope.nvim",
     "https://github.com/nvim-telescope/telescope-fzf-native.nvim",
-    "https://github.com/nvim-treesitter/nvim-treesitter",
 })
 
 ------------------- lsp -------------------
@@ -310,7 +329,7 @@ vim.lsp.config.gopls = {
     },
 }
 
-vim.lsp.enable({ "lua_ls", "gopls" })
+vim.lsp.enable({ "lua_ls", "gopls", "basedpyright" })
 
 vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)
@@ -410,7 +429,7 @@ require("mini.statusline").setup({
 
 vim.cmd("packadd nvim-treesitter")
 require("nvim-treesitter").setup({
-    ensure_installed = { "go", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" },
+    ensure_installed = { "go", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "json", "yaml", "toml", "bash", "fish", "javascript", "typescript", "python", "git_config", "git_rebase", "gitcommit", "gitignorei", "regex", "dockerfile" },
     highlight = { enable = true },
 })
 
@@ -418,6 +437,7 @@ require("conform").setup({
     formatters_by_ft = {
         lua = {},
         go = { "gofmt", "goimports" },
+        python = { "ruff_format" },
     },
     format_on_save = {
         timeout_ms = 500,
@@ -427,6 +447,7 @@ require("conform").setup({
 
 require("lint").linters_by_ft = {
     go = { "golangcilint" },
+    python = { "ruff" },
 }
 
 require("nvim-tree").setup({

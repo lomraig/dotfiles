@@ -76,13 +76,14 @@ stow .
 ### macos
 
 ```sh
-brew install lua-language-server go gopls golangci-lint goimports
+brew install tree-sitter-cli lua-language-server go gopls golangci-lint goimports ruff basedpyright
+
 ```
 
 ### fedora
 
 ```sh
-sudo dnf install lua-language-server go gopls golangci-lint goimports
+sudo dnf install tree-sitter-cli lua-language-server go gopls golangci-lint goimports ruff pyright
 ```
 
 ### opensuse
