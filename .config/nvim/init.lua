@@ -144,6 +144,16 @@ local groups = {
     Type = { fg = colors.type },
     Constant = { fg = colors.const },
 
+    ["@variable"] = { fg = colors.fg },
+    ["@variable.builtin"] = { fg = colors.keyword },
+    ["@function.builtin"] = { fg = colors.func, bold = true },
+    ["@keyword.directive"] = { fg = colors.keyword },
+    ["@string.special"] = { fg = colors.string },
+    ["@type.builtin"] = { fg = colors.type },
+    ["@property"] = { fg = colors.func },
+    ["@field"] = { fg = colors.fg },
+    ["@parameter"] = { fg = colors.fg },
+
     Pmenu = { bg = colors.bg, fg = colors.fg },
     PmenuSel = { bg = colors.selection, fg = colors.fg, bold = true },
     PmenuKind = { bg = colors.bg, fg = colors.func },
@@ -232,41 +242,70 @@ vim.keymap.set("i", "<C-Space>", function()
     return vim.fn.pumvisible() == 1 and "<C-e>" or "<C-x><C-o>"
 end, { expr = true, silent = true, desc = "Toggle completion" })
 
+------------------- plugins -------------------
+
+vim.api.nvim_create_autocmd("PackChanged", {
+    callback = function(ev)
+        local name = ev.data.spec.name
+        local kind = ev.data.kind
+        if (kind == "install" or kind == "update") then
+            if name == "telescope-fzf-native.nvim" then
+                vim.system({ "make" }, { cwd = ev.data.path }):wait()
+            elseif name == "nvim-treesitter" then
+                vim.cmd("TSUpdate")
+            end
+        end
+    end,
+})
+
+vim.pack.add({
+    "https://github.com/nvim-mini/mini.pairs",
+    "https://github.com/nvim-mini/mini.move",
+    "https://github.com/nvim-mini/mini.tabline",
+    "https://github.com/nvim-mini/mini.bufremove",
+    "https://github.com/nvim-mini/mini.comment",
+    "https://github.com/nvim-mini/mini.cursorword",
+    "https://github.com/nvim-mini/mini.hipatterns",
+    "https://github.com/nvim-mini/mini.trailspace",
+    "https://github.com/nvim-mini/mini.statusline",
+
+    "https://github.com/nvim-tree/nvim-web-devicons",
+    "https://github.com/folke/which-key.nvim",
+    "https://github.com/nvim-tree/nvim-tree.lua",
+
+    "https://github.com/neovim/nvim-lspconfig",
+    "https://github.com/rachartier/tiny-code-action.nvim",
+    "https://github.com/stevearc/conform.nvim",
+    "https://github.com/mfussenegger/nvim-lint",
+
+    "https://github.com/nvim-lua/plenary.nvim",
+    "https://github.com/nvim-telescope/telescope.nvim",
+    "https://github.com/nvim-telescope/telescope-fzf-native.nvim",
+    "https://github.com/nvim-treesitter/nvim-treesitter",
+})
+
 ------------------- lsp -------------------
 
 vim.diagnostic.config({ virtual_text = true })
 
 vim.lsp.config.lua_ls = {
-    cmd = { "lua-language-server" },
-    filetypes = { "lua" },
-    root_markers = { ".luarc.json", ".luarc.jsonc", "init.lua" },
     settings = {
         Lua = {
-            runtime = { version = "LuaJIT" },
             diagnostics = {
                 globals = { "vim", "MiniStatusline", "MiniTrailspace", "MiniHipatterns" },
             },
-            workspace = {
-                library = { vim.fn.expand("$VIMRUNTIME/lua") },
-                checkThirdParty = false,
-                ignoreDir = { ".git" },
-            },
-            telemetry = { enable = false },
         },
     },
 }
 
 vim.lsp.config.gopls = {
-    cmd = { "gopls" },
-    filetypes = { "go", "gomod", "gowork", "gotmpl" },
-    root_markers = { "go.work", "go.mod", ".git" },
     settings = {
         gopls = {
             analyses = {
                 unusedparams = true,
             },
             staticcheck = true,
-            gofumpt = true,
+            semanticTokens = true,
         },
     },
 }
@@ -276,6 +315,8 @@ vim.lsp.enable({ "lua_ls", "gopls" })
 vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)
         local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+        -- enabels autocompletion
         if client and client:supports_method("textDocument/completion") then
             vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
         end
@@ -287,6 +328,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 
+-- generation of lsp loading status for status line
 local lsp_progress = ""
 vim.api.nvim_create_autocmd("LspProgress", {
     callback = function(args)
@@ -304,37 +346,9 @@ vim.api.nvim_create_autocmd("LspProgress", {
     end,
 })
 
-------------------- plugins -------------------
-
-vim.pack.add({
-    "https://github.com/nvim-tree/nvim-web-devicons",
-
-    "https://github.com/nvim-mini/mini.pairs",
-    "https://github.com/nvim-mini/mini.move",
-    "https://github.com/nvim-mini/mini.tabline",
-    "https://github.com/nvim-mini/mini.bufremove",
-    "https://github.com/nvim-mini/mini.comment",
-    "https://github.com/nvim-mini/mini.cursorword",
-    "https://github.com/nvim-mini/mini.hipatterns",
-    "https://github.com/nvim-mini/mini.trailspace",
-
-    "https://github.com/nvim-mini/mini.statusline",
-
-    "https://github.com/folke/which-key.nvim",
-    "https://github.com/nvim-tree/nvim-tree.lua",
-    "https://github.com/rachartier/tiny-code-action.nvim",
-    "https://github.com/stevearc/conform.nvim",
-    "https://github.com/mfussenegger/nvim-lint",
-
-    "https://github.com/nvim-lua/plenary.nvim",
-    "https://github.com/nvim-telescope/telescope.nvim",
-    "https://github.com/nvim-telescope/telescope-fzf-native.nvim",
-})
-
 ----------- small plugins configuration -----------
 
 require("nvim-web-devicons").setup()
-
 require("mini.pairs").setup()
 require("mini.move").setup()
 require("mini.tabline").setup()
@@ -347,33 +361,6 @@ require("tiny-code-action").setup({
 
 require("mini.cursorword").setup({
     delay = 0,
-})
-
-require("mini.statusline").setup({
-    content = {
-        active = function()
-            local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
-            local git = MiniStatusline.section_git({ trunc_width = 40 })
-            local diff = MiniStatusline.section_diff({ trunc_width = 75 })
-            local diagnostics = MiniStatusline.section_diagnostics({ trunc_width = 75 })
-            local filename = MiniStatusline.section_filename({ trunc_width = 140 })
-            local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 120 })
-            local location = MiniStatusline.section_location({ trunc_width = 75 })
-
-            -- LSP progress
-            local lsp = lsp_progress ~= "" and lsp_progress or ""
-
-            return MiniStatusline.combine_groups({
-                { hl = mode_hl,                 strings = { mode } },
-                { hl = "MiniStatuslineDevinfo", strings = { git, diff, diagnostics } },
-                "%<",
-                { hl = "MiniStatuslineFilename", strings = { filename } },
-                "%=",
-                { hl = "MiniStatuslineFileinfo", strings = { lsp, fileinfo } },
-                { hl = mode_hl,                  strings = { location } },
-            })
-        end,
-    },
 })
 
 require("mini.hipatterns").setup({
@@ -395,10 +382,42 @@ require("mini.comment").setup({
     },
 })
 
+require("mini.statusline").setup({
+    content = {
+        active = function()
+            local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
+            local git = MiniStatusline.section_git({ trunc_width = 40 })
+            local diff = MiniStatusline.section_diff({ trunc_width = 75 })
+            local diagnostics = MiniStatusline.section_diagnostics({ trunc_width = 75 })
+            local filename = MiniStatusline.section_filename({ trunc_width = 140 })
+            local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 120 })
+            local location = MiniStatusline.section_location({ trunc_width = 75 })
+
+            local lsp = lsp_progress ~= "" and lsp_progress or ""
+
+            return MiniStatusline.combine_groups({
+                { hl = mode_hl,                 strings = { mode } },
+                { hl = "MiniStatuslineDevinfo", strings = { git, diff, diagnostics } },
+                "%<",
+                { hl = "MiniStatuslineFilename", strings = { filename } },
+                "%=",
+                { hl = "MiniStatuslineFileinfo", strings = { lsp, fileinfo } },
+                { hl = mode_hl,                  strings = { location } },
+            })
+        end,
+    },
+})
+
+vim.cmd("packadd nvim-treesitter")
+require("nvim-treesitter").setup({
+    ensure_installed = { "go", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" },
+    highlight = { enable = true },
+})
+
 require("conform").setup({
     formatters_by_ft = {
         lua = {},
-        go = { "gofumpt", "goimports" },
+        go = { "gofmt", "goimports" },
     },
     format_on_save = {
         timeout_ms = 500,
@@ -407,8 +426,7 @@ require("conform").setup({
 })
 
 require("lint").linters_by_ft = {
-    lua = { "luacheck" },
-    go = { "golangci-lint" },
+    go = { "golangcilint" },
 }
 
 require("nvim-tree").setup({
@@ -455,17 +473,6 @@ require("nvim-tree").setup({
 })
 
 ----------- telescope -----------
-
--- Check if telescope-fzf-native is compiled and compile it if not
-local fzf_path = vim.fn.stdpath("data") .. "/site/pack/core/opt/telescope-fzf-native.nvim"
-if vim.fn.isdirectory(fzf_path) == 1 then
-    local build_file = fzf_path .. "/build/libfzf.so"
-    if vim.fn.filereadable(build_file) == 0 then
-        print("Compiling telescope-fzf-native...")
-        vim.fn.system("cd " .. fzf_path .. " && make")
-        print("Compiling telescope-fzf-native done!")
-    end
-end
 
 require("telescope").setup({
     defaults = {

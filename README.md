@@ -76,13 +76,13 @@ stow .
 ### macos
 
 ```sh
-brew install lua-language-server stylua luacheck go gopls golangci-lint gofumpt goimports
+brew install lua-language-server go gopls golangci-lint goimports
 ```
 
 ### fedora
 
 ```sh
-sudo dnf install lua-language-server stylua luacheck
+sudo dnf install lua-language-server go gopls golangci-lint goimports
 ```
 
 ### opensuse
@@ -90,7 +90,7 @@ sudo dnf install lua-language-server stylua luacheck
 TODO fix this command
 
 ```sh
-sudo zypper install lua-language-server stylua luacheck
+sudo zypper install lua-language-server
 ```
 
 ## install additional packages
