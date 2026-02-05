@@ -15,16 +15,16 @@ palette = 1=#C41A16
 palette = 9=#C41A16
 
 # Green (Xcode Comments / Documentation)
-palette = 2=#007400
-palette = 10=#007400
+palette = 2=#248A3D
+palette = 10=#248A3D
 
 # Yellow/Orange (Xcode Preprocessor)
 palette = 3=#643820
 palette = 11=#643820
 
 # Blue (Xcode Types/Blue)
-palette = 4=#1C00CF
-palette = 12=#1C00CF
+palette = 4=#007AFF
+palette = 12=#007AFF
 
 # Magenta (Xcode Keywords)
 palette = 5=#9B2393

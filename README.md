@@ -38,7 +38,7 @@ sudo dnf install -y ghostty fish make starship stow git ripgrep fd-find fzf bat 
 ### opensuse
 
 ```sh
-sudo zypper in -y --allow-unsigned-rpm ghostty fish make starship stow git ripgrep fd fzf bat eza gcc neovim jq lua-language-server go pipx $(curl -s https://api.github.com/repos/caarlos0/timer/releases/latest | jq -r --arg arch "$(uname -m)" '.assets[] | select(.name | endswith($arch + ".rpm")) | .browser_download_url')
+sudo zypper in -y --allow-unsigned-rpm ghostty fish make starship stow git ripgrep fd fzf bat eza gcc neovim jq lua-language-server go python313-pipx $(curl -s https://api.github.com/repos/caarlos0/timer/releases/latest | jq -r --arg arch "$(uname -m)" '.assets[] | select(.name | endswith($arch + ".rpm")) | .browser_download_url')
 ```
 
 ```sh
