@@ -22,23 +22,8 @@
 
 ```sh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" # installs homebrew
+
 brew install ghostty fish make starship stow git ripgrep fd fzf bat eza gcc neovim gum jq caarlos0/tap/timer terminal-notifier go lua-language-server pipx
-
-```
-
-### fedora
-
-- adds [terra](https://terra.fyralabs.com/) repository
-
-```sh
-sudo dnf install -y --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release # adds terra repo
-sudo dnf install -y ghostty fish make starship stow git ripgrep fd-find fzf bat eza gcc neovim jq lua-language-server go pipx $(curl -s https://api.github.com/repos/caarlos0/timer/releases/latest | jq -r --arg arch "$(uname -m)" '.assets[] | select(.name | endswith($arch + ".rpm")) | .browser_download_url')
-```
-
-### opensuse
-
-```sh
-sudo zypper in -y --allow-unsigned-rpm ghostty fish make starship stow git ripgrep fd fzf bat eza gcc neovim jq lua-language-server go python313-pipx $(curl -s https://api.github.com/repos/caarlos0/timer/releases/latest | jq -r --arg arch "$(uname -m)" '.assets[] | select(.name | endswith($arch + ".rpm")) | .browser_download_url')
 ```
 
 ```sh
