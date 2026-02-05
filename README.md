@@ -31,7 +31,7 @@ brew install ghostty fish make starship stow git ripgrep fd fzf bat eza gcc neov
 ### opensuse
 
 ```sh
-sudo zypper install ghostty fish make starship stow git ripgrep fd fzf bat eza gcc neovim jq $(curl -s https://api.github.com/repos/caarlos0/timer/releases/latest | jq -r --arg arch "$(uname -m)" '.assets[] | select(.name | endswith($arch + ".rpm")) | .browser_download_url') go lua-language-server python-pipx
+sudo zypper install -y ghostty fish make starship stow git ripgrep fd fzf bat eza gcc neovim jq $(curl -s https://api.github.com/repos/caarlos0/timer/releases/latest | jq -r --arg arch "$(uname -m)" '.assets[] | select(.name | endswith($arch + ".rpm")) | .browser_download_url') go lua-language-server python-pipx
 ```
 
 ```sh
@@ -64,6 +64,5 @@ stow .
 
 ```sh
 go install golang.org/x/tools/gopls@latest github.com/golangci/golangci-lint/cmd/golangci-lint@latest golang.org/x/tools/cmd/goimports@latest github.com/charmbracelet/gum@latest
-pipx install ruff
-pipx install basedpyright
+pipx install ruff basedpyright
 ```

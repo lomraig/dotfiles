@@ -214,6 +214,9 @@ vim.g.maplocalleader = " "
 vim.keymap.set("i", "jk", "<Esc>")
 vim.keymap.set("i", "kj", "<Esc>")
 
+vim.keymap.set("t", "jk", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+vim.keymap.set("t", "kj", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+
 -- better indenting
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
@@ -560,7 +563,6 @@ wk.add({
 
     { "<leader>h",  group = "git [h]unk",                    mode = { "n", "v" } },
 
-    { "<leader>b",  group = "[b]uffers" },
     {
         "<leader>x",
         function()
