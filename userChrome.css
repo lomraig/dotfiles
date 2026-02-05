@@ -1,0 +1,13 @@
+:root {
+    --tab-min-height: 32px !important;
+    --urlbar-min-height: 32px !important;
+    --tab-block-margin: 4px !important
+}
+
+#PlacesToolbarItems .bookmark-item {
+    padding-block: 1px !important;
+}
+
+.tab-text {
+    font-size: 13px !important;
+}

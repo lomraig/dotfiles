@@ -16,6 +16,8 @@
 - [make](https://www.gnu.org/software/make/): is required to compile [telescope-fzf-native](https://github.com/nvim-telescope/telescope-fzf-native.nvim) plugin for neovim
 - [gum](https://github.com/charmbracelet/gum), [terminal-notifier](https://github.com/julienXX/terminal-notifier) and [timer](https://github.com/caarlos0/timer): [pom](https://gist.github.com/bashbunni/e311f07e100d51a883ab0414b46755fa) dependencies
 
+TODO add update my system script
+
 ### macos
 
 - installs [homebrew](https://brew.sh/)
@@ -23,7 +25,13 @@
 ```sh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" # installs homebrew
 
-brew install ghostty fish make starship stow git ripgrep fd fzf bat eza gcc neovim gum jq caarlos0/tap/timer terminal-notifier go lua-language-server pipx
+brew install ghostty fish make starship stow git ripgrep fd fzf bat eza gcc neovim jq caarlos0/tap/timer terminal-notifier go lua-language-server pipx
+```
+
+### opensuse
+
+```sh
+sudo zypper install ghostty fish make starship stow git ripgrep fd fzf bat eza gcc neovim jq $(curl -s https://api.github.com/repos/caarlos0/timer/releases/latest | jq -r --arg arch "$(uname -m)" '.assets[] | select(.name | endswith($arch + ".rpm")) | .browser_download_url') go lua-language-server python-pipx
 ```
 
 ```sh
