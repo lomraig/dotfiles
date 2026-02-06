@@ -40,6 +40,8 @@ tmux
 zoxide
 delta
 glow
+gh cli
+Faker
 lazygit
 lazydocker
 git-delta

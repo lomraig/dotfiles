@@ -48,15 +48,15 @@ set -gx LS_COLORS "di=1;34:ln=36:ex=1;32:fi=0:mi=31:pi=33:so=35:bd=33;01:cd=33;0
 
 if type -q eza
     alias ls='eza --icons --group-directories-first --color=always'
-    alias la='eza -a --icons --group-directories-first'
+    alias la='eza -aa --icons --group-directories-first'
     alias ll='eza -lh --icons --group-directories-first --git'
-    alias lla='eza -la --icons --group-directories-first --git'
+    alias lla='eza -laah --icons --group-directories-first --git'
     alias lt='eza --tree --level=2 --icons'
 else
     alias ls='ls -G'
     alias la='ls -aG'
     alias ll='ls -lhG'
-    alias lla='ls -laG'
+    alias lla='ls -lahG'
 
     if type -q tree
         alias lt='tree -C -L 2'
@@ -69,14 +69,14 @@ end
 set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
 
 set -U fish_color_normal normal
-set -U fish_color_command 9b2393 --bold   
-set -U fish_color_keyword 9b2393 --bold   
-set -U fish_color_quote c41a16             
-set -U fish_color_redirection 326d74       
-set -U fish_color_end 5d6c79              
+set -U fish_color_command 9b2393 --bold
+set -U fish_color_keyword 9b2393 --bold
+set -U fish_color_quote c41a16
+set -U fish_color_redirection 326d74
+set -U fish_color_end 5d6c79
 set -U fish_color_error ff0000
-set -U fish_color_param 000000          
-set -U fish_color_comment 5d6c79           
+set -U fish_color_param 000000
+set -U fish_color_comment 5d6c79
 set -U fish_color_selection --background=b2d7ff
 set -U fish_color_search_match --background=b2d7ff
 set -U fish_color_operator 326d74

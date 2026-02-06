@@ -21,6 +21,7 @@ vim.o.completeopt = "menu,menuone,noselect"
 vim.o.softtabstop = 2
 vim.o.winborder = "rounded"
 vim.o.pumborder = "rounded"
+vim.o.swapfile = false
 
 -- for nvimtree
 vim.g.loaded_netrw = 1
