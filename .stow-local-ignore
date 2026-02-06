@@ -2,3 +2,5 @@ userChrome.css
 .gitignore
 .DS_Store
 .git
+README.md
+.stow-local-ignore

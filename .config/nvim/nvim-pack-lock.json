@@ -1,5 +1,9 @@
 {
   "plugins": {
+    "99": {
+      "rev": "0fb3b8b2d032289ea7088a37161e1c50bdfccfa9",
+      "src": "https://github.com/ThePrimeagen/99"
+    },
     "conform.nvim": {
       "rev": "c2526f1cde528a66e086ab1668e996d162c75f4f",
       "src": "https://github.com/stevearc/conform.nvim"
@@ -19,6 +23,10 @@
     "mini.hipatterns": {
       "rev": "add8d8abad602787377ec5d81f6b248605828e0f",
       "src": "https://github.com/nvim-mini/mini.hipatterns"
+    },
+    "mini.icons": {
+      "rev": "efc85e42262cd0c9e1fdbf806c25cb0be6de115c",
+      "src": "https://github.com/nvim-mini/mini.icons"
     },
     "mini.move": {
       "rev": "4d214202d71e0a4066b6288176bbe88f268f9777",
@@ -86,3 +94,4 @@
     }
   }
 }
+

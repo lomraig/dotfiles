@@ -145,37 +145,98 @@ local groups = {
 	Type = { fg = colors.type },
 	Constant = { fg = colors.const },
 
+	-- Tree-sitter
 	["@variable"] = { fg = colors.fg },
 	["@variable.builtin"] = { fg = colors.keyword },
 	["@variable.member"] = { fg = colors.fg },
 	["@variable.parameter"] = { fg = colors.fg },
+	["@function"] = { fg = colors.func },
 	["@function.builtin"] = { fg = colors.func, bold = true },
 	["@function.call"] = { fg = colors.func },
-	["@method"] = { fg = colors.func },
-	["@method.call"] = { fg = colors.func },
+	["@function.method"] = { fg = colors.func },
+	["@function.method.call"] = { fg = colors.func },
 	["@constructor"] = { fg = colors.type },
-	["@keyword.directive"] = { fg = colors.keyword },
+	["@keyword"] = { fg = colors.keyword, bold = true },
 	["@keyword.function"] = { fg = colors.keyword },
 	["@keyword.operator"] = { fg = colors.keyword },
 	["@keyword.return"] = { fg = colors.keyword },
+	["@keyword.directive"] = { fg = colors.keyword },
+	["@keyword.import"] = { fg = colors.keyword },
+	["@string"] = { fg = colors.string },
 	["@string.special"] = { fg = colors.string },
+	["@string.regexp"] = { fg = colors.string },
+	["@type"] = { fg = colors.type },
 	["@type.builtin"] = { fg = colors.type },
 	["@property"] = { fg = colors.fg },
-	["@field"] = { fg = colors.fg },
-	["@parameter"] = { fg = colors.fg },
 	["@attribute"] = { fg = colors.func },
 	["@module"] = { fg = colors.fg },
+	["@constant"] = { fg = colors.const },
 	["@constant.builtin"] = { fg = colors.const },
 	["@boolean"] = { fg = colors.const },
 	["@number"] = { fg = colors.type },
+	["@number.float"] = { fg = colors.type },
 	["@operator"] = { fg = colors.fg },
 	["@punctuation.delimiter"] = { fg = colors.fg },
 	["@punctuation.bracket"] = { fg = colors.fg },
+	["@punctuation.special"] = { fg = colors.keyword },
 	["@tag"] = { fg = colors.keyword },
 	["@tag.attribute"] = { fg = colors.func },
 	["@tag.delimiter"] = { fg = colors.fg },
 	["@label"] = { fg = colors.fg },
-	["@namespace"] = { fg = colors.fg },
+
+	-- Markup (Markdown)
+	["@markup.strong"] = { bold = true },
+	["@markup.italic"] = { italic = true },
+	["@markup.strikethrough"] = { strikethrough = true },
+	["@markup.underline"] = { underline = true },
+	["@markup.heading"] = { fg = colors.keyword, bold = true },
+	["@markup.raw"] = { fg = colors.string },
+	["@markup.link"] = { fg = colors.type, underline = true },
+	["@markup.link.label"] = { fg = colors.type },
+	["@markup.link.url"] = { fg = colors.comment, underline = true },
+	["@markup.list"] = { fg = colors.keyword },
+
+	-- LSP Semantic Tokens
+	["@lsp.type.variable"] = { link = "@variable" },
+	["@lsp.type.parameter"] = { link = "@variable.parameter" },
+	["@lsp.type.function"] = { link = "@function" },
+	["@lsp.type.method"] = { link = "@function.method" },
+	["@lsp.type.class"] = { link = "@type" },
+	["@lsp.type.interface"] = { link = "@type" },
+	["@lsp.type.struct"] = { link = "@type" },
+	["@lsp.type.enum"] = { link = "@type" },
+	["@lsp.type.property"] = { link = "@property" },
+	["@lsp.type.namespace"] = { link = "@module" },
+	["@lsp.type.type"] = { link = "@type" },
+	["@lsp.type.enumMember"] = { link = "@constant" },
+	["@lsp.type.keyword"] = { link = "@keyword" },
+
+	-- Diagnostics
+	DiagnosticError = { fg = "#D12F1B" },
+	DiagnosticWarn = { fg = "#704B00" },
+	DiagnosticInfo = { fg = "#326D74" },
+	DiagnosticHint = { fg = "#5D6C79" },
+	DiagnosticUnderlineError = { undercurl = true, sp = "#D12F1B" },
+	DiagnosticUnderlineWarn = { undercurl = true, sp = "#704B00" },
+	DiagnosticUnderlineInfo = { undercurl = true, sp = "#326D74" },
+	DiagnosticUnderlineHint = { undercurl = true, sp = "#5D6C79" },
+
+	-- Diff
+	diffAdded = { fg = colors.string },
+	diffRemoved = { fg = "#D12F1B" },
+	diffChanged = { fg = colors.type },
+	diffOldFile = { fg = colors.comment },
+	diffNewFile = { fg = colors.string },
+	diffFile = { fg = colors.keyword },
+	diffLine = { fg = colors.comment },
+
+	-- Telescope
+	TelescopeBorder = { fg = colors.border },
+	TelescopePromptBorder = { fg = colors.border },
+	TelescopeResultsBorder = { fg = colors.border },
+	TelescopePreviewBorder = { fg = colors.border },
+	TelescopeMatching = { fg = colors.keyword, bold = true },
+	TelescopeSelection = { bg = colors.selection },
 
 	Pmenu = { bg = colors.bg, fg = colors.fg },
 	PmenuSel = { bg = colors.selection, fg = colors.fg, bold = true },
@@ -298,21 +359,22 @@ vim.pack.add({
 	"https://github.com/nvim-mini/mini.hipatterns",
 	"https://github.com/nvim-mini/mini.trailspace",
 	"https://github.com/nvim-mini/mini.statusline",
+	"https://github.com/nvim-mini/mini.icons",
 
-	"https://github.com/nvim-tree/nvim-web-devicons",
 	"https://github.com/folke/which-key.nvim",
 	"https://github.com/nvim-tree/nvim-tree.lua",
 
 	"https://github.com/nvim-treesitter/nvim-treesitter",
 	"https://github.com/windwp/nvim-ts-autotag",
+
 	"https://github.com/neovim/nvim-lspconfig",
-	"https://github.com/rachartier/tiny-code-action.nvim",
 	"https://github.com/stevearc/conform.nvim",
 	"https://github.com/mfussenegger/nvim-lint",
 
 	"https://github.com/nvim-lua/plenary.nvim",
 	"https://github.com/nvim-telescope/telescope.nvim",
 	"https://github.com/nvim-telescope/telescope-fzf-native.nvim",
+	"https://github.com/rachartier/tiny-code-action.nvim",
 })
 
 ------------------- lsp -------------------
@@ -379,12 +441,25 @@ vim.api.nvim_create_autocmd("LspProgress", {
 
 ----------- small plugins configuration -----------
 
-require("nvim-web-devicons").setup()
-
 require("mini.move").setup()
 require("mini.tabline").setup()
 require("mini.bufremove").setup()
 require("mini.trailspace").setup()
+
+require("mini.icons").setup({
+	file = {
+		[".keep"] = { glyph = "󰊢", hl = "MiniIconsGrey" },
+		["devcontainer.json"] = { glyph = "", hl = "MiniIconsAzure" },
+	},
+	filetype = {
+		dotenv = { glyph = "", hl = "MiniIconsYellow" },
+	},
+})
+
+package.preload["nvim-web-devicons"] = function()
+	require("mini.icons").mock_nvim_web_devicons()
+	return package.loaded["nvim-web-devicons"]
+end
 
 require("mini.pairs").setup({
 	mappings = {
@@ -395,6 +470,11 @@ require("mini.pairs").setup({
 		["'"] = { neigh_pattern = ".[^%w_]" },
 		["`"] = { neigh_pattern = ".[^%w_]" },
 	},
+	modes = { insert = true, command = true, terminal = false },
+	skip_next = [=[[%w%%%'%[%"%.%`%$]]=],
+	skip_ts = { "string" },
+	skip_unbalanced = true,
+	markdown = true,
 })
 
 require("tiny-code-action").setup({
@@ -448,39 +528,6 @@ require("mini.statusline").setup({
 			})
 		end,
 	},
-})
-
-vim.cmd("packadd nvim-treesitter")
-require("nvim-treesitter").setup({
-	ensure_installed = {
-		"go",
-		"lua",
-		"vim",
-		"vimdoc",
-		"query",
-		"markdown",
-		"markdown_inline",
-		"json",
-		"yaml",
-		"toml",
-		"bash",
-		"fish",
-		"javascript",
-		"typescript",
-		"tsx",
-		"python",
-		"css",
-		"html",
-		"git_config",
-		"git_rebase",
-		"gitcommit",
-		"gitignore",
-		"regex",
-		"dockerfile",
-	},
-	highlight = { enable = true },
-	indent = { enable = true },
-	autotag = { enable = true },
 })
 
 require("conform").setup({
@@ -550,6 +597,52 @@ require("nvim-tree").setup({
 	renderer = {
 		indent_width = 4,
 	},
+})
+
+----------- treesitter -----------
+
+local filetypes = {
+	"go",
+	"lua",
+	"vim",
+	"vimdoc",
+	"query",
+	"markdown",
+	"markdown_inline",
+	"json",
+	"yaml",
+	"toml",
+	"bash",
+	"fish",
+	"javascript",
+	"typescript",
+	"tsx",
+	"python",
+	"css",
+	"html",
+	"git_config",
+	"git_rebase",
+	"gitcommit",
+	"gitignore",
+	"regex",
+	"dockerfile",
+}
+
+local nvts = require("nvim-treesitter")
+
+nvts.install(filetypes)
+
+nvts.setup({
+	highlight = { enable = true },
+	indent = { enable = true },
+	autotag = { enable = true },
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = filetypes,
+	callback = function()
+		vim.treesitter.start()
+	end,
 })
 
 ----------- telescope -----------
