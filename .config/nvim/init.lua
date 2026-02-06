@@ -380,11 +380,22 @@ vim.api.nvim_create_autocmd("LspProgress", {
 ----------- small plugins configuration -----------
 
 require("nvim-web-devicons").setup()
-require("mini.pairs").setup()
+
 require("mini.move").setup()
 require("mini.tabline").setup()
 require("mini.bufremove").setup()
 require("mini.trailspace").setup()
+
+require("mini.pairs").setup({
+	mappings = {
+		["("] = { neigh_pattern = ".[^%w_]" },
+		["{"] = { neigh_pattern = ".[^%w_]" },
+		["["] = { neigh_pattern = ".[^%w_]" },
+		['"'] = { neigh_pattern = ".[^%w_]" },
+		["'"] = { neigh_pattern = ".[^%w_]" },
+		["`"] = { neigh_pattern = ".[^%w_]" },
+	},
+})
 
 require("tiny-code-action").setup({
 	backend = "delta",
