@@ -175,6 +175,10 @@ local groups = {
 	SignColumn = { bg = c.gutter_bg },
 	Visual = { bg = c.visual },
 	Search = { fg = c.search_fg, bg = c.search },
+	DiffAdd = { fg = c.git_add, bg = c.bg_highlight },
+	DiffChange = { fg = c.git_change, bg = c.bg_highlight },
+	DiffDelete = { fg = c.git_delete, bg = c.bg_highlight },
+	DiffText = { fg = c.fg, bg = c.selection, bold = true },
 	WinSeparator = { fg = c.separator },
 	StatusLine = { fg = c.status_fg, bg = c.status_bg },
 	Pmenu = { fg = c.pmenu_fg, bg = c.pmenu_bg },
@@ -242,6 +246,11 @@ local groups = {
 	NvimTreeGitStaged = { fg = c.git_add },
 	NvimTreeGitNew = { fg = c.git_add },
 	NvimTreeGitDeleted = { fg = c.git_delete },
+
+	-- Gitsigns
+	GitSignsAdd = { fg = c.git_add, bg = c.gutter_bg },
+	GitSignsChange = { fg = c.git_change, bg = c.gutter_bg },
+	GitSignsDelete = { fg = c.git_delete, bg = c.gutter_bg },
 
 	-- mini.statusline
 	MiniStatuslineModeNormal = { fg = c.bg, bg = c.constant, bold = true },
@@ -437,6 +446,7 @@ vim.pack.add({
 	"https://github.com/folke/which-key.nvim",
 	"https://github.com/nvim-tree/nvim-tree.lua",
 	"https://github.com/kwkarlwang/bufresize.nvim",
+	"https://github.com/lewis6991/gitsigns.nvim",
 })
 
 ------------------- lsp -------------------
@@ -512,9 +522,12 @@ require("winshift").setup()
 require("bufresize").setup()
 require("render-markdown").setup()
 require("typst-preview").setup()
+require("gitsigns").setup()
 
 require("mini.splitjoin").setup({
-	mappings = { toogle = "<leader>a" },
+	mappings = {
+		toogle = "<leader>a",
+	},
 })
 
 require("tiny-code-action").setup({
@@ -794,7 +807,7 @@ wk.setup({
 
 wk.add({
 	{ "<leader>c", desc = "[c]omment" },
-	{ "<leader>a", desc = "split/join [a]rguments" },
+	{ "<leader>a", MiniSplitjoin.toggle, desc = "split/join [a]rguments" },
 
 	{ "<leader>s", group = "[s]urround", mode = { "n", "v" } },
 	{ "<leader>sa", desc = "[a]dd", mode = { "n", "v" } },
@@ -822,7 +835,70 @@ wk.add({
 		desc = "[x] close buffer",
 	},
 
-	{ "<leader>h", group = "git [h]unk", mode = { "n", "v" } },
+	{ "<leader>g", group = "[g]it", mode = { "n", "v" } },
+	{ "<leader>gs", "<cmd>Gitsigns stage_hunk<cr>", desc = "Stage Hunk", mode = { "n", "v" } },
+	{ "<leader>gr", "<cmd>Gitsigns reset_hunk<cr>", desc = "Reset Hunk", mode = { "n", "v" } },
+	{ "<leader>gS", "<cmd>Gitsigns stage_buffer<cr>", desc = "Stage Buffer" },
+	{ "<leader>gu", "<cmd>Gitsigns undo_stage_hunk<cr>", desc = "Undo Stage Hunk" },
+	{ "<leader>gR", "<cmd>Gitsigns reset_buffer<cr>", desc = "Reset Buffer" },
+	{ "<leader>gp", "<cmd>Gitsigns preview_hunk_inline<cr>", desc = "Preview Hunk Inline" },
+	{
+		"<leader>gb",
+		function()
+			require("gitsigns").blame_line({ full = true })
+		end,
+		desc = "Blame Line",
+	},
+	{ "<leader>gB", require("gitsigns").blame, desc = "Blame Buffer" },
+	{ "<leader>gd", "<cmd>Gitsigns diffthis<cr>", desc = "Diff This" },
+	{
+		"<leader>gD",
+		function()
+			require("gitsigns").diffthis("~")
+		end,
+		desc = "Diff This ~",
+	},
+
+	{ "<leader>gt", group = "[t]oggle", mode = { "n" } },
+	{ "<leader>gtb", require("gitsigns").toggle_current_line_blame, desc = "toggle line [b]lame" },
+	{ "<leader>gtw", require("gitsigns").toggle_word_diff, desc = "toggle [w]ord diff" },
+
+	{
+		"]h",
+		function()
+			if vim.wo.diff then
+				vim.cmd.normal({ "]c", bang = true })
+			else
+				require("gitsigns").nav_hunk("next")
+			end
+		end,
+		desc = "Next Hunk",
+	},
+	{
+		"[h",
+		function()
+			if vim.wo.diff then
+				vim.cmd.normal({ "[c", bang = true })
+			else
+				require("gitsigns").nav_hunk("prev")
+			end
+		end,
+		desc = "Prev Hunk",
+	},
+	{
+		"]H",
+		function()
+			require("gitsigns").nav_hunk("last")
+		end,
+		desc = "Last Hunk",
+	},
+	{
+		"[H",
+		function()
+			require("gitsigns").nav_hunk("first")
+		end,
+		desc = "First Hunk",
+	},
 
 	{ "<leader>f", group = "[f]ind", mode = { "n", "v" } },
 	{ "<leader>ff", require("telescope.builtin").find_files, desc = "[f]iles" },
@@ -833,6 +909,7 @@ wk.add({
 	{ "<leader>fc", require("telescope.builtin").commands, desc = "[c]ommands" },
 	{ "<leader>fr", require("telescope.builtin").oldfiles, desc = "[r]ecent files" },
 	{ "<leader>fs", require("telescope.builtin").grep_string, desc = "[s]tring under cursor" },
+	{ "<leader>fm", require("telescope.builtin").man_pages, desc = "[m]an pages" },
 	{
 		"<leader>ft",
 		function()

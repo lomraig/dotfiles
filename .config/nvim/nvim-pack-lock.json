@@ -8,6 +8,10 @@
       "rev": "c2526f1cde528a66e086ab1668e996d162c75f4f",
       "src": "https://github.com/stevearc/conform.nvim"
     },
+    "gitsigns.nvim": {
+      "rev": "1ce96a464fdbc24208e24c117e2021794259005d",
+      "src": "https://github.com/lewis6991/gitsigns.nvim"
+    },
     "mini.bufremove": {
       "rev": "10857aa39160c127694151828914df3131ba83b6",
       "src": "https://github.com/nvim-mini/mini.bufremove"
