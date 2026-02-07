@@ -34,6 +34,8 @@ brew install ghostty fish make starship stow git ripgrep fd fzf bat eza gcc neov
 sudo zypper install -y ghostty fish make starship stow git ripgrep fd fzf bat eza gcc neovim jq $(curl -s https://api.github.com/repos/caarlos0/timer/releases/latest | jq -r --arg arch "$(uname -m)" '.assets[] | select(.name | endswith($arch + ".rpm")) | .browser_download_url') go nodejs lua-language-server stylua python-pipx
 ```
 
+also install [marksman](https://github.com/artempyanykh/marksman/blob/main/docs/install.md) the markdown lsp, [tinymist](https://github.com/Myriad-Dreamin/tinymist) the typst lsp and [typstyle](https://github.com/typstyle-rs/typstyle) the typst formatter
+
 ```sh
 yazi
 tmux
@@ -67,5 +69,6 @@ stow .
 ```sh
 go install golang.org/x/tools/gopls@latest github.com/golangci/golangci-lint/cmd/golangci-lint@latest golang.org/x/tools/cmd/goimports@latest github.com/charmbracelet/gum@latest
 pipx install ruff basedpyright
-npm install -g npm prettier
+npm install -g npm prettier markdownlint-cli
+brew isntall marksman typstyle
 ```

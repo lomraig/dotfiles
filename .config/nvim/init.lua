@@ -289,6 +289,36 @@ local groups = {
 	-- Tiny Code Action
 	TinyCodeActionNormal = { fg = c.fg, bg = c.bg_light },
 	TinyCodeActionBorder = { fg = c.border, bg = c.bg_light },
+
+	-- render-markdown
+	RenderMarkdownH1 = { fg = c.purple, bg = c.bg_highlight, bold = true },
+	RenderMarkdownH2 = { fg = c.info, bg = c.bg_highlight, bold = true },
+	RenderMarkdownH3 = { fg = c.git_add, bg = c.bg_highlight, bold = true },
+	RenderMarkdownH4 = { fg = c.git_change, bg = c.bg_highlight, bold = true },
+	RenderMarkdownH5 = { fg = c.string, bg = c.bg_highlight, bold = true },
+	RenderMarkdownH6 = { fg = c.attribute, bg = c.bg_highlight, bold = true },
+	RenderMarkdownH1Bg = { bg = c.bg_highlight },
+	RenderMarkdownH2Bg = { bg = c.bg_highlight },
+	RenderMarkdownH3Bg = { bg = c.bg_highlight },
+	RenderMarkdownH4Bg = { bg = c.bg_highlight },
+	RenderMarkdownH5Bg = { bg = c.bg_highlight },
+	RenderMarkdownH6Bg = { bg = c.bg_highlight },
+	RenderMarkdownCode = { bg = c.bg_alt },
+	RenderMarkdownCodeInline = { bg = c.bg_alt },
+	RenderMarkdownBullet = { fg = c.purple, bold = true },
+	RenderMarkdownQuote = { fg = c.comment, italic = true },
+	RenderMarkdownDash = { fg = c.separator, bold = true },
+	RenderMarkdownLink = { fg = c.info, underline = true, bold = true },
+	RenderMarkdownWikiLink = { fg = c.info, underline = true, bold = true },
+	RenderMarkdownTodoChecked = { fg = c.git_add, bold = true },
+	RenderMarkdownTodoUnchecked = { fg = c.git_delete, bold = true },
+	RenderMarkdownTableHead = { fg = c.purple, bg = c.bg_alt, bold = true },
+	RenderMarkdownTableRow = { fg = c.fg },
+	RenderMarkdownSuccess = { fg = c.git_add, bold = true },
+	RenderMarkdownInfo = { fg = c.info, bold = true },
+	RenderMarkdownWarn = { fg = c.warning, bold = true },
+	RenderMarkdownError = { fg = c.error, bold = true },
+	RenderMarkdownHint = { fg = c.hint, bold = true },
 }
 
 for group, opts in pairs(groups) do
@@ -322,7 +352,7 @@ vim.keymap.set("v", "H", "15h")
 vim.keymap.set("v", "L", "15l")
 
 -- clear highlights on search in normal mode
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<cr>")
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
 -- better splits navigation
@@ -332,8 +362,8 @@ vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower win
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
 -- buffer navigation
-vim.keymap.set("n", "{", "<cmd>bprev<CR>", { desc = "Previous buffer" })
-vim.keymap.set("n", "}", "<cmd>bnext<CR>", { desc = "Next buffer" })
+vim.keymap.set("n", "{", "<cmd>bprev<cr>", { desc = "Previous buffer" })
+vim.keymap.set("n", "}", "<cmd>bnext<cr>", { desc = "Next buffer" })
 
 -- TODO WINDOW MOVING
 -- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
@@ -350,8 +380,8 @@ vim.keymap.set("i", "<C-k>", function()
 	return vim.fn.pumvisible() == 1 and "<C-p>" or "<S-Tab>"
 end, { expr = true, silent = true, desc = "Previous completion item" })
 
-vim.keymap.set("i", "<CR>", function()
-	return vim.fn.pumvisible() == 1 and "<C-y>" or "<CR>"
+vim.keymap.set("i", "<cr>", function()
+	return vim.fn.pumvisible() == 1 and "<C-y>" or "<cr>"
 end, { expr = true, silent = true, desc = "Confirm completion" })
 
 vim.keymap.set("i", "<C-Space>", function()
@@ -385,9 +415,9 @@ vim.pack.add({
 	"https://github.com/nvim-mini/mini.trailspace",
 	"https://github.com/nvim-mini/mini.statusline",
 	"https://github.com/nvim-mini/mini.icons",
-
-	"https://github.com/folke/which-key.nvim",
-	"https://github.com/nvim-tree/nvim-tree.lua",
+	"https://github.com/nvim-mini/mini.jump",
+	"https://github.com/nvim-mini/mini.splitjoin",
+	"https://github.com/nvim-mini/mini.surround",
 
 	"https://github.com/nvim-treesitter/nvim-treesitter",
 	"https://github.com/windwp/nvim-ts-autotag",
@@ -400,6 +430,13 @@ vim.pack.add({
 	"https://github.com/nvim-telescope/telescope.nvim",
 	"https://github.com/nvim-telescope/telescope-fzf-native.nvim",
 	"https://github.com/rachartier/tiny-code-action.nvim",
+
+	"https://github.com/MeanderingProgrammer/render-markdown.nvim",
+	"https://github.com/chomosuke/typst-preview.nvim",
+	"https://github.com/sindrets/winshift.nvim",
+	"https://github.com/folke/which-key.nvim",
+	"https://github.com/nvim-tree/nvim-tree.lua",
+	"https://github.com/kwkarlwang/bufresize.nvim",
 })
 
 ------------------- lsp -------------------
@@ -410,7 +447,7 @@ vim.lsp.config.lua_ls = {
 	settings = {
 		Lua = {
 			diagnostics = {
-				globals = { "vim", "MiniStatusline", "MiniTrailspace", "MiniHipatterns" },
+				globals = { "vim", "MiniStatusline", "MiniTrailspace", "MiniHipatterns", "MiniSplitjoin" },
 			},
 		},
 	},
@@ -428,7 +465,7 @@ vim.lsp.config.gopls = {
 	},
 }
 
-vim.lsp.enable({ "lua_ls", "gopls", "basedpyright" })
+vim.lsp.enable({ "lua_ls", "gopls", "basedpyright", "marksman", "tinymist" })
 
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(args)
@@ -470,36 +507,14 @@ require("mini.move").setup()
 require("mini.tabline").setup()
 require("mini.bufremove").setup()
 require("mini.trailspace").setup()
+require("mini.jump").setup()
+require("winshift").setup()
+require("bufresize").setup()
+require("render-markdown").setup()
+require("typst-preview").setup()
 
-require("mini.icons").setup({
-	file = {
-		[".keep"] = { glyph = "󰊢", hl = "MiniIconsGrey" },
-		["devcontainer.json"] = { glyph = "", hl = "MiniIconsAzure" },
-	},
-	filetype = {
-		dotenv = { glyph = "", hl = "MiniIconsYellow" },
-	},
-})
-
-package.preload["nvim-web-devicons"] = function()
-	require("mini.icons").mock_nvim_web_devicons()
-	return package.loaded["nvim-web-devicons"]
-end
-
-require("mini.pairs").setup({
-	mappings = {
-		["("] = { neigh_pattern = ".[^%w_]" },
-		["{"] = { neigh_pattern = ".[^%w_]" },
-		["["] = { neigh_pattern = ".[^%w_]" },
-		['"'] = { neigh_pattern = ".[^%w_]" },
-		["'"] = { neigh_pattern = ".[^%w_]" },
-		["`"] = { neigh_pattern = ".[^%w_]" },
-	},
-	modes = { insert = true, command = true, terminal = false },
-	skip_next = [=[[%w%%%'%[%"%.%`%$]]=],
-	skip_ts = { "string" },
-	skip_unbalanced = true,
-	markdown = true,
+require("mini.splitjoin").setup({
+	mappings = { toogle = "<leader>a" },
 })
 
 require("tiny-code-action").setup({
@@ -527,6 +542,50 @@ require("mini.comment").setup({
 		comment_visual = "<leader>c",
 		textobject = "<leader>c",
 	},
+})
+
+require("mini.icons").setup({
+	file = {
+		[".keep"] = { glyph = "󰊢", hl = "MiniIconsGrey" },
+		["devcontainer.json"] = { glyph = "", hl = "MiniIconsAzure" },
+	},
+	filetype = {
+		dotenv = { glyph = "", hl = "MiniIconsYellow" },
+	},
+})
+package.preload["nvim-web-devicons"] = function()
+	require("mini.icons").mock_nvim_web_devicons()
+	return package.loaded["nvim-web-devicons"]
+end
+
+require("mini.surround").setup({
+	mappings = {
+		add = "<leader>sa",
+		delete = "<leader>sd",
+		find = "<leader>sf",
+		find_left = "<leader>sF",
+		highlight = "<leader>sh",
+		replace = "<leader>sr",
+
+		suffix_last = "",
+		suffix_next = "",
+	},
+})
+
+require("mini.pairs").setup({
+	mappings = {
+		["("] = { neigh_pattern = ".[^%w_]" },
+		["{"] = { neigh_pattern = ".[^%w_]" },
+		["["] = { neigh_pattern = ".[^%w_]" },
+		['"'] = { neigh_pattern = ".[^%w_]" },
+		["'"] = { neigh_pattern = ".[^%w_]" },
+		["`"] = { neigh_pattern = ".[^%w_]" },
+	},
+	modes = { insert = true, command = true, terminal = false },
+	skip_next = [=[[%w%%%'%[%"%.%`%$]]=],
+	skip_ts = { "string" },
+	skip_unbalanced = true,
+	markdown = true,
 })
 
 require("mini.statusline").setup({
@@ -569,6 +628,7 @@ require("conform").setup({
 		css = { "prettier" },
 		yaml = { "prettier" },
 		markdown = { "prettier" },
+		typst = { "typstyle" },
 	},
 	format_on_save = {
 		timeout_ms = 500,
@@ -579,6 +639,7 @@ require("conform").setup({
 require("lint").linters_by_ft = {
 	go = { "golangcilint" },
 	python = { "ruff" },
+	markdown = { "markdownlint" },
 }
 
 require("nvim-tree").setup({
@@ -651,6 +712,7 @@ local filetypes = {
 	"gitignore",
 	"regex",
 	"dockerfile",
+	"typst",
 }
 
 local nvts = require("nvim-treesitter")
@@ -669,6 +731,8 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.treesitter.start()
 	end,
 })
+
+require("nvim-ts-autotag").setup()
 
 ----------- telescope -----------
 
@@ -729,6 +793,37 @@ wk.setup({
 })
 
 wk.add({
+	{ "<leader>c", desc = "[c]omment" },
+	{ "<leader>a", desc = "split/join [a]rguments" },
+
+	{ "<leader>s", group = "[s]urround", mode = { "n", "v" } },
+	{ "<leader>sa", desc = "[a]dd", mode = { "n", "v" } },
+	{ "<leader>sd", desc = "[d]elete", mode = { "n", "v" } },
+	{ "<leader>sf", desc = "[f]ind right", mode = { "n", "v" } },
+	{ "<leader>sF", desc = "[F]ind left", mode = { "n", "v" } },
+	{ "<leader>sr", desc = "[r]eplace", mode = { "n", "v" } },
+	{ "<leader>sh", desc = "[h]ighlight", mode = { "n", "v" } },
+
+	{ "<leader>w", "<cmd>WinShift<cr>", desc = "move [w]indow" },
+	{ "<leader>p", "<cmd>TypstPreviewToggle<cr>", desc = "toggle typst [p]review" },
+	{ "<leader>t", MiniTrailspace.trim, desc = "remove [t]railing whitespaces" },
+	{ "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "toggle [e]xplorer" },
+	{
+		"<leader>x",
+		function()
+			local bd = require("mini.bufremove").delete
+			if bd(0, false) then
+				local wins = vim.api.nvim_list_wins()
+				if #wins > 1 then
+					vim.api.nvim_win_close(0, false)
+				end
+			end
+		end,
+		desc = "[x] close buffer",
+	},
+
+	{ "<leader>h", group = "git [h]unk", mode = { "n", "v" } },
+
 	{ "<leader>f", group = "[f]ind", mode = { "n", "v" } },
 	{ "<leader>ff", require("telescope.builtin").find_files, desc = "[f]iles" },
 	{ "<leader>fw", require("telescope.builtin").live_grep, desc = "[w]ord" },
@@ -741,38 +836,11 @@ wk.add({
 	{
 		"<leader>ft",
 		function()
-			require("telescope.builtin").grep_string({
-				search = "TODO|FIXME|HACK|NOTE",
-				use_regex = true,
-			})
+			require("telescope.builtin").grep_string({ search = "TODO|FIXME|HACK|NOTE", use_regex = true })
 		end,
 		desc = "[t]odos",
 	},
-	{
-		"<leader>/",
-		require("telescope.builtin").current_buffer_fuzzy_find,
-		desc = "[/] Fuzzily search in current buffer",
-	},
-
-	{ "<leader>h", group = "git [h]unk", mode = { "n", "v" } },
-
-	{
-		"<leader>x",
-		function()
-			local bd = require("mini.bufremove").delete
-			if bd(0, false) then
-				local wins = vim.api.nvim_list_wins()
-				if #wins > 1 then
-					vim.api.nvim_win_close(0, false)
-				end
-			end
-		end,
-		desc = "close buffer",
-	},
-
-	{ "<leader>c", desc = "[c]omment" },
-	{ "<leader>e", "<cmd>NvimTreeToggle<CR>", desc = "toggle [e]xplorer" },
-	{ "<leader>t", MiniTrailspace.trim, desc = "remove [t]railing whitespaces" },
+	{ "<leader>/", require("telescope.builtin").current_buffer_fuzzy_find, desc = "[/] search in current buffer" },
 
 	{ "<leader>l", group = "[l]sp" },
 	{ "<leader>ll", require("lint").try_lint, desc = "[l]int" },
