@@ -23,10 +23,6 @@ vim.o.winborder = "rounded"
 vim.o.pumborder = "rounded"
 vim.o.swapfile = false
 
--- for nvimtree
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
 -- hide the mode
 vim.o.showmode = false
 
@@ -237,16 +233,6 @@ local groups = {
 	TelescopeSelection = { fg = c.fg, bg = c.selection, bold = true },
 	TelescopeMatching = { fg = c.number, bold = true },
 
-	-- NvimTree
-	NvimTreeNormal = { fg = c.fg, bg = c.bg_alt },
-	NvimTreeFolderName = { fg = c.fg },
-	NvimTreeOpenedFolderName = { fg = c.fg, bold = true },
-	NvimTreeFolderIcon = { fg = c.function_name },
-	NvimTreeGitDirty = { fg = c.git_change },
-	NvimTreeGitStaged = { fg = c.git_add },
-	NvimTreeGitNew = { fg = c.git_add },
-	NvimTreeGitDeleted = { fg = c.git_delete },
-
 	-- Gitsigns
 	GitSignsAdd = { fg = c.git_add, bg = c.gutter_bg },
 	GitSignsChange = { fg = c.git_change, bg = c.gutter_bg },
@@ -444,7 +430,6 @@ vim.pack.add({
 	"https://github.com/chomosuke/typst-preview.nvim",
 	"https://github.com/sindrets/winshift.nvim",
 	"https://github.com/folke/which-key.nvim",
-	"https://github.com/nvim-tree/nvim-tree.lua",
 	"https://github.com/kwkarlwang/bufresize.nvim",
 	"https://github.com/lewis6991/gitsigns.nvim",
 })
@@ -655,49 +640,6 @@ require("lint").linters_by_ft = {
 	markdown = { "markdownlint" },
 }
 
-require("nvim-tree").setup({
-	view = {
-		float = {
-			enable = true,
-			open_win_config = function()
-				local screen_w = vim.opt.columns:get()
-				local screen_h = vim.opt.lines:get() - vim.opt.cmdheight:get()
-				local window_w = screen_w * 0.6
-				local window_h = screen_h * 0.6
-				local window_w_int = math.floor(window_w)
-				local window_h_int = math.floor(window_h)
-				local center_x = (screen_w - window_w) / 2
-				local center_y = ((vim.opt.lines:get() - window_h) / 2) - vim.opt.cmdheight:get()
-				return {
-					border = "rounded",
-					relative = "editor",
-					row = center_y,
-					col = center_x,
-					width = window_w_int,
-					height = window_h_int,
-				}
-			end,
-		},
-		width = function()
-			return math.floor(vim.opt.columns:get() * 0.8)
-		end,
-	},
-	actions = {
-		open_file = {
-			window_picker = {
-				enable = false,
-			},
-		},
-	},
-	filters = {
-		dotfiles = false,
-		git_ignored = false,
-	},
-	renderer = {
-		indent_width = 4,
-	},
-})
-
 ----------- treesitter -----------
 
 local filetypes = {
@@ -820,7 +762,7 @@ wk.add({
 	{ "<leader>w", "<cmd>WinShift<cr>", desc = "move [w]indow" },
 	{ "<leader>p", "<cmd>TypstPreviewToggle<cr>", desc = "toggle typst [p]review" },
 	{ "<leader>t", MiniTrailspace.trim, desc = "remove [t]railing whitespaces" },
-	{ "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "toggle [e]xplorer" },
+	{ "<leader>e", "<cmd>Explore<cr>", desc = "toggle [e]xplorer" },
 	{
 		"<leader>x",
 		function()

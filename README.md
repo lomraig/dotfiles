@@ -20,23 +20,14 @@ TODO add update my system script
 
 ### macos
 
-- installs [homebrew](https://brew.sh/)
-
 ```sh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" # installs homebrew
 
 brew install ghostty fish make starship stow git ripgrep fd fzf bat eza gcc neovim jq caarlos0/tap/timer terminal-notifier go node lua-language-server stylua pipx
 ```
 
-### opensuse
-
 ```sh
-sudo zypper install -y ghostty fish make starship stow git ripgrep fd fzf bat eza gcc neovim jq $(curl -s https://api.github.com/repos/caarlos0/timer/releases/latest | jq -r --arg arch "$(uname -m)" '.assets[] | select(.name | endswith($arch + ".rpm")) | .browser_download_url') go nodejs lua-language-server stylua python-pipx
-```
-
-also install [marksman](https://github.com/artempyanykh/marksman/blob/main/docs/install.md) the markdown lsp, [tinymist](https://github.com/Myriad-Dreamin/tinymist) the typst lsp and [typstyle](https://github.com/typstyle-rs/typstyle) the typst formatter
-
-```sh
+// TODO
 yazi
 tmux
 zoxide
@@ -69,6 +60,6 @@ stow .
 ```sh
 go install golang.org/x/tools/gopls@latest github.com/golangci/golangci-lint/cmd/golangci-lint@latest golang.org/x/tools/cmd/goimports@latest github.com/charmbracelet/gum@latest
 pipx install ruff basedpyright
-npm install -g npm prettier markdownlint-cli
+npm install -g prettier markdownlint-cli
 brew isntall marksman typstyle
 ```

@@ -38,13 +38,6 @@ alias python "python3"
 alias pip "pip3"
 
 alias nv "nvim"
-alias lg "lazygit"
-alias lzd "lazydocker"
-
-################################################## Some Colors ##################################################
-
-set -gx BAT_THEME "xcode-light"
-set -gx LS_COLORS "di=1;34:ln=36:ex=1;32:fi=0:mi=31:pi=33:so=35:bd=33;01:cd=33;01:or=31:ow=34;42"
 
 if type -q eza
     alias ls='eza --icons --group-directories-first --color=always'
@@ -64,6 +57,11 @@ else
         alias lt='find . -maxdepth 2 -not -path "*/.*"'
     end
 end
+
+################################################## Some Colors ##################################################
+
+set -gx BAT_THEME "xcode-light"
+set -gx LS_COLORS "di=1;34:ln=36:ex=1;32:fi=0:mi=31:pi=33:so=35:bd=33;01:cd=33;01:or=31:ow=34;42"
 
 # Use bat for man
 set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
