@@ -460,7 +460,7 @@ vim.lsp.config.gopls = {
 	},
 }
 
-vim.lsp.enable({ "lua_ls", "gopls", "basedpyright", "marksman", "tinymist" })
+vim.lsp.enable({ "lua_ls", "gopls", "basedpyright", "marksman", "tinymist", "clangd" })
 
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(args)
@@ -638,6 +638,7 @@ require("lint").linters_by_ft = {
 	go = { "golangcilint" },
 	python = { "ruff" },
 	markdown = { "markdownlint" },
+	cpp = { "clangtidy" },
 }
 
 ----------- treesitter -----------
@@ -668,6 +669,7 @@ local filetypes = {
 	"regex",
 	"dockerfile",
 	"typst",
+	"clang-format",
 }
 
 local nvts = require("nvim-treesitter")
