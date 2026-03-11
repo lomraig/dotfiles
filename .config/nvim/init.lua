@@ -25,7 +25,6 @@ vim.o.swapfile = false
 
 -- hide the mode
 vim.o.showmode = false
-
 -- enables clipboard syncing between nvim and system
 vim.schedule(function()
 	vim.o.clipboard = vim.env.SSH_CONNECTION and "" or "unnamedplus"
@@ -336,16 +335,6 @@ vim.keymap.set("t", "kj", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
 
--- speed up movement
-vim.keymap.set("n", "J", "15j")
-vim.keymap.set("n", "K", "15k")
-vim.keymap.set("v", "J", "15j")
-vim.keymap.set("v", "K", "15k")
-vim.keymap.set("n", "H", "15h")
-vim.keymap.set("n", "L", "15l")
-vim.keymap.set("v", "H", "15h")
-vim.keymap.set("v", "L", "15l")
-
 -- clear highlights on search in normal mode
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<cr>")
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
@@ -460,7 +449,7 @@ vim.lsp.config.gopls = {
 	},
 }
 
-vim.lsp.enable({ "lua_ls", "gopls", "basedpyright", "marksman", "tinymist", "clangd" })
+vim.lsp.enable({ "lua_ls", "gopls", "tinymist", "clangd" })
 
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(args)
@@ -506,7 +495,6 @@ require("mini.jump").setup()
 require("winshift").setup()
 require("bufresize").setup()
 require("render-markdown").setup()
-require("typst-preview").setup()
 require("gitsigns").setup()
 
 require("mini.splitjoin").setup({
@@ -517,6 +505,11 @@ require("mini.splitjoin").setup({
 
 require("tiny-code-action").setup({
 	backend = "delta",
+})
+
+require("typst-preview").setup({
+	-- open_cmd = 'open -na "Firefox" --args -new-window %s',
+	open_cmd = "open -na 'Firefox' --args -new-window %s",
 })
 
 require("mini.cursorword").setup({
@@ -627,6 +620,7 @@ require("conform").setup({
 		yaml = { "prettier" },
 		markdown = { "prettier" },
 		typst = { "typstyle" },
+		cpp = { "clang-format" },
 	},
 	format_on_save = {
 		timeout_ms = 500,
@@ -637,8 +631,6 @@ require("conform").setup({
 require("lint").linters_by_ft = {
 	go = { "golangcilint" },
 	python = { "ruff" },
-	markdown = { "markdownlint" },
-	cpp = { "clangtidy" },
 }
 
 ----------- treesitter -----------
@@ -669,14 +661,13 @@ local filetypes = {
 	"regex",
 	"dockerfile",
 	"typst",
-	"clang-format",
 }
 
-local nvts = require("nvim-treesitter")
+local treesitter = require("nvim-treesitter")
 
-nvts.install(filetypes)
+treesitter.install(filetypes)
 
-nvts.setup({
+treesitter.setup({
 	highlight = { enable = true },
 	indent = { enable = true },
 	autotag = { enable = true },

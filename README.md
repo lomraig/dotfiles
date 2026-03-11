@@ -41,6 +41,8 @@ jq
 dust https://github.com/bootandy/dust
 aerospace
 sketchybar
+uv
+ruff
 ```
 
 ## install dotfiles
@@ -56,7 +58,6 @@ stow .
 
 ```sh
 go install golang.org/x/tools/gopls@latest github.com/golangci/golangci-lint/cmd/golangci-lint@latest golang.org/x/tools/cmd/goimports@latest github.com/charmbracelet/gum@latest
-pipx install ruff basedpyright
 npm install -g prettier markdownlint-cli
-brew isntall marksman typstyle
+brew install marksman typstyle jdtls
 ```
