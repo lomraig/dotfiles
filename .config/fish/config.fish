@@ -38,6 +38,7 @@ alias python "python3"
 alias pip "pip3"
 
 alias nv "nvim"
+alias lg "lazygit"
 
 if type -q eza
     alias ls='eza --icons --group-directories-first --color=always'

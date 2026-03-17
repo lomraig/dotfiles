@@ -3,6 +3,7 @@
 vim.o.number = true
 vim.o.mouse = "a"
 vim.o.cursorline = true
+vim.o.relativenumber = true
 vim.o.scrolloff = 10
 vim.o.sidescrolloff = 8
 vim.o.autowrite = true
@@ -449,7 +450,7 @@ vim.lsp.config.gopls = {
 	},
 }
 
-vim.lsp.enable({ "lua_ls", "gopls", "tinymist", "clangd" })
+vim.lsp.enable({ "lua_ls", "gopls", "tinymist", "clangd", "basedpyright" })
 
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(args)
