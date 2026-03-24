@@ -373,6 +373,28 @@ vim.keymap.set("i", "<C-Space>", function()
 	return vim.fn.pumvisible() == 1 and "<C-e>" or "<C-x><C-o>"
 end, { expr = true, silent = true, desc = "Toggle completion" })
 
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = {
+		"help",
+		"netrw",
+		"qf",
+		"man",
+		"lspinfo",
+		"checkhealth",
+	},
+	callback = function(event)
+		vim.keymap.set("n", "q", function()
+			local bd = require("mini.bufremove").delete
+			if bd(0, false) then
+				local wins = vim.api.nvim_list_wins()
+				if #wins > 1 then
+					vim.api.nvim_win_close(0, false)
+				end
+			end
+		end, { buffer = event.buf, silent = true, nowait = true, desc = "close buffer and window" })
+	end,
+})
+
 ------------------- plugins -------------------
 
 vim.api.nvim_create_autocmd("PackChanged", {
@@ -752,6 +774,7 @@ wk.add({
 	{ "<leader>a", MiniSplitjoin.toggle, desc = "split/join [a]rguments" },
 
 	{ "<leader>s", group = "[s]urround", mode = { "n", "v" } },
+
 	{ "<leader>sa", desc = "[a]dd", mode = { "n", "v" } },
 	{ "<leader>sd", desc = "[d]elete", mode = { "n", "v" } },
 	{ "<leader>sf", desc = "[f]ind right", mode = { "n", "v" } },
