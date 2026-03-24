@@ -510,7 +510,7 @@ require("tiny-code-action").setup({
 
 require("typst-preview").setup({
 	-- open_cmd = 'open -na "Firefox" --args -new-window %s',
-	open_cmd = "open -na 'Firefox' --args -new-window %s",
+	open_cmd = "open -na 'Helium' --args %s",
 })
 
 require("mini.cursorword").setup({
