@@ -21,7 +21,7 @@
 ```sh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" # installs homebrew
 
-brew install ghostty fish make starship stow git ripgrep fd fzf bat eza gcc neovim jq caarlos0/tap/timer terminal-notifier go node lua-language-server stylua pipx clang-format
+brew install ghostty fish make starship stow git ripgrep fd fzf bat eza gcc neovim jq caarlos0/tap/timer terminal-notifier
 ```
 
 ```sh
@@ -41,7 +41,6 @@ jq
 dust https://github.com/bootandy/dust
 aerospace
 sketchybar
-uv
 ruff
 ```
 
@@ -54,10 +53,15 @@ cd ~/.dotfiles
 stow .
 ```
 
+## install language runtimes/compiles/pacmans
+
+```sh
+brew isntall go typst rust uv node oven-sh/bun/bun
+```
+
 ## install language servers, formatters and linters
 
 ```sh
 go install golang.org/x/tools/gopls@latest github.com/golangci/golangci-lint/cmd/golangci-lint@latest golang.org/x/tools/cmd/goimports@latest github.com/charmbracelet/gum@latest
-npm install -g prettier markdownlint-cli
-brew install marksman typstyle jdtls
+brew install marksman typstyle prettier markdownlint-cli lua-language-server stylua clang-format ruff basedpyright
 ```
