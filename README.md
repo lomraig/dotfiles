@@ -30,7 +30,6 @@ tmux
 zoxide
 delta
 glow
-gh cli
 faker
 lazygit
 lazydocker
@@ -39,9 +38,6 @@ tldr
 thefuck
 jq
 dust https://github.com/bootandy/dust
-aerospace
-sketchybar
-ruff
 ```
 
 ## install dotfiles
@@ -56,6 +52,7 @@ stow .
 ## install language runtimes/compiles/pacmans
 
 ```sh
+# macos
 brew isntall go typst rust uv node oven-sh/bun/bun
 ```
 
@@ -63,5 +60,7 @@ brew isntall go typst rust uv node oven-sh/bun/bun
 
 ```sh
 go install golang.org/x/tools/gopls@latest github.com/golangci/golangci-lint/cmd/golangci-lint@latest golang.org/x/tools/cmd/goimports@latest github.com/charmbracelet/gum@latest
+
+# macos
 brew install marksman typstyle prettier markdownlint-cli lua-language-server stylua clang-format ruff basedpyright
 ```

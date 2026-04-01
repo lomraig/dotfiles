@@ -122,7 +122,7 @@ local palette = {
 	property = "#0B5561",
 	parameter = "#000000",
 	purple = "#9B2393",
-	preprocessor = "#643820",
+	preprocessor = "#02638C",
 	attribute = "#815F03", --
 	operator = "#000000",
 	punctuation = "#000000",
@@ -428,6 +428,7 @@ vim.pack.add({
 
 	"https://github.com/nvim-treesitter/nvim-treesitter",
 	"https://github.com/windwp/nvim-ts-autotag",
+	"https://gitlab.com/HiPhish/rainbow-delimiters.nvim",
 
 	"https://github.com/neovim/nvim-lspconfig",
 	"https://github.com/stevearc/conform.nvim",
@@ -445,6 +446,8 @@ vim.pack.add({
 	"https://github.com/kwkarlwang/bufresize.nvim",
 	"https://github.com/lewis6991/gitsigns.nvim",
 })
+
+vim.cmd("packadd nvim.undotree")
 
 ------------------- lsp -------------------
 
@@ -531,7 +534,6 @@ require("tiny-code-action").setup({
 })
 
 require("typst-preview").setup({
-	-- open_cmd = 'open -na "Firefox" --args -new-window %s',
 	open_cmd = "open -na 'Helium' --args %s",
 })
 
@@ -705,6 +707,18 @@ vim.api.nvim_create_autocmd("FileType", {
 
 require("nvim-ts-autotag").setup()
 
+vim.g.rainbow_delimiters = {
+	highlight = {
+		"RainbowDelimiterBlue",
+		"RainbowDelimiterYellow",
+		"RainbowDelimiterOrange",
+		"RainbowDelimiterGreen",
+		"RainbowDelimiterViolet",
+		"RainbowDelimiterRed",
+		"RainbowDelimiterCyan",
+	},
+}
+
 ----------- telescope -----------
 
 require("telescope").setup({
@@ -786,6 +800,8 @@ wk.add({
 	{ "<leader>p", "<cmd>TypstPreviewToggle<cr>", desc = "toggle typst [p]review" },
 	{ "<leader>t", MiniTrailspace.trim, desc = "remove [t]railing whitespaces" },
 	{ "<leader>e", "<cmd>Explore<cr>", desc = "toggle [e]xplorer" },
+	{ "<leader>u", require("undotree").open, desc = "open [u]ndo tree" },
+
 	{
 		"<leader>x",
 		function()
