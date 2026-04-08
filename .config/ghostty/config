@@ -15,6 +15,6 @@ shell-integration-features = ssh-terminfo,ssh-env
 
 macos-option-as-alt = true
 
-# macos-titlebar-style = hidden
+macos-titlebar-style = hidden
 
 quit-after-last-window-closed = true

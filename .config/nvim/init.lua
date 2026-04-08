@@ -340,11 +340,11 @@ vim.keymap.set("v", ">", ">gv")
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<cr>")
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
--- better splits navigation
-vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
-vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
-vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
-vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+-- -- TODO: better splits navigation
+-- vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
+-- vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
+-- vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
+-- vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
 -- buffer navigation
 vim.keymap.set("n", "{", "<cmd>bprev<cr>", { desc = "Previous buffer" })
@@ -416,7 +416,6 @@ vim.pack.add({
 	"https://github.com/nvim-mini/mini.move",
 	"https://github.com/nvim-mini/mini.tabline",
 	"https://github.com/nvim-mini/mini.bufremove",
-	"https://github.com/nvim-mini/mini.comment",
 	"https://github.com/nvim-mini/mini.cursorword",
 	"https://github.com/nvim-mini/mini.hipatterns",
 	"https://github.com/nvim-mini/mini.trailspace",
@@ -513,7 +512,6 @@ vim.api.nvim_create_autocmd("LspProgress", {
 
 ----------- small plugins configuration -----------
 
-require("mini.move").setup()
 require("mini.tabline").setup()
 require("mini.bufremove").setup()
 require("mini.trailspace").setup()
@@ -522,12 +520,6 @@ require("winshift").setup()
 require("bufresize").setup()
 require("render-markdown").setup()
 require("gitsigns").setup()
-
-require("mini.splitjoin").setup({
-	mappings = {
-		toogle = "<leader>a",
-	},
-})
 
 require("tiny-code-action").setup({
 	backend = "delta",
@@ -541,6 +533,12 @@ require("mini.cursorword").setup({
 	delay = 0,
 })
 
+require("mini.splitjoin").setup({
+	mappings = {
+		toogle = "<leader>a",
+	},
+})
+
 require("mini.hipatterns").setup({
 	highlighters = {
 		fixme = { pattern = "FIXME", group = "MiniHipatternsFixme" },
@@ -551,12 +549,17 @@ require("mini.hipatterns").setup({
 	},
 })
 
-require("mini.comment").setup({
+require("mini.move").setup({
 	mappings = {
-		comment = "<leader>c",
-		comment_line = "<leader>c",
-		comment_visual = "<leader>c",
-		textobject = "<leader>c",
+		left = "<C-h>",
+		right = "<C-l>",
+		down = "<C-j>",
+		up = "<C-k>",
+
+		line_left = "<C-h>",
+		line_right = "<C-l>",
+		line_down = "<C-j>",
+		line_up = "<C-k>",
 	},
 })
 

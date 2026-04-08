@@ -12,7 +12,7 @@
 - [fzf](https://junegunn.github.io/fzf/): fuzzy finder
 - [bat](https://github.com/sharkdp/bat): better cat
 - [eza](https://github.com/eza-community/eza): better ls
-- [neovim](https://neovim.io/) 0.12.0+ is required: the best text editor
+- [neovim](https://neovim.io/): text editor
 - [make](https://www.gnu.org/software/make/): is required to compile [telescope-fzf-native](https://github.com/nvim-telescope/telescope-fzf-native.nvim) plugin for neovim
 - [gum](https://github.com/charmbracelet/gum), [terminal-notifier](https://github.com/julienXX/terminal-notifier) and [timer](https://github.com/caarlos0/timer): [pom](https://gist.github.com/bashbunni/e311f07e100d51a883ab0414b46755fa) dependencies
 
@@ -21,7 +21,7 @@
 ```sh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" # installs homebrew
 
-brew install ghostty fish make starship stow git ripgrep fd fzf bat eza gcc neovim jq caarlos0/tap/timer terminal-notifier
+brew install ghostty fish make starship stow git ripgrep fd fzf bat eza gcc neovim caarlos0/tap/timer terminal-notifier
 ```
 
 ```sh
