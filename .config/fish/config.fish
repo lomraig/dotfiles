@@ -40,6 +40,7 @@ alias pip "pip3"
 alias nv "nvim"
 alias lg "lazygit"
 alias ldc "lazydocker"
+alias oc "opencode"
 
 if type -q eza
     alias ls='eza --icons --group-directories-first --color=always'
