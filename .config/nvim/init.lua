@@ -24,6 +24,8 @@ vim.o.winborder = "rounded"
 vim.o.pumborder = "rounded"
 vim.o.swapfile = false
 
+vim.g.netrw_list_hide = [[\(^\|\s\)\.\/\($\|\s\),\.DS_Store]]
+
 -- hide the mode
 vim.o.showmode = false
 -- enables clipboard syncing between nvim and system
