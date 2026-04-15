@@ -47,20 +47,30 @@ chsh -s $(which fish)
 git clone https://github.com/lomraig/dotfiles ~/.dotfiles
 cd ~/.dotfiles
 stow .
+bat cache --build
 ```
 
 ## install language runtimes/compiles/pacmans
 
 ```sh
 # macos
-brew isntall go typst rust uv node oven-sh/bun/bun
+brew install go typst rust uv node oven-sh/bun/bun
 ```
 
 ## install language servers, formatters and linters
 
 ```sh
-go install golang.org/x/tools/gopls@latest github.com/golangci/golangci-lint/cmd/golangci-lint@latest golang.org/x/tools/cmd/goimports@latest github.com/charmbracelet/gum@latest
+go install golang.org/x/tools/gopls@latest
+go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+go install golang.org/x/tools/cmd/goimports@latest
+go install github.com/charmbracelet/gum@latest
 
 # macos
 brew install marksman typstyle prettier markdownlint-cli lua-language-server stylua clang-format ruff basedpyright
+```
+
+## hide last login message on terminal startup on macos
+
+```
+touch ~/.hushlogin
 ```

@@ -342,15 +342,15 @@ vim.keymap.set("v", ">", ">gv")
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<cr>")
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
+-- buffer navigation
+vim.keymap.set("n", "{", "<cmd>bprev<cr>", { desc = "Previous buffer" })
+vim.keymap.set("n", "}", "<cmd>bnext<cr>", { desc = "Next buffer" })
+
 -- -- TODO: better splits navigation
 -- vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
 -- vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
 -- vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 -- vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
-
--- buffer navigation
-vim.keymap.set("n", "{", "<cmd>bprev<cr>", { desc = "Previous buffer" })
-vim.keymap.set("n", "}", "<cmd>bnext<cr>", { desc = "Next buffer" })
 
 -- TODO WINDOW MOVING
 -- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
@@ -476,7 +476,28 @@ vim.lsp.config.gopls = {
 	},
 }
 
+-- configuration for basedpyright
+vim.lsp.config("basedpyright", {
+	cmd = { "basedpyright-langserver", "--stdio" },
+	filetypes = { "python" },
+	root_markers = { "pyrightconfig.json", "pyproject.toml", ".git", ".venv", "venv" },
+	settings = {
+		python = {
+			venvPath = ".",
+			venv = ".venv",
+		},
+		basedpyright = {
+			analysis = {
+				typeCheckingMode = "basic",
+			},
+		},
+	},
+})
+
 vim.lsp.enable({ "lua_ls", "gopls", "tinymist", "clangd", "basedpyright" })
+
+-- enable the config
+vim.lsp.enable("basedpyright")
 
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(args)
@@ -488,9 +509,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end
 
 		-- removes all builtin lsp mappings
-		for _, key in ipairs({ "K", "grn", "gra", "grr", "gri", "gO", "<C-S>" }) do
-			pcall(vim.keymap.del, "n", key, { buffer = args.buf })
-		end
+		-- for _, key in ipairs({ "K", "grn", "gra", "grr", "gri", "gO", "<C-S>" }) do
+		-- 	pcall(vim.keymap.del, "n", key, { buffer = args.buf })
+		-- end
 	end,
 })
 
@@ -693,36 +714,36 @@ local filetypes = {
 	"typst",
 }
 
-local treesitter = require("nvim-treesitter")
-
-treesitter.install(filetypes)
-
-treesitter.setup({
-	highlight = { enable = true },
-	indent = { enable = true },
-	autotag = { enable = true },
-})
-
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = filetypes,
-	callback = function()
-		vim.treesitter.start()
-	end,
-})
-
-require("nvim-ts-autotag").setup()
-
-vim.g.rainbow_delimiters = {
-	highlight = {
-		"RainbowDelimiterBlue",
-		"RainbowDelimiterYellow",
-		"RainbowDelimiterOrange",
-		"RainbowDelimiterGreen",
-		"RainbowDelimiterViolet",
-		"RainbowDelimiterRed",
-		"RainbowDelimiterCyan",
-	},
-}
+-- local treesitter = require("nvim-treesitter")
+--
+-- treesitter.install(filetypes)
+--
+-- treesitter.setup({
+-- 	highlight = { enable = true },
+-- 	indent = { enable = true },
+-- 	autotag = { enable = true },
+-- })
+--
+-- vim.api.nvim_create_autocmd("FileType", {
+-- 	pattern = filetypes,
+-- 	callback = function()
+-- 		vim.treesitter.start()
+-- 	end,
+-- })
+--
+-- require("nvim-ts-autotag").setup()
+--
+-- vim.g.rainbow_delimiters = {
+-- 	highlight = {
+-- 		"RainbowDelimiterBlue",
+-- 		"RainbowDelimiterYellow",
+-- 		"RainbowDelimiterOrange",
+-- 		"RainbowDelimiterGreen",
+-- 		"RainbowDelimiterViolet",
+-- 		"RainbowDelimiterRed",
+-- 		"RainbowDelimiterCyan",
+-- 	},
+-- }
 
 ----------- telescope -----------
 
