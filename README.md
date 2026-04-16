@@ -38,6 +38,7 @@ tldr
 thefuck
 jq
 dust https://github.com/bootandy/dust
+treesitter-cli for nvim
 ```
 
 ## install dotfiles

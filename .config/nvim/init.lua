@@ -400,14 +400,16 @@ vim.api.nvim_create_autocmd("FileType", {
 ------------------- plugins -------------------
 
 vim.api.nvim_create_autocmd("PackChanged", {
+	group = vim.api.nvim_create_augroup("PackHooks", { clear = true }),
 	callback = function(ev)
 		local name = ev.data.spec.name
 		local kind = ev.data.kind
+
 		if kind == "install" or kind == "update" then
 			if name == "telescope-fzf-native.nvim" then
 				vim.system({ "make" }, { cwd = ev.data.path }):wait()
 			elseif name == "nvim-treesitter" then
-				vim.cmd("TSUpdate")
+				vim.cmd("TSInstall all"):wait()
 			end
 		end
 	end,
@@ -686,64 +688,24 @@ require("lint").linters_by_ft = {
 
 ----------- treesitter -----------
 
-local filetypes = {
-	"go",
-	"lua",
-	"vim",
-	"vimdoc",
-	"query",
-	"markdown",
-	"markdown_inline",
-	"json",
-	"yaml",
-	"toml",
-	"bash",
-	"fish",
-	"javascript",
-	"typescript",
-	"tsx",
-	"python",
-	"css",
-	"html",
-	"git_config",
-	"git_rebase",
-	"gitcommit",
-	"gitignore",
-	"regex",
-	"dockerfile",
-	"typst",
-}
+require("nvim-treesitter").setup({
+	ensure_installed = "all",
+	sync_install = false,
+	auto_install = true,
+})
 
--- local treesitter = require("nvim-treesitter")
---
--- treesitter.install(filetypes)
---
--- treesitter.setup({
--- 	highlight = { enable = true },
--- 	indent = { enable = true },
--- 	autotag = { enable = true },
--- })
---
--- vim.api.nvim_create_autocmd("FileType", {
--- 	pattern = filetypes,
--- 	callback = function()
--- 		vim.treesitter.start()
--- 	end,
--- })
---
--- require("nvim-ts-autotag").setup()
---
--- vim.g.rainbow_delimiters = {
--- 	highlight = {
--- 		"RainbowDelimiterBlue",
--- 		"RainbowDelimiterYellow",
--- 		"RainbowDelimiterOrange",
--- 		"RainbowDelimiterGreen",
--- 		"RainbowDelimiterViolet",
--- 		"RainbowDelimiterRed",
--- 		"RainbowDelimiterCyan",
--- 	},
--- }
+require("nvim-ts-autotag").setup()
+vim.g.rainbow_delimiters = {
+	highlight = {
+		"RainbowDelimiterBlue",
+		"RainbowDelimiterYellow",
+		"RainbowDelimiterOrange",
+		"RainbowDelimiterGreen",
+		"RainbowDelimiterViolet",
+		"RainbowDelimiterRed",
+		"RainbowDelimiterCyan",
+	},
+}
 
 ----------- telescope -----------
 
