@@ -67,10 +67,10 @@ go install golang.org/x/tools/cmd/goimports@latest
 go install github.com/charmbracelet/gum@latest
 
 # macos
-brew install marksman typstyle prettier markdownlint-cli lua-language-server stylua clang-format ruff basedpyright
+brew install marksman typstyle prettier markdownlint-cli lua-language-server stylua clang-format ruff basedpyright zls
 ```
 
-## hide last login message on terminal startup on macos
+## hide login message on terminal startup on macos
 
 ```
 touch ~/.hushlogin

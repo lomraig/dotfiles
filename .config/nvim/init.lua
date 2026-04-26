@@ -478,28 +478,7 @@ vim.lsp.config.gopls = {
 	},
 }
 
--- configuration for basedpyright
-vim.lsp.config("basedpyright", {
-	cmd = { "basedpyright-langserver", "--stdio" },
-	filetypes = { "python" },
-	root_markers = { "pyrightconfig.json", "pyproject.toml", ".git", ".venv", "venv" },
-	settings = {
-		python = {
-			venvPath = ".",
-			venv = ".venv",
-		},
-		basedpyright = {
-			analysis = {
-				typeCheckingMode = "basic",
-			},
-		},
-	},
-})
-
-vim.lsp.enable({ "lua_ls", "gopls", "tinymist", "clangd", "basedpyright" })
-
--- enable the config
-vim.lsp.enable("basedpyright")
+vim.lsp.enable({ "lua_ls", "gopls", "tinymist", "clangd", "basedpyright", "zls" })
 
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(args)
