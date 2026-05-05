@@ -102,7 +102,14 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 
 ------------------- colors -------------------
 
-local palette = {
+vim.cmd("hi clear")
+if vim.fn.exists("syntax_on") then
+	vim.cmd("syntax reset")
+end
+vim.o.background = "light"
+vim.g.colors_name = "xcodelight"
+
+local c = {
 	bg = "#FFFFFF",
 	bg_alt = "#F2F2F2",
 	bg_dark = "#E6E6E6",
@@ -116,142 +123,91 @@ local palette = {
 	string = "#C41A16",
 	comment = "#5D6C79",
 	number = "#1C00CF",
-	boolean = "#9B2393",
 	function_name = "#164E54",
 	variable = "#26474B",
 	constant = "#02638C",
 	type = "#3900A0",
 	property = "#0B5561",
-	parameter = "#000000",
-	purple = "#9B2393",
-	preprocessor = "#02638C",
-	attribute = "#815F03", --
-	operator = "#000000",
-	punctuation = "#000000",
+	attribute = "#815F03",
 	cursor = "#000000",
-	cursor_visual = "#B2D7FF",
-	cursor_line = "#ECF5FF",
 	selection = "#B2D7FF",
-	visual = "#B2D7FF",
 	search = "#fefcbf",
-	search_fg = "#000000",
 	line_number = "#A6A6A6",
-	gutter_bg = "#FFFFFF",
 	border = "#D1D1D1",
-	separator = "#E6E6E6",
-	status_bg = "#F2F2F2",
-	status_fg = "#4D4D4D",
 	error = "#D12F1B",
 	warning = "#815F03",
 	info = "#02638C",
 	hint = "#3900a0",
-	pmenu_bg = "#F2F2F2",
-	pmenu_fg = "#000000",
-	pmenu_sel_bg = "#B2D7FF",
-	pmenu_sel_fg = "#000000",
 	git_add = "#1A7F37",
 	git_change = "#9A6700",
 	git_delete = "#D12F1B",
-	git_ignored = "#707F8C",
 }
 
-local c = palette
-vim.o.background = "light"
-vim.cmd("hi clear")
-if vim.fn.exists("syntax_on") then
-	vim.cmd("syntax reset")
-end
-vim.g.colors_name = "xcodelight"
-
 local groups = {
-	-- Base Editor
 	Normal = { fg = c.fg, bg = c.bg },
 	NormalFloat = { fg = c.fg, bg = c.bg_light },
 	Cursor = { fg = c.bg, bg = c.cursor },
-	CursorLine = { bg = c.cursor_line },
-	LineNr = { fg = c.line_number, bg = c.gutter_bg },
-	SignColumn = { bg = c.gutter_bg },
-	Visual = { bg = c.visual },
-	Search = { fg = c.search_fg, bg = c.search },
+	CursorLine = { bg = c.bg_highlight },
+	LineNr = { fg = c.line_number, bg = c.bg },
+	SignColumn = { bg = c.bg },
+	Visual = { bg = c.selection },
+	Search = { fg = c.fg, bg = c.search },
 	DiffAdd = { fg = c.git_add, bg = c.bg_highlight },
 	DiffChange = { fg = c.git_change, bg = c.bg_highlight },
 	DiffDelete = { fg = c.git_delete, bg = c.bg_highlight },
 	DiffText = { fg = c.fg, bg = c.selection, bold = true },
-	WinSeparator = { fg = c.separator },
-	StatusLine = { fg = c.status_fg, bg = c.status_bg },
-	Pmenu = { fg = c.pmenu_fg, bg = c.pmenu_bg },
-	PmenuSel = { fg = c.pmenu_sel_fg, bg = c.pmenu_sel_bg },
+	WinSeparator = { fg = c.bg_dark },
+	StatusLine = { fg = c.fg_dark, bg = c.bg_alt },
+	Pmenu = { fg = c.fg, bg = c.bg_alt },
+	PmenuSel = { fg = c.fg, bg = c.selection },
 	FloatBorder = { fg = c.border, bg = c.bg_light },
 	Directory = { fg = c.type, bold = true },
 
-	-- Syntax
 	Comment = { fg = c.comment, italic = true },
 	Constant = { fg = c.constant },
 	String = { fg = c.string },
 	Number = { fg = c.number },
-	Boolean = { fg = c.boolean, bold = true },
+	Boolean = { fg = c.keyword, bold = true },
 	Function = { fg = c.function_name },
 	Statement = { fg = c.keyword, bold = true },
 	Keyword = { fg = c.keyword, bold = true },
 	Type = { fg = c.type },
-	PreProc = { fg = c.preprocessor, bold = true },
+	PreProc = { fg = c.constant, bold = true },
 	Identifier = { fg = c.variable },
-	Operator = { fg = c.operator },
-	Delimiter = { fg = c.punctuation },
+	Operator = { fg = c.fg },
+	Delimiter = { fg = c.fg },
 
-	-- TreeSitter
 	["@variable"] = { fg = c.variable },
 	["@variable.builtin"] = { fg = c.keyword, bold = true },
-	["@variable.parameter"] = { fg = c.parameter },
+	["@variable.parameter"] = { fg = c.fg },
 	["@variable.member"] = { fg = c.property },
 	["@property"] = { fg = c.property },
-	["@function"] = { fg = c.function_name },
-	["@function.call"] = { fg = c.function_name },
-	["@function.builtin"] = { fg = c.type },
-	["@keyword"] = { fg = c.keyword, bold = true },
-	["@keyword.function"] = { fg = c.keyword, bold = true },
-	["@keyword.return"] = { fg = c.keyword, bold = true },
-	["@tag"] = { fg = c.keyword, bold = true },
 	["@tag.attribute"] = { fg = c.attribute },
-	["@type.builtin"] = { fg = c.type },
-	["@operator"] = { fg = c.operator },
-	["@punctuation"] = { fg = c.punctuation },
 
-	-- LSP
-	["@lsp.type.class"] = { fg = c.type },
-	["@lsp.type.function"] = { fg = c.function_name },
-	["@lsp.type.method"] = { fg = c.function_name },
-	["@lsp.type.property"] = { fg = c.property },
-	["@lsp.type.variable"] = { fg = c.variable },
-	["@lsp.type.parameter"] = { fg = c.parameter },
 	DiagnosticError = { fg = c.error },
 	DiagnosticWarn = { fg = c.warning },
 	DiagnosticInfo = { fg = c.info },
 	DiagnosticHint = { fg = c.hint },
 
-	-- Telescope
 	TelescopeNormal = { fg = c.fg, bg = c.bg_light },
 	TelescopeBorder = { fg = c.border, bg = c.bg_light },
 	TelescopeSelection = { fg = c.fg, bg = c.selection, bold = true },
 	TelescopeMatching = { fg = c.number, bold = true },
 
-	-- Gitsigns
-	GitSignsAdd = { fg = c.git_add, bg = c.gutter_bg },
-	GitSignsChange = { fg = c.git_change, bg = c.gutter_bg },
-	GitSignsDelete = { fg = c.git_delete, bg = c.gutter_bg },
+	GitSignsAdd = { fg = c.git_add, bg = c.bg },
+	GitSignsChange = { fg = c.git_change, bg = c.bg },
+	GitSignsDelete = { fg = c.git_delete, bg = c.bg },
 
-	-- mini.statusline
 	MiniStatuslineModeNormal = { fg = c.bg, bg = c.constant, bold = true },
 	MiniStatuslineModeInsert = { fg = c.bg, bg = c.git_add, bold = true },
 	MiniStatuslineModeVisual = { fg = c.bg, bg = c.keyword, bold = true },
 	MiniStatuslineModeReplace = { fg = c.bg, bg = c.error, bold = true },
 	MiniStatuslineModeCommand = { fg = c.bg, bg = c.type, bold = true },
-	MiniStatuslineDevinfo = { fg = c.status_fg, bg = c.bg_alt },
-	MiniStatuslineFilename = { fg = c.status_fg, bg = c.bg_dark, bold = true },
-	MiniStatuslineFileinfo = { fg = c.status_fg, bg = c.bg_alt },
+	MiniStatuslineDevinfo = { fg = c.fg_dark, bg = c.bg_alt },
+	MiniStatuslineFilename = { fg = c.fg_dark, bg = c.bg_dark, bold = true },
+	MiniStatuslineFileinfo = { fg = c.fg_dark, bg = c.bg_alt },
 	MiniStatuslineInactive = { fg = c.fg_darker, bg = c.bg_alt },
 
-	-- mini.tabline
 	MiniTablineCurrent = { fg = c.fg, bg = c.bg_dark, bold = true },
 	MiniTablineVisible = { fg = c.fg, bg = c.bg_alt },
 	MiniTablineHidden = { fg = c.fg_darker, bg = c.bg_alt },
@@ -260,7 +216,6 @@ local groups = {
 	MiniTablineModifiedHidden = { fg = c.git_change, bg = c.bg_alt },
 	MiniTablineFill = { bg = c.bg_alt },
 
-	-- mini.icons (Integrated with Xcode palette)
 	MiniIconsAzure = { fg = c.constant },
 	MiniIconsBlue = { fg = c.number },
 	MiniIconsCyan = { fg = c.function_name },
@@ -271,51 +226,31 @@ local groups = {
 	MiniIconsRed = { fg = c.string },
 	MiniIconsYellow = { fg = c.git_change },
 
-	-- mini.hipatterns
 	MiniHipatternsFixme = { fg = c.bg, bg = c.error, bold = true },
 	MiniHipatternsHack = { fg = c.bg, bg = c.warning, bold = true },
 	MiniHipatternsTodo = { fg = c.bg, bg = c.info, bold = true },
 	MiniHipatternsNote = { fg = c.bg, bg = c.hint, bold = true },
 
-	-- WhichKey
 	WhichKey = { fg = c.keyword, bold = true },
 	WhichKeyGroup = { fg = c.type },
 	WhichKeyDesc = { fg = c.fg },
 	WhichKeySeparator = { fg = c.fg_darker },
 
-	-- Tiny Code Action
 	TinyCodeActionNormal = { fg = c.fg, bg = c.bg_light },
 	TinyCodeActionBorder = { fg = c.border, bg = c.bg_light },
 
-	-- render-markdown
-	RenderMarkdownH1 = { fg = c.purple, bg = c.bg_highlight, bold = true },
+	RenderMarkdownH1 = { fg = c.keyword, bg = c.bg_highlight, bold = true },
 	RenderMarkdownH2 = { fg = c.info, bg = c.bg_highlight, bold = true },
 	RenderMarkdownH3 = { fg = c.git_add, bg = c.bg_highlight, bold = true },
 	RenderMarkdownH4 = { fg = c.git_change, bg = c.bg_highlight, bold = true },
 	RenderMarkdownH5 = { fg = c.string, bg = c.bg_highlight, bold = true },
 	RenderMarkdownH6 = { fg = c.attribute, bg = c.bg_highlight, bold = true },
-	RenderMarkdownH1Bg = { bg = c.bg_highlight },
-	RenderMarkdownH2Bg = { bg = c.bg_highlight },
-	RenderMarkdownH3Bg = { bg = c.bg_highlight },
-	RenderMarkdownH4Bg = { bg = c.bg_highlight },
-	RenderMarkdownH5Bg = { bg = c.bg_highlight },
-	RenderMarkdownH6Bg = { bg = c.bg_highlight },
 	RenderMarkdownCode = { bg = c.bg_alt },
 	RenderMarkdownCodeInline = { bg = c.bg_alt },
-	RenderMarkdownBullet = { fg = c.purple, bold = true },
+	RenderMarkdownBullet = { fg = c.keyword, bold = true },
 	RenderMarkdownQuote = { fg = c.comment, italic = true },
-	RenderMarkdownDash = { fg = c.separator, bold = true },
+	RenderMarkdownDash = { fg = c.bg_dark, bold = true },
 	RenderMarkdownLink = { fg = c.info, underline = true, bold = true },
-	RenderMarkdownWikiLink = { fg = c.info, underline = true, bold = true },
-	RenderMarkdownTodoChecked = { fg = c.git_add, bold = true },
-	RenderMarkdownTodoUnchecked = { fg = c.git_delete, bold = true },
-	RenderMarkdownTableHead = { fg = c.purple, bg = c.bg_alt, bold = true },
-	RenderMarkdownTableRow = { fg = c.fg },
-	RenderMarkdownSuccess = { fg = c.git_add, bold = true },
-	RenderMarkdownInfo = { fg = c.info, bold = true },
-	RenderMarkdownWarn = { fg = c.warning, bold = true },
-	RenderMarkdownError = { fg = c.error, bold = true },
-	RenderMarkdownHint = { fg = c.hint, bold = true },
 }
 
 for group, opts in pairs(groups) do
