@@ -39,6 +39,8 @@ thefuck
 jq
 dust https://github.com/bootandy/dust
 treesitter-cli for nvim
+sesh https://github.com/joshmedeski/sesh
+bottom https://github.com/ClementTsang/bottom
 ```
 
 ## install dotfiles

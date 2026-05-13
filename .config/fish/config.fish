@@ -173,3 +173,6 @@ fish_add_path $HOME/.local/bin
 fzf --fish | source
 zoxide init --cmd cd fish | source
 starship init fish | source
+
+# uv
+fish_add_path "/Users/tymofiikliuiev/.local/bin"
