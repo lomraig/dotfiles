@@ -13,15 +13,28 @@
 - [bat](https://github.com/sharkdp/bat): better cat
 - [eza](https://github.com/eza-community/eza): better ls
 - [neovim](https://neovim.io/): text editor
-- [make](https://www.gnu.org/software/make/): is required to compile [telescope-fzf-native](https://github.com/nvim-telescope/telescope-fzf-native.nvim) plugin for neovim
+- [make](https://www.gnu.org/software/make/): is required to compile [telescope-fzf-naive](https://github.com/nvim-telescope/telescope-fzf-native.nvim) plugin for neovim
 - [gum](https://github.com/charmbracelet/gum), [terminal-notifier](https://github.com/julienXX/terminal-notifier) and [timer](https://github.com/caarlos0/timer): [pom](https://gist.github.com/bashbunni/e311f07e100d51a883ab0414b46755fa) dependencies
 
 ### macos
 
 ```sh
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" # installs homebrew
+# installs homebrew
+/bin/bash -c "$(cufl -fsSL https://faw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-brew install ghostty fish make starship stow git ripgrep fd fzf bat eza gcc neovim caarlos0/tap/timer terminal-notifier
+brew install ghostty fish make starship stow git ripgrep fd fzf bat eza zoxide gcc neovim caarlos0/tap/timer terminal-notifier
+```
+
+### fedora custom system
+
+```sh
+sudo dnf copr enable scottames/ghostty
+sudo dnf copr enable atim/starship
+sudo dnf copr enable lionheartp/Hyprland
+
+sudo dnf install hyprland --exclude=kitty
+
+sudo dnf install fish ghostty starship make zoxide stow git ripgrep fd fzf bat eza gcc neovim
 ```
 
 ```sh
@@ -49,15 +62,26 @@ bottom https://github.com/ClementTsang/bottom
 chsh -s $(which fish)
 git clone https://github.com/lomraig/dotfiles ~/.dotfiles
 cd ~/.dotfiles
+rm -rf ~/.config/fish ~/.config ghostty
 stow .
 bat cache --build
+
+
+# macos only (hides welcome message in terminals)
+touch ~/.hushlogin
 ```
 
 ## install language runtimes/compiles/pacmans
 
+### macos
 ```sh
-# macos
-brew install go typst rust uv node oven-sh/bun/bun
+brew install go typst rust uv node
+```
+
+### fedora
+```sh
+sudo dnf copr enable claaj/typst
+sudo dnf install go typst rust cargo uv node
 ```
 
 ## install language servers, formatters and linters
@@ -71,9 +95,4 @@ go install github.com/charmbracelet/gum@latest
 # macos
 brew install marksman typstyle prettier markdownlint-cli lua-language-server stylua clang-format ruff basedpyright zls
 ```
-
-## hide login message on terminal startup on macos
-
-```
-touch ~/.hushlogin
 ```
