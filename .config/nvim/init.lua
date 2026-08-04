@@ -570,6 +570,7 @@ require("mini.statusline").setup({
 			})
 		end,
 	},
+    use_icons = false,
 })
 
 require("conform").setup({
