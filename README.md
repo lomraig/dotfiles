@@ -95,4 +95,3 @@ go install github.com/charmbracelet/gum@latest
 # macos
 brew install marksman typstyle prettier markdownlint-cli lua-language-server stylua clang-format ruff basedpyright zls
 ```
-```
