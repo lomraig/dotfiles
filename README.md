@@ -35,6 +35,7 @@ sudo dnf copr enable lionheartp/Hyprland
 sudo dnf install hyprland --exclude=kitty
 
 sudo dnf install fish ghostty starship make zoxide stow git ripgrep fd fzf bat eza gcc neovim
+sudo dnf install google-noto-emoji-fonts gdouros-symbola-fonts
 ```
 
 ```sh
