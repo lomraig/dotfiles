@@ -7,6 +7,34 @@ set -l os (uname)
 
 if test "$os" = Darwin
     eval "$(/opt/homebrew/bin/brew shellenv)"
+
+    ## pomodoro timer
+    function pom
+        set split $POMO_SPLIT
+        if ! test -n "$split"
+            set split $(gum choose "25/5" "50/10" "all done" --header "Choose a pomodoro split.")
+        end
+
+        switch $split
+            case 25/5
+                set work 25m
+                set break 5m
+            case 50/10
+                set work 50m
+                set break 10m
+            case 'all done'
+                return
+        end
+
+        timer $work && terminal-notifier -message Pomodoro \
+            -title 'Work Timer is up! Take a Break 😊' \
+            -sound Crystal
+
+        gum confirm "Ready for a break?" && timer $break && terminal-notifier -message Pomodoro \
+                -title 'Break is over! Get back to work 😬' \
+            -sound Crystal \
+            || pom
+    end
 else if test "$os" = Linux
     # stuff for linux
 end
@@ -128,35 +156,6 @@ function fcl
         --preview 'bat --style=numbers --color=always --highlight-line {2} {1}' \
         --preview-window '~3,+{2}+3/3' \
         --bind 'enter:execute(nvim {1} +{2})'
-end
-
-################################################## Functions ##################################################
-
-function pom
-    set split $POMO_SPLIT
-    if ! test -n "$split"
-        set split $(gum choose "25/5" "50/10" "all done" --header "Choose a pomodoro split.")
-    end
-
-    switch $split
-        case 25/5
-            set work 25m
-            set break 5m
-        case 50/10
-            set work 50m
-            set break 10m
-        case 'all done'
-            return
-    end
-
-    timer $work && terminal-notifier -message Pomodoro \
-        -title 'Work Timer is up! Take a Break 😊' \
-        -sound Crystal
-
-    gum confirm "Ready for a break?" && timer $break && terminal-notifier -message Pomodoro \
-            -title 'Break is over! Get back to work 😬' \
-        -sound Crystal \
-        || pom
 end
 
 ################################################## PATHs ##################################################
