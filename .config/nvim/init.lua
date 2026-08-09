@@ -102,10 +102,10 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 
 ------------------- colors -------------------
 
-vim.cmd("hi clear")
-if vim.fn.exists("syntax_on") then
-	vim.cmd("syntax reset")
-end
+vim.cmd([[
+  hi clear
+  if exists("syntax_on") | syntax reset | endif
+]])
 vim.o.background = "light"
 vim.g.colors_name = "xcodelight"
 
@@ -144,6 +144,7 @@ local c = {
 }
 
 local groups = {
+	-- Base UI
 	Normal = { fg = c.fg, bg = c.bg },
 	NormalFloat = { fg = c.fg, bg = c.bg_light },
 	Cursor = { fg = c.bg, bg = c.cursor },
@@ -152,17 +153,18 @@ local groups = {
 	SignColumn = { bg = c.bg },
 	Visual = { bg = c.selection },
 	Search = { fg = c.fg, bg = c.search },
-	DiffAdd = { fg = c.git_add, bg = c.bg_highlight },
-	DiffChange = { fg = c.git_change, bg = c.bg_highlight },
-	DiffDelete = { fg = c.git_delete, bg = c.bg_highlight },
-	DiffText = { fg = c.fg, bg = c.selection, bold = true },
 	WinSeparator = { fg = c.bg_dark },
-	StatusLine = { fg = c.fg_dark, bg = c.bg_alt },
-	Pmenu = { fg = c.fg, bg = c.bg_alt },
-	PmenuSel = { fg = c.fg, bg = c.selection },
 	FloatBorder = { fg = c.border, bg = c.bg_light },
 	Directory = { fg = c.type, bold = true },
 
+	-- Pmenu
+	Pmenu = { fg = c.fg, bg = c.bg_alt },
+	PmenuSel = { fg = c.fg, bg = c.selection },
+
+	-- StatusLine
+	StatusLine = { fg = c.fg_dark, bg = c.bg_alt },
+
+	-- Syntax
 	Comment = { fg = c.comment, italic = true },
 	Constant = { fg = c.constant },
 	String = { fg = c.string },
@@ -177,6 +179,7 @@ local groups = {
 	Operator = { fg = c.fg },
 	Delimiter = { fg = c.fg },
 
+	-- Treesitter
 	["@variable"] = { fg = c.variable },
 	["@variable.builtin"] = { fg = c.keyword, bold = true },
 	["@variable.parameter"] = { fg = c.fg },
@@ -184,20 +187,28 @@ local groups = {
 	["@property"] = { fg = c.property },
 	["@tag.attribute"] = { fg = c.attribute },
 
+	-- Diagnostics
 	DiagnosticError = { fg = c.error },
 	DiagnosticWarn = { fg = c.warning },
 	DiagnosticInfo = { fg = c.info },
 	DiagnosticHint = { fg = c.hint },
 
+	-- Git
+	DiffAdd = { fg = c.git_add, bg = c.bg_highlight },
+	DiffChange = { fg = c.git_change, bg = c.bg_highlight },
+	DiffDelete = { fg = c.git_delete, bg = c.bg_highlight },
+	DiffText = { fg = c.fg, bg = c.selection, bold = true },
+	GitSignsAdd = { fg = c.git_add, bg = c.bg },
+	GitSignsChange = { fg = c.git_change, bg = c.bg },
+	GitSignsDelete = { fg = c.git_delete, bg = c.bg },
+
+	-- Telescope
 	TelescopeNormal = { fg = c.fg, bg = c.bg_light },
 	TelescopeBorder = { fg = c.border, bg = c.bg_light },
 	TelescopeSelection = { fg = c.fg, bg = c.selection, bold = true },
 	TelescopeMatching = { fg = c.number, bold = true },
 
-	GitSignsAdd = { fg = c.git_add, bg = c.bg },
-	GitSignsChange = { fg = c.git_change, bg = c.bg },
-	GitSignsDelete = { fg = c.git_delete, bg = c.bg },
-
+	-- Mini Statusline
 	MiniStatuslineModeNormal = { fg = c.bg, bg = c.constant, bold = true },
 	MiniStatuslineModeInsert = { fg = c.bg, bg = c.git_add, bold = true },
 	MiniStatuslineModeVisual = { fg = c.bg, bg = c.keyword, bold = true },
@@ -208,6 +219,7 @@ local groups = {
 	MiniStatuslineFileinfo = { fg = c.fg_dark, bg = c.bg_alt },
 	MiniStatuslineInactive = { fg = c.fg_darker, bg = c.bg_alt },
 
+	-- Mini Tabline
 	MiniTablineCurrent = { fg = c.fg, bg = c.bg_dark, bold = true },
 	MiniTablineVisible = { fg = c.fg, bg = c.bg_alt },
 	MiniTablineHidden = { fg = c.fg_darker, bg = c.bg_alt },
@@ -216,6 +228,7 @@ local groups = {
 	MiniTablineModifiedHidden = { fg = c.git_change, bg = c.bg_alt },
 	MiniTablineFill = { bg = c.bg_alt },
 
+	-- Mini Icons
 	MiniIconsAzure = { fg = c.constant },
 	MiniIconsBlue = { fg = c.number },
 	MiniIconsCyan = { fg = c.function_name },
@@ -226,19 +239,23 @@ local groups = {
 	MiniIconsRed = { fg = c.string },
 	MiniIconsYellow = { fg = c.git_change },
 
+	-- Mini Hipatterns
 	MiniHipatternsFixme = { fg = c.bg, bg = c.error, bold = true },
 	MiniHipatternsHack = { fg = c.bg, bg = c.warning, bold = true },
 	MiniHipatternsTodo = { fg = c.bg, bg = c.info, bold = true },
 	MiniHipatternsNote = { fg = c.bg, bg = c.hint, bold = true },
 
+	-- WhichKey
 	WhichKey = { fg = c.keyword, bold = true },
 	WhichKeyGroup = { fg = c.type },
 	WhichKeyDesc = { fg = c.fg },
 	WhichKeySeparator = { fg = c.fg_darker },
 
+	-- TinyCodeAction
 	TinyCodeActionNormal = { fg = c.fg, bg = c.bg_light },
 	TinyCodeActionBorder = { fg = c.border, bg = c.bg_light },
 
+	-- RenderMarkdown
 	RenderMarkdownH1 = { fg = c.keyword, bg = c.bg_highlight, bold = true },
 	RenderMarkdownH2 = { fg = c.info, bg = c.bg_highlight, bold = true },
 	RenderMarkdownH3 = { fg = c.git_add, bg = c.bg_highlight, bold = true },
@@ -570,7 +587,7 @@ require("mini.statusline").setup({
 			})
 		end,
 	},
-    use_icons = false,
+	use_icons = false,
 })
 
 require("conform").setup({
@@ -687,7 +704,6 @@ wk.setup({
 })
 
 wk.add({
-	{ "<leader>c", desc = "[c]omment" },
 	{ "<leader>a", MiniSplitjoin.toggle, desc = "split/join [a]rguments" },
 
 	{ "<leader>s", group = "[s]urround", mode = { "n", "v" } },
@@ -702,8 +718,8 @@ wk.add({
 	{ "<leader>w", "<cmd>WinShift<cr>", desc = "move [w]indow" },
 	{ "<leader>p", "<cmd>TypstPreviewToggle<cr>", desc = "toggle typst [p]review" },
 	{ "<leader>t", MiniTrailspace.trim, desc = "remove [t]railing whitespaces" },
-	{ "<leader>e", "<cmd>Explore<cr>", desc = "toggle [e]xplorer" },
-	{ "<leader>u", require("undotree").open, desc = "open [u]ndo tree" },
+	{ "<leader>e", "<cmd>Explore<cr>", desc = "open [e]xplorer" },
+	{ "<leader>u", require("undotree").open, desc = "toggle [u]ndo tree" },
 
 	{
 		"<leader>x",
@@ -720,27 +736,27 @@ wk.add({
 	},
 
 	{ "<leader>g", group = "[g]it", mode = { "n", "v" } },
-	{ "<leader>gs", "<cmd>Gitsigns stage_hunk<cr>", desc = "Stage Hunk", mode = { "n", "v" } },
-	{ "<leader>gr", "<cmd>Gitsigns reset_hunk<cr>", desc = "Reset Hunk", mode = { "n", "v" } },
-	{ "<leader>gS", "<cmd>Gitsigns stage_buffer<cr>", desc = "Stage Buffer" },
-	{ "<leader>gu", "<cmd>Gitsigns undo_stage_hunk<cr>", desc = "Undo Stage Hunk" },
-	{ "<leader>gR", "<cmd>Gitsigns reset_buffer<cr>", desc = "Reset Buffer" },
-	{ "<leader>gp", "<cmd>Gitsigns preview_hunk_inline<cr>", desc = "Preview Hunk Inline" },
+	{ "<leader>gs", "<cmd>Gitsigns stage_hunk<cr>", desc = "[s]tage hunk", mode = { "n", "v" } },
+	{ "<leader>gr", "<cmd>Gitsigns reset_hunk<cr>", desc = "[r]eset hunk", mode = { "n", "v" } },
+	{ "<leader>gS", "<cmd>Gitsigns stage_buffer<cr>", desc = "[S]tage buffer" },
+	{ "<leader>gu", "<cmd>Gitsigns undo_stage_hunk<cr>", desc = "[u]ndo stage hunk" },
+	{ "<leader>gR", "<cmd>Gitsigns reset_buffer<cr>", desc = "[R]eset buffer" },
+	{ "<leader>gp", "<cmd>Gitsigns preview_hunk_inline<cr>", desc = "[p]review hunk inline" },
 	{
 		"<leader>gb",
 		function()
 			require("gitsigns").blame_line({ full = true })
 		end,
-		desc = "Blame Line",
+		desc = "[b]lame Line",
 	},
-	{ "<leader>gB", require("gitsigns").blame, desc = "Blame Buffer" },
-	{ "<leader>gd", "<cmd>Gitsigns diffthis<cr>", desc = "Diff This" },
+	{ "<leader>gB", require("gitsigns").blame, desc = "[B]lame buffer" },
+	{ "<leader>gd", "<cmd>Gitsigns diffthis<cr>", desc = "[d]iff this" },
 	{
 		"<leader>gD",
 		function()
 			require("gitsigns").diffthis("~")
 		end,
-		desc = "Diff This ~",
+		desc = "[D]iff This ~",
 	},
 
 	{ "<leader>gt", group = "[t]oggle", mode = { "n" } },
