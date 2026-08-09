@@ -28,14 +28,15 @@ brew install ghostty fish make starship stow git ripgrep fd fzf bat eza zoxide g
 ### fedora custom system
 
 ```sh
+sudo dnf copr enable lionheartp/Hyprland
 sudo dnf copr enable scottames/ghostty
 sudo dnf copr enable atim/starship
-sudo dnf copr enable lionheartp/Hyprland
 
 sudo dnf install hyprland --exclude=kitty hyprpaper
 
 sudo dnf install fish ghostty starship make zoxide stow git ripgrep fd fzf bat eza gcc neovim
 sudo dnf install google-noto-emoji-fonts gdouros-symbola-fonts
+sudo dnf install plymouth plymouth-system-theme # pretty boot screnn
 ```
 
 ```sh
@@ -75,11 +76,13 @@ touch ~/.hushlogin
 ## install language runtimes/compiles/pacmans
 
 ### macos
+
 ```sh
 brew install go typst rust uv node
 ```
 
 ### fedora
+
 ```sh
 sudo dnf copr enable claaj/typst
 sudo dnf install go typst rust cargo uv node
