@@ -92,7 +92,7 @@ bat cache --build
 ```sh
 sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 sudo dnf group upgrade core
-sudo dnf4 group install core
+sudo dnf group install core
 
 sudo dnf -y update
 ```
@@ -147,7 +147,7 @@ reboot
 ### install media codecs
 
 ```sh
-sudo dnf4 group install multimedia
+sudo dnf group install multimedia
 sudo dnf swap 'ffmpeg-free' 'ffmpeg' --allowerasing
 sudo dnf update @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
 sudo dnf group install -y sound-and-video
@@ -182,12 +182,6 @@ sudo dnf config-manager setopt fedora-cisco-openh264.enabled=1
 
 ```sh
 reboot
-```
-
-### change hostname
-
-```sh
-hostnamectl set-hostname
 ```
 
 ### install language runtimes/compiles/pacmans
