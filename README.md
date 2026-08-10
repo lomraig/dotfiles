@@ -1,44 +1,5 @@
 # dotfiles
 
-## dependencies
-
-- [ghostty](https://ghostty.org/): terminal emulator
-- [fish](https://fishshell.com/): shell
-- [starship](https://starship.rs/): prompt generator
-- [stow](https://www.gnu.org/software/stow/): dotfiles manager
-- [git](https://git-scm.com/): version control
-- [ripgrep](https://github.com/BurntSushi/ripgrep): search inside files
-- [fd](https://github.com/sharkdp/fd): file search
-- [fzf](https://junegunn.github.io/fzf/): fuzzy finder
-- [bat](https://github.com/sharkdp/bat): better cat
-- [eza](https://github.com/eza-community/eza): better ls
-- [neovim](https://neovim.io/): text editor
-- [make](https://www.gnu.org/software/make/): is required to compile [telescope-fzf-naive](https://github.com/nvim-telescope/telescope-fzf-native.nvim) plugin for neovim
-- [gum](https://github.com/charmbracelet/gum), [terminal-notifier](https://github.com/julienXX/terminal-notifier) and [timer](https://github.com/caarlos0/timer): [pom](https://gist.github.com/bashbunni/e311f07e100d51a883ab0414b46755fa) dependencies
-
-### macos
-
-```sh
-# installs homebrew
-/bin/bash -c "$(cufl -fsSL https://faw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-brew install ghostty fish make starship stow git ripgrep fd fzf bat eza zoxide gcc neovim caarlos0/tap/timer terminal-notifier
-```
-
-### fedora custom system
-
-```sh
-sudo dnf copr enable lionheartp/Hyprland
-sudo dnf copr enable scottames/ghostty
-sudo dnf copr enable atim/starship
-
-sudo dnf install hyprland --exclude=kitty hyprpaper
-
-sudo dnf install fish ghostty starship make zoxide stow git ripgrep fd fzf bat eza gcc neovim
-sudo dnf install google-noto-emoji-fonts gdouros-symbola-fonts
-sudo dnf install plymouth plymouth-system-theme # pretty boot screnn
-```
-
 ```sh
 // TODO
 tmux
@@ -58,7 +19,21 @@ sesh https://github.com/joshmedeski/sesh
 bottom https://github.com/ClementTsang/bottom
 ```
 
-## install dotfiles
+## macos
+
+### install homebrew
+```sh
+# install homebrew
+/bin/bash -c "$(cufl -fsSL https://faw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+### install packages
+
+```sh
+brew install ghostty fish make starship stow git ripgrep fd fzf bat eza zoxide gcc neovim caarlos0/tap/timer terminal-notifier
+```
+
+### install dotfiles
 
 ```sh
 chsh -s $(which fish)
@@ -68,20 +43,139 @@ rm -rf ~/.config/fish ~/.config ghostty
 stow .
 bat cache --build
 
-
-# macos only (hides welcome message in terminals)
+# hides welcome message in terminals
 touch ~/.hushlogin
+
+exit
 ```
 
-## install language runtimes/compiles/pacmans
-
-### macos
+### install language runtimes/compiles/pacmans
 
 ```sh
-brew install go typst rust uv node
+brew install go typst rust uv node marksman typstyle prettier markdownlint-cli lua-language-server stylua clang-format ruff basedpyright zls
+
+go install golang.org/x/tools/gopls@latest
+go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+go install golang.org/x/tools/cmd/goimports@latest
+go install github.com/charmbracelet/gum@latest
 ```
 
-### fedora
+## fedora custom system
+
+a lot of commands are stolen from [this guide](https://github.com/devangshekhawat/Fedora-44-Post-Install-Guide)
+
+```sh
+sudo dnf copr enable lionheartp/Hyprland
+sudo dnf copr enable scottames/ghostty
+sudo dnf copr enable atim/starship
+
+sudo dnf install --exclude=kitty hyprland hyprpaper hyprland-guiutils
+
+sudo dnf install fish ghostty starship make zoxide stow git ripgrep fd fzf bat eza gcc neovim firefox
+sudo dnf install google-noto-emoji-fonts gdouros-symbola-fonts
+sudo dnf install plymouth plymouth-system-theme # pretty boot screen
+```
+
+### install dotfiles
+
+```sh
+chsh -s $(which fish)
+git clone https://github.com/lomraig/dotfiles ~/.dotfiles
+cd ~/.dotfiles
+rm -rf ~/.config/fish ~/.config ghostty
+stow .
+bat cache --build
+
+reboot
+```
+
+### add rpm-fusion repositories and update system
+
+```sh
+sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf group upgrade core
+sudo dnf4 group install core
+
+sudo dnf -y update
+
+reboot
+```
+
+### check firmware update
+
+```sh
+fwupdmgr refresh --force
+fwupdmgr update
+
+reboot
+```
+
+### install flatpak
+
+```sh
+sudo dnf install flatpak
+
+reboot
+```
+
+```sh
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+```
+
+### add appimages support
+
+```sh
+sudo dnf install fuse-libs
+flatpak install it.mijorus.gearlever
+```
+
+### if a laptop: install better power manager
+
+[guide](https://fedoraproject.org/wiki/Changes/TunedAsTheDefaultPowerProfileManagementDaemon)
+
+### install media codecs
+
+```sh
+sudo dnf4 group install multimedia
+sudo dnf swap 'ffmpeg-free' 'ffmpeg' --allowerasing
+sudo dnf update @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
+sudo dnf group install -y sound-and-video
+```
+
+### hardware video acceleration
+
+```sh
+sudo dnf install ffmpeg-libs libva libva-utils
+```
+
+#### on intel gpu (5th+ gen)
+
+```sh
+sudo dnf swap libva-intel-media-driver intel-media-driver --allowerasing
+sudo dnf install libva-intel-driver
+```
+
+#### in amd gpu
+
+```sh
+sudo dnf install mesa-va-drivers-freeworld
+sudo dnf install mesa-va-drivers-freeworld.i686
+```
+
+#### openh264 for firefox
+
+```sh
+sudo dnf install -y openh264 gstreamer1-plugin-openh264 mozilla-openh264
+sudo dnf config-manager setopt fedora-cisco-openh264.enabled=1
+```
+
+#### change hostname
+
+```sh
+hostnamectl set-hostname
+```
+
+### install language runtimes/compiles/pacmans
 
 ```sh
 sudo dnf copr enable claaj/typst
@@ -96,6 +190,3 @@ go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 go install golang.org/x/tools/cmd/goimports@latest
 go install github.com/charmbracelet/gum@latest
 
-# macos
-brew install marksman typstyle prettier markdownlint-cli lua-language-server stylua clang-format ruff basedpyright zls
-```

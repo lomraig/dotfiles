@@ -1,7 +1,13 @@
 # remove greeting
-if status is-interactive
+if status is-login
+    if test (tty) = /dev/tty1
+        exec start-hyprland
+    end
+else if status is-interactive
     set fish_greeting
 end
+
+
 
 set -l os (uname)
 
@@ -175,3 +181,6 @@ starship init fish | source
 
 # uv
 fish_add_path "/Users/tymofiikliuiev/.local/bin"
+
+# uv
+fish_add_path "/home/tymofii.kliuiev/.local/bin"
