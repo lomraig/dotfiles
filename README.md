@@ -155,7 +155,7 @@ sudo dnf swap libva-intel-media-driver intel-media-driver --allowerasing
 sudo dnf install libva-intel-driver
 ```
 
-#### in amd gpu
+#### on amd gpu
 
 ```sh
 sudo dnf install mesa-va-drivers-freeworld
