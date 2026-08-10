@@ -85,8 +85,6 @@ cd ~/.dotfiles
 rm -rf ~/.config/fish ~/.config ghostty
 stow .
 bat cache --build
-
-reboot
 ```
 
 ### add rpm-fusion repositories and update system
@@ -97,7 +95,9 @@ sudo dnf group upgrade core
 sudo dnf4 group install core
 
 sudo dnf -y update
+```
 
+```sh
 reboot
 ```
 
@@ -106,7 +106,10 @@ reboot
 ```sh
 fwupdmgr refresh --force
 fwupdmgr update
+```
 
+```sh
+# if there were any updates
 reboot
 ```
 
@@ -114,8 +117,6 @@ reboot
 
 ```sh
 sudo dnf install flatpak
-
-reboot
 ```
 
 ```sh
@@ -129,9 +130,19 @@ sudo dnf install fuse-libs
 flatpak install it.mijorus.gearlever
 ```
 
+```sh
+reboot
+```
+
 ### if a laptop: install better power manager
 
 [guide](https://fedoraproject.org/wiki/Changes/TunedAsTheDefaultPowerProfileManagementDaemon)
+
+and
+
+```sh
+reboot
+```
 
 ### install media codecs
 
@@ -169,7 +180,11 @@ sudo dnf install -y openh264 gstreamer1-plugin-openh264 mozilla-openh264
 sudo dnf config-manager setopt fedora-cisco-openh264.enabled=1
 ```
 
-#### change hostname
+```sh
+reboot
+```
+
+### change hostname
 
 ```sh
 hostnamectl set-hostname
@@ -182,7 +197,7 @@ sudo dnf copr enable claaj/typst
 sudo dnf install go typst rust cargo uv node
 ```
 
-## install language servers, formatters and linters
+### install language servers, formatters and linters
 
 ```sh
 go install golang.org/x/tools/gopls@latest
