@@ -187,11 +187,12 @@ reboot
 ### plymouth
 
 ```sh
-unzip ~/.dotfiles/fedora-mac-style-plymouth-theme.zip -d ~/.dotfiles/fedora-mac-style
-sudo mkdir -r /usr/share/plymouth/themes/
-sudo cp -r ~/.dotfiles/fedora-mac-style /usr/share/plymouth/
-rm -rf ~/.dotfiles/fedora-mac-style
+unzip ~/.dotfiles/fedora-mac-style-plymouth-theme.zip -d ~/.dotfiles/
+sudo mkdir -p /usr/share/plymouth/themes/
+sudo cp -r ~/.dotfiles/fedora-mac-style /usr/share/plymouth/themes/
 sudo plymouth-set-default-theme -R fedora-mac-style
+
+rm -rf ~/.dotfiles/fedora-mac-style
 ```
 
 
