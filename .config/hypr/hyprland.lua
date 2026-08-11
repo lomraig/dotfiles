@@ -5,22 +5,7 @@ hl.monitor({
 	mode = "highres@highrr",
 })
 
--------------------
----- AUTOSTART ----
--------------------
-
--- See https://wiki.hypr.land/Configuring/Basics/Autostart/
-
--- Autostart necessary processes (like notifications daemons, status bars, etc.)
--- Or execute your favorite apps at launch like this:
-
-hl.on("hyprland.start", function()
-	hl.exec_cmd("hyprpaper")
-	-- hl.exec_cmd(terminal)
-	-- hl.exec_cmd("nm-applet")
-end)
-
--------------------------------
+----------------------------------
 ---- ENVIRONMENT VARIABLES ----
 -------------------------------
 
@@ -50,9 +35,9 @@ hl.permission("/usr/(lib|libexec|lib64)/xdg-desktop-portal-hyprland", "screencop
 hl.curve("quick", { type = "bezier", points = { { 0.15, 0 }, { 0.1, 1 } } })
 hl.curve("easeOutQuint", { type = "bezier", points = { { 0.23, 1 }, { 0.32, 1 } } })
 
-hl.animation({ leaf = "global", enabled = true, speed = 10, bezier = "default" })
+hl.animation({ leaf = "global", enabled = true, speed = 5, bezier = "default" })
 hl.animation({ leaf = "border", enabled = true, speed = 4, bezier = "easeOutQuint" })
-hl.animation({ leaf = "windows", enabled = true, speed = 2, bezier = "easeOutQuint" })
+hl.animation({ leaf = "windows", enabled = true, speed = 2, bezier = "quick" })
 hl.animation({ leaf = "fade", enabled = true, speed = 1.5, bezier = "quick" })
 hl.animation({ leaf = "layers", enabled = true, speed = 2, bezier = "easeOutQuint", style = "fade" })
 hl.animation({ leaf = "workspaces", enabled = true, speed = 2, bezier = "easeOutQuint", style = "slide" })
@@ -152,9 +137,13 @@ for i = 1, 10 do
 	hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
 end
 
--- special workspace
+-- special workspace for telegram
 hl.bind(mainMod .. " + S", hl.dsp.workspace.toggle_special("scratchpad"))
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:scratchpad" }))
+
+-- special workpace for terminal
+hl.bind(mainMod .. " + T", hl.dsp.workspace.toggle_special("terminal"))
+hl.bind(mainMod .. " + SHIFT + T", hl.dsp.window.move({ workspace = "special:terminal" }))
 
 -- scroll through existing workspaces
 hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
@@ -192,6 +181,22 @@ hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
 hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
+
+----------------
+---- AUTOSTART ----
+-------------------
+
+-- See https://wiki.hypr.land/Configuring/Basics/Autostart/
+
+-- Autostart necessary processes (like notifications daemons, status bars, etc.)
+-- Or execute your favorite apps at launch like this:
+
+hl.on("hyprland.start", function()
+	hl.exec_cmd("hyprpaper")
+	hl.exec_cmd(terminal, { workspace = "special:terminal silent" })
+	-- hl.exec_cmd(terminal)
+	-- hl.exec_cmd("nm-applet")
+end)
 
 --------------------------------
 ---- TODO WINDOWS AND WORKSPACES ----

@@ -69,7 +69,7 @@ sudo dnf copr enable lionheartp/Hyprland
 sudo dnf copr enable scottames/ghostty
 sudo dnf copr enable atim/starship
 
-sudo dnf install --exclude=kitty hyprland hyprpaper hyprland-guiutils
+sudo dnf install --exclude=kitty hyprland hyprpaper hyprland-guiutils hyprlock hypridle
 
 sudo dnf install fish ghostty starship make zoxide stow git ripgrep fd fzf bat eza gcc neovim firefox
 sudo dnf install google-noto-emoji-fonts gdouros-symbola-fonts
