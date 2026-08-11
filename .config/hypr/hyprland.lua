@@ -111,6 +111,8 @@ hl.bind(mainMod .. " + W", hl.dsp.window.close())
 hl.bind(mainMod .. " + SHIFT + ALT + K", hl.dsp.window.kill())
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
+hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("hyprpicker -a"))
+hl.bind(mainMod .. " + ALT + L", hl.dsp.exec_cmd("hyprlock"))
 
 -- window management
 hl.bind(mainMod .. " + F", hl.dsp.window.float({ action = "toggle" }))
@@ -193,6 +195,7 @@ hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true 
 
 hl.on("hyprland.start", function()
 	hl.exec_cmd("hyprpaper")
+	hl.exec_cmd("hypridle")
 	hl.exec_cmd(terminal, { workspace = "special:terminal silent" })
 	-- hl.exec_cmd(terminal)
 	-- hl.exec_cmd("nm-applet")
