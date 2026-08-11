@@ -184,6 +184,17 @@ sudo dnf config-manager setopt fedora-cisco-openh264.enabled=1
 reboot
 ```
 
+### plymouth
+
+```sh
+unzip ~/.dotfiles/fedora-mac-style-plymouth-theme.zip -d ~/.dotfiles/fedora-mac-style
+sudo mkdir -r /usr/share/plymouth/themes/
+sudo cp -r ~/.dotfiles/fedora-mac-style /usr/share/plymouth/
+rm -rf ~/.dotfiles/fedora-mac-style
+sudo plymouth-set-default-theme -R fedora-mac-style
+```
+
+
 ### install language runtimes/compiles
 
 ```sh
