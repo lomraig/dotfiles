@@ -195,6 +195,11 @@ sudo plymouth-set-default-theme -R fedora-mac-style
 rm -rf ~/.dotfiles/fedora-mac-style
 ```
 
+### disable window buttons for gtk apps (inc firefox)
+
+```sh
+gsettings set org.gnome.desktop.wm.preferences button-layout ':'
+```
 
 ### install language runtimes/compiles
 
