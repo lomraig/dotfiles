@@ -39,7 +39,7 @@ brew install ghostty fish make starship stow git ripgrep fd fzf bat eza zoxide g
 chsh -s $(which fish)
 git clone https://github.com/lomraig/dotfiles ~/.dotfiles
 cd ~/.dotfiles
-rm -rf ~/.config/fish ~/.config ghostty
+rm -rf ~/.config/fish ~/.config/ghostty
 stow .
 bat cache --build
 
