@@ -49,7 +49,7 @@ touch ~/.hushlogin
 exit
 ```
 
-### install language runtimes/compiles/pacmans
+### install language runtimes/compiles
 
 ```sh
 brew install go typst rust uv node marksman typstyle prettier markdownlint-cli lua-language-server stylua clang-format ruff basedpyright zls
@@ -82,7 +82,7 @@ sudo dnf install plymouth plymouth-system-theme # pretty boot screen
 chsh -s $(which fish)
 git clone https://github.com/lomraig/dotfiles ~/.dotfiles
 cd ~/.dotfiles
-rm -rf ~/.config/fish ~/.config ghostty
+rm -rf ~/.config/fish ~/.config/ghostty
 stow .
 bat cache --build
 ```
@@ -184,16 +184,12 @@ sudo dnf config-manager setopt fedora-cisco-openh264.enabled=1
 reboot
 ```
 
-### install language runtimes/compiles/pacmans
+### install language runtimes/compiles
 
 ```sh
 sudo dnf copr enable claaj/typst
 sudo dnf install go typst rust cargo uv node
-```
 
-### install language servers, formatters and linters
-
-```sh
 go install golang.org/x/tools/gopls@latest
 go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 go install golang.org/x/tools/cmd/goimports@latest
