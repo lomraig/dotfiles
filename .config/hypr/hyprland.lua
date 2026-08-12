@@ -121,8 +121,8 @@ hl.bind(mainMod .. " + slash", hl.dsp.layout("togglesplit"))
 hl.bind(mainMod .. " + C", hl.dsp.window.center())
 
 -- move focus
-hl.bind(mainMod .. " + L", hl.dsp.focus({ direction = "left" }))
-hl.bind(mainMod .. " + H", hl.dsp.focus({ direction = "right" }))
+hl.bind(mainMod .. " + H", hl.dsp.focus({ direction = "left" }))
+hl.bind(mainMod .. " + L", hl.dsp.focus({ direction = "right" }))
 hl.bind(mainMod .. " + K", hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + J", hl.dsp.focus({ direction = "down" }))
 
@@ -136,7 +136,7 @@ hl.bind(mainMod .. " + SHIFT + J", hl.dsp.window.move({ direction = "down" }))
 for i = 1, 10 do
 	local key = i % 10 -- 10 maps to key 0
 	hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i }))
-	hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
+	hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i, follow = false }))
 end
 
 -- special workspace for telegram
@@ -197,8 +197,7 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("hyprpaper")
 	hl.exec_cmd("hypridle")
 	hl.exec_cmd(terminal, { workspace = "special:terminal silent" })
-	-- hl.exec_cmd(terminal)
-	-- hl.exec_cmd("nm-applet")
+	hl.exec_cmd("systemctl --user start hyprpolkitagent")
 end)
 
 --------------------------------
