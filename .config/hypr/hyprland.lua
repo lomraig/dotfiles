@@ -24,7 +24,7 @@ hl.env("XDG_SESSION_DESKTOP", "Hyprland")
 
 hl.env("QT_AUTO_SCREEN_SCALE_FACTOR", "1")
 hl.env("QT_WAYLAND_DISABLE_WINDOWDECORATION", "1")
-hl.env("QT_QPA_PLATFORMTHEME", "qt5ct")
+hl.env("QT_QPA_PLATFORMTHEME", "hyprqt6engine")
 
 ----- PERMISSIONS -----
 
@@ -184,20 +184,19 @@ hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = tr
 hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
 
-----------------
 ---- AUTOSTART ----
--------------------
-
--- See https://wiki.hypr.land/Configuring/Basics/Autostart/
-
--- Autostart necessary processes (like notifications daemons, status bars, etc.)
--- Or execute your favorite apps at launch like this:
 
 hl.on("hyprland.start", function()
 	hl.exec_cmd("hyprpaper")
 	hl.exec_cmd("hypridle")
 	hl.exec_cmd(terminal, { workspace = "special:terminal silent" })
+
 	hl.exec_cmd("systemctl --user start hyprpolkitagent")
+	hl.exec_cmd("systemctl --user start hyprland-session.target")
+end)
+
+hl.on("hyprland.shutdown", function()
+	os.execute("systemctl --user stop hyprland-session.target && sleep 0.1")
 end)
 
 --------------------------------
@@ -230,8 +229,9 @@ hl.window_rule({
 	no_focus = true,
 })
 
--- custom gaps on special workspace
+-- custom gaps on special workspaces
 hl.workspace_rule({ workspace = "special:scratchpad", gaps_out = 25, gaps_in = 7 })
+hl.workspace_rule({ workspace = "special:terminal", gaps_out = 40, gaps_in = 10 })
 
 -- smart gaps
 hl.workspace_rule({ workspace = "w[tv1]s[false]", gaps_out = 0, gaps_in = 0 })
