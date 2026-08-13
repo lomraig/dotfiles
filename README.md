@@ -22,6 +22,7 @@ bottom https://github.com/ClementTsang/bottom
 ## macos
 
 ### install homebrew
+
 ```sh
 # install homebrew
 /bin/bash -c "$(cufl -fsSL https://faw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -73,7 +74,7 @@ sudo dnf install --exclude=kitty hyprland hyprpaper hyprland-guiutils hyprlock h
 
 sudo dnf install fish ghostty starship make zoxide stow git ripgrep fd fzf bat eza gcc neovim firefox
 sudo dnf install google-noto-emoji-fonts gdouros-symbola-fonts
-sudo dnf install plymouth plymouth-system-theme # pretty boot screen
+sudo dnf install plymouth # pretty boot screen
 ```
 
 ### install dotfiles
@@ -82,7 +83,7 @@ sudo dnf install plymouth plymouth-system-theme # pretty boot screen
 chsh -s $(which fish)
 git clone https://github.com/lomraig/dotfiles ~/.dotfiles
 cd ~/.dotfiles
-rm -rf ~/.config/fish ~/.config/ghostty
+rm -rf ~/.config/fish ~/.config/ghostty ~/.config/hypr
 stow .
 bat cache --build
 ```
@@ -92,7 +93,6 @@ bat cache --build
 ```sh
 sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 sudo dnf group upgrade core
-sudo dnf group install core
 
 sudo dnf -y update
 ```
@@ -149,7 +149,6 @@ reboot
 ```sh
 sudo dnf group install multimedia
 sudo dnf swap 'ffmpeg-free' 'ffmpeg' --allowerasing
-sudo dnf update @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
 sudo dnf group install -y sound-and-video
 ```
 
@@ -169,15 +168,7 @@ sudo dnf install libva-intel-driver
 #### on amd gpu
 
 ```sh
-sudo dnf install mesa-va-drivers-freeworld
-sudo dnf install mesa-va-drivers-freeworld.i686
-```
-
-#### openh264 for firefox
-
-```sh
-sudo dnf install -y openh264 gstreamer1-plugin-openh264 mozilla-openh264
-sudo dnf config-manager setopt fedora-cisco-openh264.enabled=1
+sudo dnf install mesa-va-drivers-freeworld mesa-va-drivers-freeworld.i686
 ```
 
 ```sh
@@ -212,3 +203,4 @@ go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 go install golang.org/x/tools/cmd/goimports@latest
 go install github.com/charmbracelet/gum@latest
 
+```
