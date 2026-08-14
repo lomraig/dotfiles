@@ -74,7 +74,7 @@ sudo dnf install --exclude=kitty hyprland hyprpaper hyprland-guiutils hyprlock h
 
 sudo dnf install fish ghostty starship make zoxide stow git ripgrep fd fzf bat eza gcc neovim firefox
 sudo dnf install google-noto-emoji-fonts gdouros-symbola-fonts
-sudo dnf install plymouth # pretty boot screen
+sudo dnf install plymouth plymouth-system-theme # pretty boot screen
 ```
 
 ### install dotfiles
