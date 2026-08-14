@@ -1,13 +1,13 @@
-# remove greeting
 if status is-login
     if test (tty) = /dev/tty1
         exec start-hyprland
     end
-else if status is-interactive
-    set fish_greeting
 end
 
-
+# remove greeting
+if status is-interactive
+    set fish_greeting
+end
 
 set -l os (uname)
 
