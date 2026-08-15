@@ -65,6 +65,49 @@ go install github.com/charmbracelet/gum@latest
 
 a lot of commands are stolen from [this guide](https://github.com/devangshekhawat/Fedora-44-Post-Install-Guide)
 
+### connenct to wifi
+
+```sh
+# enable wifi
+nmcli radio wifi on
+
+# list available networks
+mncli device wifi list
+
+# connect to network
+sudo nmcli --ask device wifi connect "NETWORK NAME / SSID"
+```
+
+### dnf speed up
+
+paste following lines in `/etc/dnf/dnf.conf`
+
+```sh
+max_parallel_downloads=15
+fasterstmirror=True
+defaulyes=True
+```
+
+### auto login on startup
+
+```sh
+sudo cd /etc/systemd/system/
+sudo mkdir -p getty@tty1.service.d/
+sudo nvim getty@tty1.service.d/override.conf
+
+# add:
+
+[Service]
+ExecStart=
+ExecStart=-/usr/bin/agetty --autologin username --noclear %I $TERM
+
+# save then run:
+
+sudo systemctl daemon-reload
+```
+
+### install essensial packages
+
 ```sh
 sudo dnf copr enable lionheartp/Hyprland
 sudo dnf copr enable scottames/ghostty
@@ -202,5 +245,23 @@ go install golang.org/x/tools/gopls@latest
 go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 go install golang.org/x/tools/cmd/goimports@latest
 go install github.com/charmbracelet/gum@latest
+```
 
+### setup [grub theme](https://github.com/tomdewildt/minimal-grub-theme)
+
+move theme directory to `/boot/grub2/themes`
+
+add following lines to `/etc/default/grub`
+
+```sh
+GRUB_TERMINAL_OUTPUT="gfxterm"
+GRUB_GRXMODE="2560x1440"
+GRUB_GFXPLAYLOAD_LINUX=keep
+GRUB_THEME="/boot/grub2/themes/minimal/theme.txt"
+```
+
+then run:
+
+```sh
+sudo grub2-mkconfig -o /etc/grub2-efi.cfg
 ```
