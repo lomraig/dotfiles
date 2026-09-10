@@ -85,7 +85,7 @@ paste following lines in `/etc/dnf/dnf.conf`
 ```sh
 max_parallel_downloads=15
 fasterstmirror=True
-defaulyes=True
+defaultyes=True
 ```
 
 ### auto login on startup
