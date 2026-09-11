@@ -44,11 +44,6 @@ rm -rf ~/.config/fish ~/.config/ghostty
 stow macos
 stow shared
 bat cache --build
-
-# hides welcome message in terminals
-touch ~/.hushlogin
-
-exit
 ```
 
 ### install language runtimes/compiles
