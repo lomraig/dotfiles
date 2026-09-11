@@ -41,7 +41,8 @@ chsh -s $(which fish)
 git clone https://github.com/lomraig/dotfiles ~/.dotfiles
 cd ~/.dotfiles
 rm -rf ~/.config/fish ~/.config/ghostty
-stow .
+stow macos
+stow shared
 bat cache --build
 
 # hides welcome message in terminals
@@ -91,19 +92,20 @@ defaultyes=True
 ### auto login on startup
 
 ```sh
-sudo cd /etc/systemd/system/
-sudo mkdir -p getty@tty1.service.d/
-sudo nvim getty@tty1.service.d/override.conf
+sudo su
+cd /etc/systemd/system/
+mkdir -p getty@tty1.service.d/
+nvim getty@tty1.service.d/override.conf
 
 # add:
 
 [Service]
 ExecStart=
-ExecStart=-/usr/bin/agetty --autologin username --noclear %I $TERM
+ExecStart=-/usr/bin/agetty --autologin your_user_name --noclear %I $TERM
 
 # save then run:
 
-sudo systemctl daemon-reload
+systemctl daemon-reload
 ```
 
 ### install essensial packages
@@ -127,7 +129,8 @@ chsh -s $(which fish)
 git clone https://github.com/lomraig/dotfiles ~/.dotfiles
 cd ~/.dotfiles
 rm -rf ~/.config/fish ~/.config/ghostty ~/.config/hypr
-stow .
+stow linux
+stow shared
 bat cache --build
 ```
 

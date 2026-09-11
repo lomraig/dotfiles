@@ -1,0 +1,19 @@
+# This file contains fish universal variable definitions.
+# VERSION: 3.0
+SETUVAR __fish_initialized:4300
+SETUVAR _fisher_upgraded_to_4_4:\x1d
+SETUVAR fish_color_autosuggestion:5d6c79\x1e\x2d\x2ditalics
+SETUVAR fish_color_command:9b2393\x1e\x2d\x2dbold
+SETUVAR fish_color_comment:5d6c79
+SETUVAR fish_color_end:5d6c79
+SETUVAR fish_color_error:ff0000
+SETUVAR fish_color_escape:1c00cf
+SETUVAR fish_color_keyword:9b2393\x1e\x2d\x2dbold
+SETUVAR fish_color_normal:normal
+SETUVAR fish_color_operator:326d74
+SETUVAR fish_color_param:000000
+SETUVAR fish_color_quote:c41a16
+SETUVAR fish_color_redirection:326d74
+SETUVAR fish_color_search_match:\x2d\x2dbackground\x3db2d7ff
+SETUVAR fish_color_selection:\x2d\x2dbackground\x3db2d7ff
+SETUVAR fish_user_paths:/Users/tymofiikliuiev/\x2ecargo/bin\x1e/Users/tymofiikliuiev/\x2elocal/bin\x1e/Users/tymofiikliuiev/\x2ego/bin
