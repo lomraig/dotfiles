@@ -1,9 +1,3 @@
-if status is-login
-    if test (tty) = /dev/tty1
-        exec start-hyprland
-    end
-end
-
 # remove greeting
 if status is-interactive
     set fish_greeting
@@ -42,7 +36,11 @@ if test "$os" = Darwin
             || pom
     end
 else if test "$os" = Linux
-    # stuff for linux
+    if status is-login
+        if test (tty) = /dev/tty1
+            exec start-hyprland
+        end
+    end
 end
 
 # if test "$TERM_PROGRAM" = ghostty
@@ -52,15 +50,7 @@ end
 #     end
 # end
 
-# function yy
-# 	set tmp (mktemp -t "yazi-cwd.XXXXXX")
-# 	yazi $argv --cwd-file="$tmp"
-# 	if set cwd (cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
-# 		cd "$cwd"
-# 	end
-# 	rm -f -- "$tmp"
-# end
-
+fish_vi_key_bindings # adds vim style movement
 
 set -gx EDITOR nvim
 set -g mouse on
@@ -68,13 +58,9 @@ set -g mouse on
 # fix 'clear' command in ssh for ghostty
 set -gx TERM xterm-256color
 
-alias python "python3"
-alias pip "pip3"
-
 alias nv "nvim"
 alias lg "lazygit"
 alias ldc "lazydocker"
-alias oc "opencode"
 
 if type -q eza
     alias ls='eza --icons --group-directories-first --color=always'
@@ -131,7 +117,7 @@ function ff
         --bind 'enter:execute(nvim {})'
 end
 
-# firstly loads serach results into ram and then searches
+# firstly loads search results into ram and then searches
 function fc
     rg --column --line-number --no-heading --color=never --smart-case \
        --hidden \
@@ -150,7 +136,6 @@ function fc
         --bind 'enter:execute(nvim {1} +{2})'
 end
 
-# searches on every type
 function fcl
     set RG_PREFIX "rg --column --line-number --no-heading --color=never --smart-case --hidden --glob '!.git' --glob '!node_modules' --glob '!venv' --glob '!target' --glob '!dist'"
 
@@ -173,14 +158,8 @@ fish_add_path $HOME/.cargo/bin
 
 fish_add_path $HOME/.local/bin
 
-################################################## Some stuff ##################################################
+################################################## starts stuff ##################################################
 
 fzf --fish | source
 zoxide init --cmd cd fish | source
 starship init fish | source
-
-# uv
-fish_add_path "/Users/tymofiikliuiev/.local/bin"
-
-# uv
-fish_add_path "/home/tymofii.kliuiev/.local/bin"
