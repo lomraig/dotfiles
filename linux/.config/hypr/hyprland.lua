@@ -1,8 +1,8 @@
 ---- monitors ----
 
 hl.monitor({
-	output = "DP-2",
-	mode = "highres@highrr",
+	output = "DP-1",
+	mode = "2560x1440@164.96",
 })
 
 ----------------------------------
@@ -77,7 +77,6 @@ hl.config({
 		disable_hyprland_logo = true,
 		disable_splash_rendering = true,
 		force_default_wallpaper = 0,
-		vrr = 1,
 	},
 
 	ecosystem = {
@@ -93,9 +92,9 @@ hl.config({
 ---- keybindings ----
 
 local terminal = "ghostty"
-local fileManager = "nautilus"
+local file_manager = "dolphin"
 local menu = "hyprlauncher"
-local browser = "firefox"
+local browser = "helium --ozone-platform=wayland"
 
 local mainMod = "SUPER"
 
@@ -109,7 +108,7 @@ hl.bind(
 hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + W", hl.dsp.window.close())
 hl.bind(mainMod .. " + SHIFT + ALT + K", hl.dsp.window.kill())
-hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
+hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(file_manager))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("hyprpicker -a"))
 hl.bind(mainMod .. " + ALT + L", hl.dsp.exec_cmd("hyprlock"))
