@@ -311,21 +311,21 @@ vim.keymap.set("n", "}", "<cmd>bnext<cr>", { desc = "Next buffer" })
 -- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
 
 -- autocompletion mappings
-vim.keymap.set("i", "<C-j>", function()
+vim.keymap.set("i", "<Tab>", function()
 	return vim.fn.pumvisible() == 1 and "<C-n>" or "<Tab>"
-end, { expr = true, silent = true, desc = "Next completion item" })
+end, { expr = true, replace_keycodes = true, silent = true })
 
-vim.keymap.set("i", "<C-k>", function()
+vim.keymap.set("i", "<S-Tab>", function()
 	return vim.fn.pumvisible() == 1 and "<C-p>" or "<S-Tab>"
-end, { expr = true, silent = true, desc = "Previous completion item" })
+end, { expr = true, replace_keycodes = true, silent = true })
 
 vim.keymap.set("i", "<cr>", function()
 	return vim.fn.pumvisible() == 1 and "<C-y>" or "<cr>"
-end, { expr = true, silent = true, desc = "Confirm completion" })
+end, { expr = true, replace_keycodes = true, silent = true })
 
 vim.keymap.set("i", "<C-Space>", function()
 	return vim.fn.pumvisible() == 1 and "<C-e>" or "<C-x><C-o>"
-end, { expr = true, silent = true, desc = "Toggle completion" })
+end, { expr = true, replace_keycodes = true, silent = true })
 
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = {
