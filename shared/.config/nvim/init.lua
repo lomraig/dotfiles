@@ -102,10 +102,10 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 
 ------------------- colors -------------------
 
-vim.cmd([[
-  hi clear
-  if exists("syntax_on") | syntax reset | endif
-]])
+vim.cmd("hi clear")
+if vim.fn.exists("syntax_on") == 1 then
+	vim.cmd("syntax reset")
+end
 vim.o.background = "light"
 vim.g.colors_name = "xcodelight"
 
@@ -383,7 +383,7 @@ vim.pack.add({
 
 	"https://github.com/nvim-treesitter/nvim-treesitter",
 	"https://github.com/windwp/nvim-ts-autotag",
-	"https://gitlab.com/HiPhish/rainbow-delimiters.nvim",
+	"https://gitlab.com/hiphish/rainbow-delimiters.nvim",
 
 	"https://github.com/neovim/nvim-lspconfig",
 	"https://github.com/stevearc/conform.nvim",
@@ -394,7 +394,7 @@ vim.pack.add({
 	"https://github.com/nvim-telescope/telescope-fzf-native.nvim",
 	"https://github.com/rachartier/tiny-code-action.nvim",
 
-	"https://github.com/MeanderingProgrammer/render-markdown.nvim",
+	"https://github.com/meanderingprogrammer/render-markdown.nvim",
 	"https://github.com/chomosuke/typst-preview.nvim",
 	"https://github.com/sindrets/winshift.nvim",
 	"https://github.com/folke/which-key.nvim",

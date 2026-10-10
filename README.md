@@ -96,7 +96,7 @@ nvim getty@tty1.service.d/override.conf
 
 [Service]
 ExecStart=
-ExecStart=-/usr/bin/agetty --autologin your_user_name --noclear %I $TERM
+ExecStart=-/usr/bin/agetty --autologin your_user_name --noissue %I $TERM
 
 # save then run:
 
@@ -109,11 +109,13 @@ systemctl daemon-reload
 sudo dnf copr enable lionheartp/Hyprland
 sudo dnf copr enable scottames/ghostty
 sudo dnf copr enable atim/starship
+sudo dnf copr enable imput/helium
+sudo dnf copr enable che/nerd-fonts
 
 sudo dnf install --exclude=kitty hyprland hyprpaper hyprland-guiutils hyprlock hypridle
 
-sudo dnf install fish ghostty starship make zoxide stow git ripgrep fd fzf bat eza gcc neovim firefox
-sudo dnf install google-noto-emoji-fonts gdouros-symbola-fonts
+sudo dnf install fish ghostty starship make zoxide stow git ripgrep fd fzf bat eza gcc neovim helium-bin
+sudo dnf install google-noto-emoji-fonts gdouros-symbola-fonts jetbrains-mono-fonts-all nerd-fonts
 sudo dnf install plymouth plymouth-system-theme # pretty boot screen
 ```
 
@@ -133,13 +135,7 @@ bat cache --build
 
 ```sh
 sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-sudo dnf group upgrade core
-
 sudo dnf -y update
-```
-
-```sh
-reboot
 ```
 
 ### check firmware update
@@ -190,7 +186,6 @@ reboot
 ```sh
 sudo dnf group install multimedia
 sudo dnf swap 'ffmpeg-free' 'ffmpeg' --allowerasing
-sudo dnf group install -y sound-and-video
 ```
 
 ### hardware video acceleration
@@ -227,6 +222,13 @@ sudo plymouth-set-default-theme -R fedora-mac-style
 rm -rf ~/.dotfiles/fedora-mac-style
 ```
 
+### localsend fix
+
+```sh
+sudo firewall-cmd --add-port=53317/tcp --permanent
+flatpak override org.localsend.localsend_app --filesystem=home --user
+```
+
 ### disable window buttons for gtk apps (inc firefox)
 
 ```sh
@@ -242,7 +244,6 @@ sudo dnf install go typst rust cargo uv node
 go install golang.org/x/tools/gopls@latest
 go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 go install golang.org/x/tools/cmd/goimports@latest
-go install github.com/charmbracelet/gum@latest
 ```
 
 ### setup [grub theme](https://github.com/tomdewildt/minimal-grub-theme)
