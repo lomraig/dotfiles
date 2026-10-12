@@ -77,7 +77,7 @@
       "src": "https://github.com/nvim-tree/nvim-tree.lua"
     },
     "nvim-treesitter": {
-      "rev": "9a168f6357ed21c3a636e1727bc7d382abc451b8",
+      "rev": "1a4f47b03dfe92d28de7d5654c67327ef008c9e6",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "nvim-ts-autotag": {
@@ -90,11 +90,11 @@
     },
     "rainbow-delimiters.nvim": {
       "rev": "3a0fc08dd39e8bf034a4cfef3f2845bd5f565a2e",
-      "src": "https://gitlab.com/HiPhish/rainbow-delimiters.nvim"
+      "src": "https://gitlab.com/hiphish/rainbow-delimiters.nvim"
     },
     "render-markdown.nvim": {
       "rev": "ed10badef70cb762d742bc6682db2dc2381f5d22",
-      "src": "https://github.com/MeanderingProgrammer/render-markdown.nvim"
+      "src": "https://github.com/meanderingprogrammer/render-markdown.nvim"
     },
     "telescope-fzf-native.nvim": {
       "rev": "6fea601bd2b694c6f2ae08a6c6fab14930c60e2c",
