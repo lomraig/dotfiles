@@ -31,7 +31,7 @@ bottom https://github.com/ClementTsang/bottom
 ### install packages
 
 ```sh
-brew install ghostty fish make starship stow git ripgrep fd fzf bat eza zoxide gcc neovim caarlos0/tap/timer terminal-notifier
+brew install ghostty fish make starship stow git ripgrep fd fzf bat eza zoxide gcc neovim tree caarlos0/tap/timer terminal-notifier
 ```
 
 ### install dotfiles
@@ -49,12 +49,7 @@ bat cache --build
 ### install language runtimes/compiles
 
 ```sh
-brew install go typst rust uv node marksman typstyle prettier markdownlint-cli lua-language-server stylua clang-format ruff basedpyright zls tree
-
-go install golang.org/x/tools/gopls@latest
-go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
-go install golang.org/x/tools/cmd/goimports@latest
-go install github.com/charmbracelet/gum@latest
+brew install typst rust typstyle prettier markdownlint-cli lua-language-server stylua
 ```
 
 ## fedora custom system
@@ -96,7 +91,7 @@ nvim getty@tty1.service.d/override.conf
 
 [Service]
 ExecStart=
-ExecStart=-/usr/bin/agetty --autologin your_user_name --noissue %I $TERM
+ExecStart=-/usr/bin/agetty --autologin YOUR_USER_NAME --noissue %I $TERM
 
 # save then run:
 
@@ -110,13 +105,12 @@ sudo dnf copr enable lionheartp/Hyprland
 sudo dnf copr enable scottames/ghostty
 sudo dnf copr enable atim/starship
 sudo dnf copr enable imput/helium
-sudo dnf copr enable che/nerd-fonts
 
 sudo dnf install --exclude=kitty hyprland hyprpaper hyprland-guiutils hyprlock hypridle
 
 sudo dnf install fish ghostty starship make zoxide stow git ripgrep fd fzf bat eza gcc neovim helium-bin
-sudo dnf install google-noto-emoji-fonts gdouros-symbola-fonts jetbrains-mono-fonts-all nerd-fonts
-sudo dnf install plymouth plymouth-system-theme # pretty boot screen
+sudo dnf install google-noto-emoji-fonts gdouros-symbola-fonts
+sudo dnf install plymouth plymouth-system-theme
 ```
 
 ### install dotfiles
@@ -145,8 +139,9 @@ fwupdmgr refresh --force
 fwupdmgr update
 ```
 
+if there were any updates:
+
 ```sh
-# if there were any updates
 reboot
 ```
 
@@ -165,10 +160,6 @@ flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.f
 ```sh
 sudo dnf install fuse-libs
 flatpak install it.mijorus.gearlever
-```
-
-```sh
-reboot
 ```
 
 ### if a laptop: install better power manager
@@ -207,10 +198,6 @@ sudo dnf install libva-intel-driver
 sudo dnf install mesa-va-drivers-freeworld mesa-va-drivers-freeworld.i686
 ```
 
-```sh
-reboot
-```
-
 ### plymouth
 
 ```sh
@@ -229,21 +216,11 @@ sudo firewall-cmd --add-port=53317/tcp --permanent
 flatpak override org.localsend.localsend_app --filesystem=home --user
 ```
 
-### disable window buttons for gtk apps (inc firefox)
-
-```sh
-gsettings set org.gnome.desktop.wm.preferences button-layout ':'
-```
-
 ### install language runtimes/compiles
 
 ```sh
 sudo dnf copr enable claaj/typst
-sudo dnf install go typst rust cargo uv node
-
-go install golang.org/x/tools/gopls@latest
-go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
-go install golang.org/x/tools/cmd/goimports@latest
+sudo dnf install typst rust cargo
 ```
 
 ### setup [grub theme](https://github.com/tomdewildt/minimal-grub-theme)
