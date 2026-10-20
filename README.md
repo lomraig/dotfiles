@@ -152,9 +152,9 @@ sudo dnf install flatpak
 ```
 
 ```sh
-flatpak remote-modify --disable fedora
-flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 ```
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
 
 ### add appimages support
 
@@ -204,7 +204,7 @@ sudo dnf install mesa-va-drivers-freeworld mesa-va-drivers-freeworld.i686
 ```sh
 unzip ~/.dotfiles/fedora-mac-style-plymouth-theme.zip -d ~/.dotfiles/
 sudo mkdir -p /usr/share/plymouth/themes/
-sudo cp -r ~/.dotfiles/fedora-mac-style /usr/share/plymouth/themes/
+sudo cp -r ~/.dotfiles/fedora-mac-style/ /usr/share/plymouth/themes/
 sudo plymouth-set-default-theme -R fedora-mac-style
 
 rm -rf ~/.dotfiles/fedora-mac-style
@@ -214,6 +214,7 @@ rm -rf ~/.dotfiles/fedora-mac-style
 
 ```sh
 sudo firewall-cmd --add-port=53317/tcp --permanent
+sudo firewall-cmd --reload
 flatpak override org.localsend.localsend_app --filesystem=home --user
 ```
 
