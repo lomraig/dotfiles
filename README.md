@@ -129,7 +129,7 @@ bat cache --build
 
 ```sh
 sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-sudo dnf -y update
+sudo dnf install -y rpmfusion-free-appstream-data rpmfusion-nonfree-appstream-data
 ```
 
 ### check firmware update
@@ -152,6 +152,7 @@ sudo dnf install flatpak
 ```
 
 ```sh
+flatpak remote-modify --disable fedora
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 ```
 
@@ -175,7 +176,7 @@ reboot
 ### install media codecs
 
 ```sh
-sudo dnf group install multimedia
+sudo dnf update @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin --exclude=libheif-freeworld --exclude=obs-studio-freeworld # Update multimedia/GStreamer components while excluding currently broken broken packages.
 sudo dnf swap 'ffmpeg-free' 'ffmpeg' --allowerasing
 ```
 
