@@ -73,51 +73,7 @@ sudo nmcli --ask device wifi connect "NETWORK NAME / SSID"
 curl https://raw.githubusercontent.com/lomraig/dotfiles/refs/heads/main/setup.sh | bash
 ```
 
-### dnf speed up
-
-### auto login on startup
-
-```sh
-sudo su
-nvim getty@tty1.service.d/override.conf
-
-# add:
-
-[Service]
-ExecStart=
-ExecStart=-/usr/bin/agetty --autologin YOUR_USER_NAME --noissue %I $TERM
-
-# save then run:
-
-systemctl daemon-reload
-```
-
-### install essensial packages
-
-```sh
-sudo dnf copr enable lionheartp/Hyprland
-sudo dnf copr enable scottames/ghostty
-sudo dnf copr enable atim/starship
-sudo dnf copr enable imput/helium
-
-sudo dnf install --exclude=kitty hyprland hyprpaper hyprland-guiutils hyprlock hypridle
-
-sudo dnf install fish ghostty starship make zoxide stow git ripgrep fd fzf bat eza gcc neovim helium-bin
-sudo dnf install google-noto-emoji-fonts gdouros-symbola-fonts
-sudo dnf install plymouth plymouth-system-theme
-```
-
 ### install dotfiles
-
-```sh
-chsh -s $(which fish)
-git clone https://github.com/lomraig/dotfiles ~/.dotfiles
-cd ~/.dotfiles
-rm -rf ~/.config/fish ~/.config/ghostty ~/.config/hypr
-stow linux
-stow shared
-bat cache --build
-```
 
 ### add rpm-fusion repositories and update system
 
