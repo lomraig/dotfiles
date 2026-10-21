@@ -43,7 +43,7 @@ fi
 
 # flathub + appimages
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo 2> /dev/null
-sudo flatpak install -y it.mijorus.gearlever 2> /dev/null
+sudo flatpak install -y --noninteractive it.mijorus.gearlever < /dev/null 2> /dev/null
 
 # installs dotfiles
 sudo chsh -s $(which fish) $USER
