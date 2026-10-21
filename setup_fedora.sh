@@ -15,7 +15,7 @@ sudo dnf copr enable -y atim/starship
 sudo dnf copr enable -y imput/helium
 sudo dnf copr enable -y claaj/typst
 
-sudo dnf install --exclude=kitty -y hyprland hyprpaper hyprland-guiutils hyprlock hypridle fish ghostty starship make zoxide stow git ripgrep fd fzf bat eza gcc neovim helium-bin google-noto-emoji-fonts gdouros-symbola-fonts plymouth plymouth-system-theme plymouth-plugin-script plymouth-plugin-two-step which flatpak fuse-libs firewall-cmd typst rust cargo
+sudo dnf install --exclude=kitty -y hyprland hyprpaper hyprland-guiutils hyprlock hypridle fish ghostty starship make zoxide stow git ripgrep fd fzf bat eza gcc neovim helium-bin google-noto-emoji-fonts gdouros-symbola-fonts plymouth plymouth-system-theme which flatpak fuse-libs firewall-cmd typst rust cargo
 
 # full version of ffmpeg
 sudo dnf swap -y 'ffmpeg-free' 'ffmpeg' --allowerasing
@@ -58,7 +58,6 @@ fwupdmgr refresh --force
 fwupdmgr update
 
 # plymouth theme setup
-sudo grubby --update-kernel=ALL --args="rhgb quiet"
 unzip ~/.dotfiles/fedora-mac-style-plymouth-theme.zip -d ~/.dotfiles/
 sudo mkdir -p /usr/share/plymouth/themes/
 sudo cp -r ~/.dotfiles/fedora-mac-style/ /usr/share/plymouth/themes/
@@ -75,4 +74,5 @@ git clone https://github.com/tomdewildt/minimal-grub-theme ~/.grub-theme
 sudo mv ~/.grub-theme/minimal/ /boot/grub2/themes/
 printf '\n\n\n\n\nGRUB_TERMINAL_OUTPUT="gfxterm"\nGRUB_GFXPLAYLOAD_LINUX=keep\nGRUB_THEME="/boot/grub2/themes/minimal/theme.txt"\nGRUB_GRXMODE="2560x1440"' | sudo tee /etc/default/grub
 sudo grub2-mkconfig -o /etc/grub2-efi.cfg
+sudo grubby --update-kernel=ALL --args="rhgb quiet"
 rm -rf ~/.grub-theme
