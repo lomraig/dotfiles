@@ -57,6 +57,11 @@ sudo dnf install -y rpmfusion-free-appstream-data rpmfusion-nonfree-appstream-da
 fwupdmgr refresh --force
 fwupdmgr update
 
+# localsend fix
+sudo firewall-cmd --add-port=53317/tcp --permanent
+sudo firewall-cmd --reload
+flatpak override org.localsend.localsend_app --filesystem=home --user
+
 # plymouth theme setup
 unzip ~/.dotfiles/fedora-mac-style-plymouth-theme.zip -d ~/.dotfiles/
 sudo mkdir -p /usr/share/plymouth/themes/
@@ -64,15 +69,16 @@ sudo cp -r ~/.dotfiles/fedora-mac-style/ /usr/share/plymouth/themes/
 sudo plymouth-set-default-theme -R fedora-mac-style
 rm -rf ~/.dotfiles/fedora-mac-style
 
-# localsend fix
-sudo firewall-cmd --add-port=53317/tcp --permanent
-sudo firewall-cmd --reload
-flatpak override org.localsend.localsend_app --filesystem=home --user
-
 # minimalistic grub theme setup
 git clone https://github.com/tomdewildt/minimal-grub-theme ~/.grub-theme
 sudo mv ~/.grub-theme/minimal/ /boot/grub2/themes/
 printf '\n\n\n\n\nGRUB_TERMINAL_OUTPUT="gfxterm"\nGRUB_GFXPLAYLOAD_LINUX=keep\nGRUB_THEME="/boot/grub2/themes/minimal/theme.txt"\nGRUB_GRXMODE="2560x1440"' | sudo tee /etc/default/grub
 sudo grub2-mkconfig -o /etc/grub2-efi.cfg
-sudo grubby --update-kernel=ALL --args="rhgb quiet"
+sudo grubby --update-kernel=ALL --args="rhgb quiet" # needed by plymouth
 rm -rf ~/.grub-theme
+
+# installs fonts
+curl -fL https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.tar.xz | tar -xJ -C ~/.local/share/fonts/JetBrainsMonoNerd
+fc-cache -f
+
+reboot
