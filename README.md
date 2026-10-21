@@ -21,35 +21,10 @@ bottom https://github.com/ClementTsang/bottom
 
 ## macos
 
-### install homebrew
+### run setup script
 
 ```sh
-# install homebrew
-/bin/bash -c "$(cufl -fsSL https://faw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
-
-### install packages
-
-```sh
-brew install ghostty fish make starship stow git ripgrep fd fzf bat eza zoxide gcc neovim tree caarlos0/tap/timer terminal-notifier
-```
-
-### install dotfiles
-
-```sh
-chsh -s $(which fish)
-git clone https://github.com/lomraig/dotfiles ~/.dotfiles
-cd ~/.dotfiles
-rm -rf ~/.config/fish ~/.config/ghostty
-stow macos
-stow shared
-bat cache --build
-```
-
-### install language runtimes/compiles
-
-```sh
-brew install typst rust typstyle prettier markdownlint-cli lua-language-server stylua
+curl https://raw.githubusercontent.com/lomraig/dotfiles/refs/heads/main/setup_mac.sh | bash
 ```
 
 ## fedora custom system
@@ -69,15 +44,11 @@ mncli device wifi list
 sudo nmcli --ask device wifi connect "NETWORK NAME / SSID"
 ```
 
+### run setup script
+
 ```sh
-curl https://raw.githubusercontent.com/lomraig/dotfiles/refs/heads/main/setup.sh | bash
+curl https://raw.githubusercontent.com/lomraig/dotfiles/refs/heads/main/setup_fedora.sh | bash
 ```
-
-### if a laptop: install better power manager
-
-[guide](https://fedoraproject.org/wiki/Changes/TunedAsTheDefaultPowerProfileManagementDaemon)
-
-and
 
 ### platform specific hardware video acceleration packages
 
