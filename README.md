@@ -29,8 +29,6 @@ curl https://raw.githubusercontent.com/lomraig/dotfiles/refs/heads/main/setup_ma
 
 ## fedora custom system
 
-a lot of commands are stolen from [this guide](https://github.com/devangshekhawat/Fedora-44-Post-Install-Guide)
-
 ### connenct to wifi
 
 ```sh
@@ -65,7 +63,7 @@ sudo dnf install libva-intel-driver
 sudo dnf install mesa-va-drivers-freeworld mesa-va-drivers-freeworld.i686
 ```
 
-### setup [grub theme](https://github.com/tomdewildt/minimal-grub-theme)
+### complete setup of [grub theme](https://github.com/tomdewildt/minimal-grub-theme)
 
 add following line to `/etc/default/grub`
 
