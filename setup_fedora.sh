@@ -7,6 +7,10 @@ sudo su -c 'mkdir -p /etc/systemd/system/getty@tty1.service.d/'
 printf "%b\n" "$AUTOLOGIN_COMMAND" | sudo tee /etc/systemd/system/getty@tty1.service.d/override.conf
 sudo systemctl daemon-reload
 
+# updates firmware
+fwupdmgr refresh --force
+fwupdmgr update
+
 # installs rpmfusion
 sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 sudo dnf install -y rpmfusion-free-appstream-data rpmfusion-nonfree-appstream-data
@@ -52,10 +56,6 @@ stow shared
 bat cache --build
 cd ~
 
-# updates firmware
-fwupdmgr refresh --force
-fwupdmgr update
-
 # localsend fix
 sudo firewall-cmd --add-port=53317/tcp --permanent
 sudo firewall-cmd --reload
@@ -70,10 +70,13 @@ rm -rf ~/.dotfiles/fedora-mac-style
 
 # minimalistic grub theme setup
 git clone https://github.com/tomdewildt/minimal-grub-theme ~/.grub-theme
-sudo mv ~/.grub-theme/minimal/ /boot/grub2/themes/
-printf '\n\n\n\n\nGRUB_TERMINAL_OUTPUT="gfxterm"\nGRUB_GFXPLAYLOAD_LINUX=keep\nGRUB_THEME="/boot/grub2/themes/minimal/theme.txt"\nGRUB_GRXMODE="2560x1440"' | sudo tee /etc/default/grub
+sudo mkdir -p /boot/grub2/themes
+sudo cp -r ~/.grub-theme/minimal /boot/grub2/themes/
+sudo chown -R root:root /boot/grub2/themes/minimal
+sudo sed -i '/^GRUB_TERMINAL_OUTPUT/d;/^GRUB_GFXPAYLOAD_LINUX/d;/^GRUB_THEME/d;/^GRUB_GFXMODE/d' /etc/default/grub
+printf '\nGRUB_TERMINAL_OUTPUT="gfxterm"\nGRUB_GFXPAYLOAD_LINUX=keep\nGRUB_THEME="/boot/grub2/themes/minimal/theme.txt"\nGRUB_GFXMODE="2560x1440"\n' | sudo tee -a /etc/default/grub
 sudo grub2-mkconfig -o /etc/grub2-efi.cfg
-sudo grubby --update-kernel=ALL --args="rhgb quiet" # needed by plymouth
+sudo grubby --update-kernel=ALL --args="rhgb quiet"
 rm -rf ~/.grub-theme
 
 # installs fonts
