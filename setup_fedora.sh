@@ -23,6 +23,17 @@ sudo dnf swap -y 'ffmpeg-free' 'ffmpeg' --allowerasing
 # hardware video acceleration packages
 sudo dnf install -y ffmpeg-libs libva libva-utils
 
+vendors=$(cat /sys/class/drm/card*/device/vendor)
+
+if echo "$vendors" | grep -q "0x8086"; then
+  sudo dnf swap libva-intel-media-driver intel-media-driver --allowerasing
+  sudo dnf install libva-intel-driver
+fi
+
+if echo "$vendors" | grep -q "0x1002"; then
+  sudo dnf install mesa-va-drivers-freeworld mesa-va-drivers-freeworld.i686
+fi
+
 # flathub + appimages
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 sudo flatpak install -y it.mijorus.gearlever
@@ -47,6 +58,7 @@ fwupdmgr refresh --force
 fwupdmgr update
 
 # plymouth theme setup
+sudo grubby --update-kernel=ALL --args="rhgb quiet"
 unzip ~/.dotfiles/fedora-mac-style-plymouth-theme.zip -d ~/.dotfiles/
 sudo mkdir -p /usr/share/plymouth/themes/
 sudo cp -r ~/.dotfiles/fedora-mac-style/ /usr/share/plymouth/themes/
@@ -61,5 +73,6 @@ flatpak override org.localsend.localsend_app --filesystem=home --user
 # minimalistic grub theme setup
 git clone https://github.com/tomdewildt/minimal-grub-theme ~/.grub-theme
 sudo mv ~/.grub-theme/minimal/ /boot/grub2/themes/
-printf '\n\n\n\n\nGRUB_TERMINAL_OUTPUT="gfxterm"\nGRUB_GFXPLAYLOAD_LINUX=keep\nGRUB_THEME="/boot/grub2/themes/minimal/theme.txt"\n' | sudo tee /etc/default/grub
+printf '\n\n\n\n\nGRUB_TERMINAL_OUTPUT="gfxterm"\nGRUB_GFXPLAYLOAD_LINUX=keep\nGRUB_THEME="/boot/grub2/themes/minimal/theme.txt"\nGRUB_GRXMODE="2560x1440"' | sudo tee /etc/default/grub
+sudo grub2-mkconfig -o /etc/grub2-efi.cfg
 rm -rf ~/.grub-theme
