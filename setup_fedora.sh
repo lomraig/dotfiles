@@ -7,6 +7,9 @@ sudo su -c 'mkdir -p /etc/systemd/system/getty@tty1.service.d/'
 printf "%b\n" "$AUTOLOGIN_COMMAND" | sudo tee /etc/systemd/system/getty@tty1.service.d/override.conf
 sudo systemctl daemon-reload
 
+# installs rpmfusion
+sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf install -y rpmfusion-free-appstream-data rpmfusion-nonfree-appstream-data
 
 # installing packages
 sudo dnf copr enable -y lionheartp/Hyprland
@@ -35,8 +38,8 @@ if echo "$vendors" | grep -q "0x1002"; then
 fi
 
 # flathub + appimages
-sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-sudo flatpak install -y it.mijorus.gearlever
+sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo 2> /dev/null
+sudo flatpak install -y it.mijorus.gearlever 2> /dev/null
 
 # installs dotfiles
 sudo chsh -s $(which fish) $USER
@@ -48,10 +51,6 @@ stow linux
 stow shared
 bat cache --build
 cd ~
-
-# installs rpmfusion
-sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-sudo dnf install -y rpmfusion-free-appstream-data rpmfusion-nonfree-appstream-data
 
 # updates firmware
 fwupdmgr refresh --force
