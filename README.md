@@ -29,19 +29,6 @@ curl https://raw.githubusercontent.com/lomraig/dotfiles/refs/heads/main/setup_ma
 
 ## fedora custom system
 
-### connenct to wifi
-
-```sh
-# enable wifi
-nmcli radio wifi on
-
-# list available networks
-mncli device wifi list
-
-# connect to network
-sudo nmcli --ask device wifi connect "NETWORK NAME / SSID"
-```
-
 ### run setup script
 
 ```sh
