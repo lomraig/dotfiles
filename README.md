@@ -56,6 +56,10 @@ brew install typst rust typstyle prettier markdownlint-cli lua-language-server s
 
 a lot of commands are stolen from [this guide](https://github.com/devangshekhawat/Fedora-44-Post-Install-Guide)
 
+```sh
+curl https://raw.githubusercontent.com/lomraig/dotfiles/refs/heads/main/setup.sh | bash
+```
+
 ### connenct to wifi
 
 ```sh
