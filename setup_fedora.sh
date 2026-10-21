@@ -33,12 +33,12 @@ sudo dnf install -y ffmpeg-libs libva libva-utils
 vendors=$(cat /sys/class/drm/card*/device/vendor)
 
 if echo "$vendors" | grep -q "0x8086"; then
-  sudo dnf swap libva-intel-media-driver intel-media-driver --allowerasing
-  sudo dnf install libva-intel-driver
+  sudo dnf swap -y libva-intel-media-driver intel-media-driver --allowerasing
+  sudo dnf install -y libva-intel-driver
 fi
 
 if echo "$vendors" | grep -q "0x1002"; then
-  sudo dnf install mesa-va-drivers-freeworld mesa-va-drivers-freeworld.i686
+  sudo dnf install -y mesa-va-drivers-freeworld mesa-va-drivers-freeworld.i686
 fi
 
 # flathub + appimages
