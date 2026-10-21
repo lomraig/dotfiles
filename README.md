@@ -56,10 +56,6 @@ brew install typst rust typstyle prettier markdownlint-cli lua-language-server s
 
 a lot of commands are stolen from [this guide](https://github.com/devangshekhawat/Fedora-44-Post-Install-Guide)
 
-```sh
-curl https://raw.githubusercontent.com/lomraig/dotfiles/refs/heads/main/setup.sh | bash
-```
-
 ### connenct to wifi
 
 ```sh
@@ -73,22 +69,16 @@ mncli device wifi list
 sudo nmcli --ask device wifi connect "NETWORK NAME / SSID"
 ```
 
-### dnf speed up
-
-paste following lines in `/etc/dnf/dnf.conf`
-
 ```sh
-max_parallel_downloads=15
-fasterstmirror=True
-defaultyes=True
+curl https://raw.githubusercontent.com/lomraig/dotfiles/refs/heads/main/setup.sh | bash
 ```
+
+### dnf speed up
 
 ### auto login on startup
 
 ```sh
 sudo su
-cd /etc/systemd/system/
-mkdir -p getty@tty1.service.d/
 nvim getty@tty1.service.d/override.conf
 
 # add:
