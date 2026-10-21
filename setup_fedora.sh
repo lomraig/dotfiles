@@ -1,5 +1,5 @@
 # dnf speedup
-printf "[main]\nmax_parallel_downloads=15\nfasterstmirror=true\ndefaultyes=true\n" | sudo tee /etc/dnf/dnf.conf
+printf "[main]\nmax_parallel_downloads=15\nfastestmirror=true\ndefaultyes=true\n" | sudo tee /etc/dnf/dnf.conf
 
 # autologin setup
 AUTOLOGIN_COMMAND="[Service]\nExecStart=\nExecStart=-/usr/bin/agetty --autologin $USER --noissue %I $TERM\n"
