@@ -9,16 +9,15 @@ sudo systemctl daemon-reload
 
 
 # installing packages
-sudo dnf copr enable -y lionheartp/hyprland
+sudo dnf copr enable -y lionheartp/Hyprland
 sudo dnf copr enable -y scottames/ghostty
 sudo dnf copr enable -y atim/starship
 sudo dnf copr enable -y imput/helium
 sudo dnf copr enable -y claaj/typst
 
-sudo dnf install --exclude=kitty -y hyprland hyprpaper hyprland-guiutils hyprlock hypridle fish ghostty starship make zoxide stow git ripgrep fd fzf bat eza gcc neovim helium-bin google-noto-emoji-fonts gdouros-symbola-fonts plymouth plymouth-system-theme which flatpak fuse-libs firewall-cmd typst rust cargo
+sudo dnf install --skip-unavailable --exclude=kitty -y hyprland hyprpaper hyprland-guiutils hyprlock hypridle fish ghostty starship make zoxide stow git ripgrep fd fzf bat eza gcc neovim helium-bin google-noto-emoji-fonts gdouros-symbola-fonts plymouth plymouth-system-theme which flatpak fuse-libs firewall-cmd typst rust cargo 
 
-# multimedia codecs
-sudo dnf update -y @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin --exclude=libheif-freeworld --exclude=obs-studio-freeworld # Update multimedia/GStreamer components while excluding currently broken broken packages.
+# full version of ffmpeg
 sudo dnf swap -y 'ffmpeg-free' 'ffmpeg' --allowerasing
 
 # hardware video acceleration packages
