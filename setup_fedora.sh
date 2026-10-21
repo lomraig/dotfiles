@@ -29,6 +29,7 @@ sudo flatpak install -y it.mijorus.gearlever
 
 # installs dotfiles
 sudo chsh -s $(which fish) $USER
+rm -rf ~/.dotfiles
 git clone https://github.com/lomraig/dotfiles ~/.dotfiles
 cd ~/.dotfiles
 rm -rf ~/.config/* ~/.gitconfig
