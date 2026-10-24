@@ -44,7 +44,7 @@ fi
 
 # flathub + appimages
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo 2> /dev/null
-sudo flatpak install -y --noninteractive it.mijorus.gearlever < /dev/null 2> /dev/null
+sudo flatpak install -y --noninteractive it.mijorus.gearlever org.localsend.localsend_app < /dev/null 2> /dev/null
 
 # installs dotfiles
 sudo chsh -s $(which fish) $USER
@@ -70,12 +70,13 @@ sudo plymouth-set-default-theme -R fedora-mac-style
 rm -rf ~/.dotfiles/fedora-mac-style
 
 # minimalistic grub theme setup
+RES=$(cat /sys/class/drm/card*-*/modes 2>/dev/null | head -n1)  # gets resolution of main screen
 git clone https://github.com/tomdewildt/minimal-grub-theme ~/.grub-theme
 sudo mkdir -p /boot/grub2/themes
 sudo cp -r ~/.grub-theme/minimal /boot/grub2/themes/
 sudo chown -R root:root /boot/grub2/themes/minimal
 sudo sed -i '/^GRUB_TERMINAL_OUTPUT/d;/^GRUB_GFXPAYLOAD_LINUX/d;/^GRUB_THEME/d;/^GRUB_GFXMODE/d' /etc/default/grub
-printf '\nGRUB_TERMINAL_OUTPUT="gfxterm"\nGRUB_GFXPAYLOAD_LINUX=keep\nGRUB_THEME="/boot/grub2/themes/minimal/theme.txt"\nGRUB_GFXMODE="2560x1440"\n' | sudo tee -a /etc/default/grub
+printf '\nGRUB_TERMINAL_OUTPUT="gfxterm"\nGRUB_GFXPAYLOAD_LINUX=keep\nGRUB_THEME="/boot/grub2/themes/minimal/theme.txt"\nGRUB_GFXMODE="%s,auto"\n' "$RES" | sudo tee -a /etc/default/grub
 sudo grub2-mkconfig -o /etc/grub2-efi.cfg
 sudo grubby --update-kernel=ALL --args="rhgb quiet"
 rm -rf ~/.grub-theme
