@@ -21,8 +21,9 @@ sudo dnf copr enable -y scottames/ghostty
 sudo dnf copr enable -y atim/starship
 sudo dnf copr enable -y imput/helium
 sudo dnf copr enable -y claaj/typst
+sudo dnf copr enable -y dejan/lazygit
 
-sudo dnf install --exclude=kitty -y hyprland hyprpaper hyprland-guiutils hyprlock hypridle fish ghostty starship make zoxide stow git ripgrep fd fzf bat eza gcc neovim helium-bin google-noto-emoji-fonts gdouros-symbola-fonts plymouth plymouth-system-theme which flatpak fuse-libs firewall-cmd typst rust cargo
+sudo dnf install --exclude=kitty -y hyprland hyprpaper hyprland-guiutils hyprlock hypridle fish ghostty starship make zoxide stow git ripgrep fd fzf bat eza gcc neovim helium-bin google-noto-emoji-fonts gdouros-symbola-fonts plymouth plymouth-system-theme which flatpak fuse-libs firewall-cmd typst rust cargo lazygit
 
 # full version of ffmpeg
 sudo dnf swap -y 'ffmpeg-free' 'ffmpeg' --allowerasing
