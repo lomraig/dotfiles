@@ -2,9 +2,7 @@ config-version = 2
 
 after-startup-command = []
 
-# Start AeroSpace at login
-start-at-login = false
-
+start-at-login = false # TODO: change to true
 auto-reload-config = true
 
 # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
