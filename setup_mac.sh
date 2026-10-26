@@ -3,6 +3,10 @@
 
 # installs packages
 brew install ghostty fish make starship stow git ripgrep fd fzf bat eza zoxide gcc neovim tree caarlos0/tap/timer terminal-notifier
+brew install --cask visual-studio-code
+
+# repeatable keys input on hold for vim extension in vscode
+defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
 
 # installs dotfiles
 chsh -s $(which fish)

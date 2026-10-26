@@ -11,7 +11,7 @@
   },
   "appearance": {
     "theme": "system",
-    "interfaceSize": "standard",
+    "interfaceSize": "large",
     "compactMode": false,
     "showFavoritesInCompactMode": true,
     "followCursorAcrossDisplays": true,

@@ -16,4 +16,4 @@ SETUVAR fish_color_quote:c41a16
 SETUVAR fish_color_redirection:326d74
 SETUVAR fish_color_search_match:\x2d\x2dbackground\x3db2d7ff
 SETUVAR fish_color_selection:\x2d\x2dbackground\x3db2d7ff
-SETUVAR fish_user_paths:/home/timkliuiev/\x2ego/bin\x1e/Users/tymofiikliuiev/\x2ecargo/bin\x1e/Users/tymofiikliuiev/\x2elocal/bin\x1e/Users/tymofiikliuiev/\x2ego/bin
+SETUVAR fish_user_paths:/Users/timkliuiev/\x2elocal/bin\x1e/home/timkliuiev/\x2ego/bin\x1e/Users/tymofiikliuiev/\x2ecargo/bin\x1e/Users/tymofiikliuiev/\x2elocal/bin\x1e/Users/tymofiikliuiev/\x2ego/bin
