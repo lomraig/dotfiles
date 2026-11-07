@@ -13,7 +13,6 @@
     "theme": "system",
     "interfaceSize": "large",
     "compactMode": false,
-    "showFavoritesInCompactMode": true,
     "followCursorAcrossDisplays": true,
     "dragToReposition": false
   },
@@ -44,248 +43,248 @@
     ],
     "apps": {
       "com.apple.AccessibilityInspector": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.Automator": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.BluetoothFileExchange": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.Chess": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.Console": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.CreateML": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.DVDPlayer": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.DeskCam": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.Dictionary": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.DigitalColorMeter": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.DirectoryUtility": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.ExpansionSlotUtility": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.FolderActionsSetup": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.GenerativePlaygroundApp": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.Home": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.IPAInstaller": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.IconComposer": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.Magnifier": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.Maps": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.MigrateAssistant": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.Passwords": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.QuickTimePlayerX": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.ScreenContinuity": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.ScreenSharing": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.Stickies": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.TV": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.Ticket-Viewer": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.VoiceOverUtility": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.airport.airportutility": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.appleseed.FeedbackAssistant": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.campo": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.dt.Devices": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.dt.Instruments": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.exposelauncher": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.finder.Open-AirDrop": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.finder.Open-AllMyFiles": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.finder.Open-Computer": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.finder.Open-Network": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.finder.Open-Recents": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.games": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.grapher": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.helpviewer": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.journal": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.news": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.siri.launcher": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.stocks": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.apple.wifi.diagnostics": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "com.yourcompany.installerbase": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "org.qt-project.Linguist": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       }
     }
@@ -301,44 +300,44 @@
   "commands": {
     "builtInEnabled": true,
     "builtIn": {
-      "open-camera": {
-        "shortcut": null,
+      "about": {
         "alias": null,
-        "showInLauncher": false
-      },
-      "define": {
         "shortcut": null,
-        "alias": null,
-        "showInLauncher": false
-      },
-      "export-settings": {
-        "shortcut": null,
-        "alias": null,
-        "showInLauncher": false
-      },
-      "import-settings": {
-        "shortcut": null,
-        "alias": null,
-        "showInLauncher": false
-      },
-      "import-from-raycast": {
-        "shortcut": null,
-        "alias": null,
         "showInLauncher": false
       },
       "check-for-updates": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
-      "about": {
-        "shortcut": null,
+      "define": {
         "alias": null,
+        "shortcut": null,
+        "showInLauncher": false
+      },
+      "export-settings": {
+        "alias": null,
+        "shortcut": null,
+        "showInLauncher": false
+      },
+      "import-from-raycast": {
+        "alias": null,
+        "shortcut": null,
+        "showInLauncher": false
+      },
+      "import-settings": {
+        "alias": null,
+        "shortcut": null,
+        "showInLauncher": false
+      },
+      "open-camera": {
+        "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       },
       "support": {
-        "shortcut": null,
         "alias": null,
+        "shortcut": null,
         "showInLauncher": false
       }
     },
@@ -419,41 +418,41 @@
     "layoutsShowInLauncher": true,
     "roomsShowInLauncher": true,
     "shortcuts": {
-      "left-half": null,
-      "right-half": null,
-      "top-half": null,
+      "almost-maximize": null,
       "bottom-half": null,
-      "top-left-quarter": null,
-      "top-right-quarter": null,
       "bottom-left-quarter": null,
       "bottom-right-quarter": null,
-      "first-three-fourths": null,
-      "last-three-fourths": null,
-      "first-third": null,
-      "center-third": null,
-      "last-third": null,
-      "first-two-thirds": null,
-      "last-two-thirds": null,
-      "maximize": null,
-      "almost-maximize": null,
-      "reasonable-size": null,
-      "maximize-height": null,
-      "maximize-width": null,
       "center": null,
       "center-half": null,
+      "center-third": null,
       "center-two-thirds": null,
+      "first-third": null,
+      "first-three-fourths": null,
+      "first-two-thirds": null,
+      "last-third": null,
+      "last-three-fourths": null,
+      "last-two-thirds": null,
+      "left-half": null,
       "make-larger": null,
       "make-smaller": null,
-      "restore": null,
+      "maximize": null,
+      "maximize-height": null,
+      "maximize-width": null,
+      "move-down": null,
       "move-left": null,
       "move-right": null,
       "move-up": null,
-      "move-down": null,
       "next-display": null,
+      "next-space": null,
       "previous-display": null,
-      "toggle-fullscreen": null,
       "previous-space": null,
-      "next-space": null
+      "reasonable-size": null,
+      "restore": null,
+      "right-half": null,
+      "toggle-fullscreen": null,
+      "top-half": null,
+      "top-left-quarter": null,
+      "top-right-quarter": null
     },
     "aliases": {},
     "customSizes": [],

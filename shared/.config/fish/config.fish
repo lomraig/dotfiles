@@ -1,4 +1,3 @@
-# remove greeting
 if status is-interactive
     set fish_greeting
 end
@@ -31,8 +30,6 @@ set -g mouse on
 set -gx TERM xterm-256color
 
 alias nv "nvim"
-alias lg "lazygit"
-alias ldc "lazydocker"
 
 if type -q eza
     alias ls='eza --icons --group-directories-first --color=always'
