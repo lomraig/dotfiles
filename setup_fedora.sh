@@ -9,6 +9,7 @@ sudo systemctl daemon-reload
 
 # updates firmware
 fwupdmgr refresh --force
+fwupdmgr get-updates
 fwupdmgr update
 
 # installs rpmfusion
@@ -23,27 +24,24 @@ sudo dnf copr enable -y imput/helium
 sudo dnf copr enable -y claaj/typst
 sudo dnf copr enable -y dejan/lazygit
 
-sudo dnf install --exclude=kitty -y hyprland hyprpaper hyprland-guiutils hyprlock hypridle fish ghostty starship make zoxide stow git ripgrep fd fzf bat eza gcc neovim helium-bin google-noto-emoji-fonts gdouros-symbola-fonts plymouth plymouth-system-theme which flatpak fuse-libs firewall-cmd typst rust cargo lazygit
-
 # full version of ffmpeg
 sudo dnf swap -y 'ffmpeg-free' 'ffmpeg' --allowerasing
+
+sudo dnf group install -y sound-and-video
 
 # hardware video acceleration packages
 sudo dnf install -y ffmpeg-libs libva libva-utils
 
-vendors=$(cat /sys/class/drm/card*/device/vendor)
-
-if echo "$vendors" | grep -q "0x8086"; then
-  sudo dnf swap -y libva-intel-media-driver intel-media-driver --allowerasing
-  sudo dnf install -y libva-intel-driver
-fi
-
-if echo "$vendors" | grep -q "0x1002"; then
-  sudo dnf install -y mesa-va-drivers-freeworld mesa-va-drivers-freeworld.i686
-fi
+sudo dnf install --exclude=kitty -y hyprland hyprpaper hyprland-guiutils hyprlock hypridle \
+                                    fish ghostty starship zoxide stow ripgrep fd fzf bat eza neovim lazygit \
+                                    make git gcc which flatpak fuse-libs firewalld typst rust cargo \
+                                    helium-bin google-noto-emoji-fonts gdouros-symbola-fonts \
+                                    plymouth plymouth-system-theme \
+                                    mesa-va-drivers-freeworld mesa-va-drivers-freeworld.i686 ffmpeg-libs libva libva-utils
 
 # flathub + appimages
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo 2> /dev/null
+sudo flatpak remote-modify --disable fedora
 sudo flatpak install -y --noninteractive it.mijorus.gearlever org.localsend.localsend_app < /dev/null 2> /dev/null
 
 # installs dotfiles

@@ -31,6 +31,9 @@ set -gx TERM xterm-256color
 
 alias nv "nvim"
 
+alias beetost "beet -c ~/.config/beets/config_ost.yaml"
+alias beetani "beet -c ~/.config/beets/config_anime.yaml"
+
 if type -q eza
     alias ls='eza --icons --group-directories-first --color=always'
     alias la='eza -aa --icons --group-directories-first'

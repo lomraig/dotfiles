@@ -11,7 +11,7 @@ vim.o.laststatus = 3
 vim.o.smoothscroll = true
 vim.o.linebreak = true
 vim.o.termguicolors = true
-vim.o.wrap = false
+-- vim.o.wrap = false
 vim.o.list = true
 vim.opt.listchars = { tab = "  ", trail = "·", nbsp = "␣" }
 vim.o.updatetime = 250
@@ -232,7 +232,7 @@ vim.lsp.config.lua_ls = {
 	},
 }
 
-vim.lsp.enable({ "lua_ls", "tinymist", "clangd" })
+vim.lsp.enable({ "lua_ls", "tinymist", "clangd", "basedpyright" })
 
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(args)
