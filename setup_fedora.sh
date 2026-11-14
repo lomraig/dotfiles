@@ -31,8 +31,22 @@ sudo dnf install --exclude=kitty -y hyprland hyprpaper hyprland-guiutils hyprloc
                                     make git gcc which flatpak fuse-libs firewalld typst rust cargo \
                                     helium-bin google-noto-emoji-fonts gdouros-symbola-fonts \
                                     plymouth plymouth-system-theme greetd \
-                                    mesa-va-drivers-freeworld mesa-va-drivers-freeworld.i686 ffmpeg-libs libva libva-utils \
+                                    ffmpeg-libs libva libva-utils \
                                     dolphin
+
+
+vendors=$(cat /sys/class/drm/card*/device/vendor)
+
+# intel
+if echo "$vendors" | grep -q "0x8086"; then
+fi
+
+# amd
+if echo "$vendors" | grep -q "0x1002"; then
+    sudo dnf install -y mesa-va-drivers-freeworld mesa-va-drivers-freeworld.i686
+    echo 'force_drivers+=" amdgpu "' | sudo tee /etc/dracut.conf.d/amdgpu.conf
+    sudo dracut -f
+fi
 
 # autologin setup
 sudo systemctl mask kmsconvt@tty1
@@ -45,7 +59,6 @@ sudo systemctl enable greetd
 
 # flathub + appimages
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo 2> /dev/null
-sudo flatpak remote-modify --disable fedora
 sudo flatpak install -y --noninteractive it.mijorus.gearlever org.localsend.localsend_app < /dev/null 2> /dev/null
 
 # installs dotfiles
@@ -65,8 +78,6 @@ sudo firewall-cmd --reload
 flatpak override org.localsend.localsend_app --filesystem=home --user
 
 # plymouth theme setup
-echo 'force_drivers+=" amdgpu "' | sudo tee /etc/dracut.conf.d/amdgpu.conf
-sudo dracut -f
 unzip ~/.dotfiles/fedora-mac-style-plymouth-theme.zip -d ~/.dotfiles/
 sudo mkdir -p /usr/share/plymouth/themes/
 sudo cp -r ~/.dotfiles/fedora-mac-style/ /usr/share/plymouth/themes/
