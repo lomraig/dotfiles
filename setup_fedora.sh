@@ -1,12 +1,6 @@
 # dnf speedup
 printf "[main]\nmax_parallel_downloads=15\nfastestmirror=true\ndefaultyes=true\n" | sudo tee /etc/dnf/dnf.conf
 
-# autologin setup
-AUTOLOGIN_COMMAND="[Service]\nExecStart=\nExecStart=-/usr/bin/agetty --autologin $USER --noissue %I $TERM\n"
-sudo su -c 'mkdir -p /etc/systemd/system/getty@tty1.service.d/'
-printf "%b\n" "$AUTOLOGIN_COMMAND" | sudo tee /etc/systemd/system/getty@tty1.service.d/override.conf
-sudo systemctl daemon-reload
-
 # updates firmware
 fwupdmgr refresh --force
 fwupdmgr get-updates
@@ -36,8 +30,18 @@ sudo dnf install --exclude=kitty -y hyprland hyprpaper hyprland-guiutils hyprloc
                                     fish ghostty starship zoxide stow ripgrep fd fzf bat eza neovim lazygit \
                                     make git gcc which flatpak fuse-libs firewalld typst rust cargo \
                                     helium-bin google-noto-emoji-fonts gdouros-symbola-fonts \
-                                    plymouth plymouth-system-theme \
-                                    mesa-va-drivers-freeworld mesa-va-drivers-freeworld.i686 ffmpeg-libs libva libva-utils
+                                    plymouth plymouth-system-theme greetd \
+                                    mesa-va-drivers-freeworld mesa-va-drivers-freeworld.i686 ffmpeg-libs libva libva-utils \
+                                    dolphin
+
+# autologin setup
+sudo systemctl mask kmsconvt@tty1
+sudo systemctl set-default graphical.target
+GREETD_CONFIG=/etc/greetd/config.toml
+sudo sed -i 's/^vt = .*/vt = 1/' "$GREETD_CONFIG"
+grep -q '^\[initial_session\]' "$GREETD_CONFIG" ||
+    printf '\n[initial_session]\ncommand = "start-hyprland"\nuser = "%s"\n' "$USER" | sudo tee -a "$GREETD_CONFIG"
+sudo systemctl enable greetd
 
 # flathub + appimages
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo 2> /dev/null
@@ -61,6 +65,8 @@ sudo firewall-cmd --reload
 flatpak override org.localsend.localsend_app --filesystem=home --user
 
 # plymouth theme setup
+echo 'force_drivers+=" amdgpu "' | sudo tee /etc/dracut.conf.d/amdgpu.conf
+sudo dracut -f
 unzip ~/.dotfiles/fedora-mac-style-plymouth-theme.zip -d ~/.dotfiles/
 sudo mkdir -p /usr/share/plymouth/themes/
 sudo cp -r ~/.dotfiles/fedora-mac-style/ /usr/share/plymouth/themes/

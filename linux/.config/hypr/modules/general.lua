@@ -2,6 +2,9 @@
 hl.monitor({
 	output = "DP-1",
 	mode = "2560x1440@164.96",
+    cm = "srgb",
+    bitdepth = 8,
+    vrr = 2,
 })
 
 --- AUTOSTART
@@ -26,7 +29,7 @@ hl.config({
 	input = {
 		accel_profile = "flat",
 		kb_layout = "pl,ua",
-		kb_options = "grp:win_space_toggle,lv3:ralt_switch,caps:escapq",
+		kb_options = "grp:win_space_toggle,lv3:ralt_switch,caps:escape",
 		sensitivity = -0.2,
 	},
 
@@ -35,6 +38,10 @@ hl.config({
 		disable_splash_rendering = true,
 		force_default_wallpaper = 0,
 	},
+
+    render = {
+        cm_auto_hdr = 0,
+    },
 
 	ecosystem = {
 		no_donation_nag = true,

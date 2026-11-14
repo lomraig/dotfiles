@@ -30,3 +30,5 @@ curl https://raw.githubusercontent.com/lomraig/dotfiles/refs/heads/main/setup_ma
 ```sh
 curl https://raw.githubusercontent.com/lomraig/dotfiles/refs/heads/main/setup_fedora.sh | bash
 ```
+
+[VIA setup of fedora](https://www.reddit.com/r/Keychron/comments/1e5um1u/a_linux_user_psa/)
