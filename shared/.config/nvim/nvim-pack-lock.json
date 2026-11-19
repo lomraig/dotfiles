@@ -9,59 +9,59 @@
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "gitsigns.nvim": {
-      "rev": "ef707fb93301a9b856f36eae4c8f56f5b988a794",
+      "rev": "c0862d382a35b7b45757d8d151a6a634c09bf3ce",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "mini.bufremove": {
-      "rev": "6e9c563cb71a8e4d57c4fb4089eb90a3bf3e8851",
+      "rev": "a683172dc7d3b45c4988af12206a071f6afbc54a",
       "src": "https://github.com/nvim-mini/mini.bufremove"
     },
     "mini.comment": {
-      "rev": "3aa39b795c6dc54dbeaf2863aa91215850c4c8e0",
+      "rev": "fa72401dc01bdaafb96c3259b0d03c5a369d54d9",
       "src": "https://github.com/nvim-mini/mini.comment"
     },
     "mini.cursorword": {
-      "rev": "1600b99d6adab31e7ab3c231111100dbbcefad58",
+      "rev": "4656eea6bbffc0f9bf5ae5eb9d2c1ff251bbca39",
       "src": "https://github.com/nvim-mini/mini.cursorword"
     },
     "mini.hipatterns": {
-      "rev": "b435ff459774b7ec234f1ae2834062f5829e75fa",
+      "rev": "7a79e5f000beb530ade0fa9faec70f01469dbcb3",
       "src": "https://github.com/nvim-mini/mini.hipatterns"
     },
     "mini.icons": {
-      "rev": "eab3e692d796d78ea6ffc978d8a380ff26fcf4e3",
+      "rev": "fc90b3925a2a68282be06e28cfe0cbb366c75dad",
       "src": "https://github.com/nvim-mini/mini.icons"
     },
     "mini.jump": {
-      "rev": "a82ca82616b64439b467d6c9b44419870c6a4653",
+      "rev": "526c1248608e530fffa9d75845063de3dbc423fe",
       "src": "https://github.com/nvim-mini/mini.jump"
     },
     "mini.move": {
-      "rev": "5207c4de3d7db84aadedf72e4a27048d9e46ccf9",
+      "rev": "24d9bb2af6b6f747205fb5da0ec51a7d621077d7",
       "src": "https://github.com/nvim-mini/mini.move"
     },
     "mini.pairs": {
-      "rev": "03eb1f0062a2cee5314d1ac3939246e4bb21352e",
+      "rev": "eea81afc1b4de898de9bb310c2225f9225fd42b9",
       "src": "https://github.com/nvim-mini/mini.pairs"
     },
     "mini.splitjoin": {
-      "rev": "de43d1ace70185b2d1da97781586ffba9fbb0338",
+      "rev": "ea8c7d0e7d0ab184e8e82b88a777e50277eba744",
       "src": "https://github.com/nvim-mini/mini.splitjoin"
     },
     "mini.statusline": {
-      "rev": "d7133a9a244a8d93ccee42ff37fb9499af5956fb",
+      "rev": "591b9d553dc3604b114577bc0f6e289ea3783fc2",
       "src": "https://github.com/nvim-mini/mini.statusline"
     },
     "mini.surround": {
-      "rev": "5357f00aca51a3b43e7775901b1ad9699f8c2678",
+      "rev": "c17f9e2b2d685376b8ae7bb2cd8bb51dc7cd6d98",
       "src": "https://github.com/nvim-mini/mini.surround"
     },
     "mini.tabline": {
-      "rev": "d77cc478ec18fc8e8651b69233b02d5b32ed2b74",
+      "rev": "7062e7fa00dc76a20a043265c94bcf7b2789478f",
       "src": "https://github.com/nvim-mini/mini.tabline"
     },
     "mini.trailspace": {
-      "rev": "8bcd13b6d54d4c018982fea53e483937247d593b",
+      "rev": "2b58478e717a8ea016d42f611cf7fbcf7b7c0037",
       "src": "https://github.com/nvim-mini/mini.trailspace"
     },
     "nvim-lint": {
@@ -69,15 +69,15 @@
       "src": "https://github.com/mfussenegger/nvim-lint"
     },
     "nvim-lspconfig": {
-      "rev": "993d048db0d83d8e8ba3f9cb376456321acdcce3",
+      "rev": "4648fd8ba5c678d7e2db75ae44ffac269bb589d8",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-tree.lua": {
-      "rev": "7e1da84aaffb413e1fa47b3895e5caa12501142d",
+      "rev": "6e539e91302d2e201b078a45d214177140134523",
       "src": "https://github.com/nvim-tree/nvim-tree.lua"
     },
     "nvim-treesitter": {
-      "rev": "915f2bd3d4e2a33704bfc476b5137e9befa82f3d",
+      "rev": "37e52c733ada9d8d544d53a763140ef1ba404353",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "nvim-ts-autotag": {
@@ -93,7 +93,7 @@
       "src": "https://gitlab.com/hiphish/rainbow-delimiters.nvim"
     },
     "render-markdown.nvim": {
-      "rev": "8e8795368391036643b622875a6da6a51bcd33f4",
+      "rev": "a67f826164c38c836fc6060f32b275c4c43317a7",
       "src": "https://github.com/meanderingprogrammer/render-markdown.nvim"
     },
     "telescope-fzf-native.nvim": {
@@ -101,7 +101,7 @@
       "src": "https://github.com/nvim-telescope/telescope-fzf-native.nvim"
     },
     "telescope.nvim": {
-      "rev": "40aedd8a68c78a656a10a8d62d80c54af59420fb",
+      "rev": "1e1bab730218eaf97fce743be3f56e51075928ac",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
     },
     "tiny-code-action.nvim": {
@@ -109,7 +109,7 @@
       "src": "https://github.com/rachartier/tiny-code-action.nvim"
     },
     "typst-preview.nvim": {
-      "rev": "bf5d5eaf23bbfcca9f98a24ed29bd084abf89bf2",
+      "rev": "b231e0e318378782b210ab57aaf7d81d3b0eea12",
       "src": "https://github.com/chomosuke/typst-preview.nvim"
     },
     "which-key.nvim": {
