@@ -1,0 +1,9 @@
+[Unit]
+Description=Make Discord tray icon dark before autostart apps run
+
+[Service]
+Type=oneshot
+ExecStart=%h/Applications/plasma_discord_dark_icon.py
+
+[Install]
+WantedBy=graphical-session-pre.target
