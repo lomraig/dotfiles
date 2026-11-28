@@ -6,6 +6,10 @@ set -l os (uname)
 
 if test "$os" = Darwin
     eval "$(/opt/homebrew/bin/brew shellenv)"
+
+    set -x VCPKG_ROOT $HOME/Developer/vcpkg
+    set -gx CPATH (brew --prefix)/include
+    set -gx LIBRARY_PATH (brew --prefix)/lib
 else if test "$os" = Linux
     if status is-login
         if test (tty) = /dev/tty1
@@ -129,10 +133,6 @@ fish_add_path $GOPATH/bin
 fish_add_path $HOME/.cargo/bin
 
 fish_add_path $HOME/.local/bin
-
-set -x VCPKG_ROOT $HOME/Developer/vcpkg
-set -gx CPATH (brew --prefix)/include
-set -gx LIBRARY_PATH (brew --prefix)/lib
 
 ################################################## encoding ##################################################
 
