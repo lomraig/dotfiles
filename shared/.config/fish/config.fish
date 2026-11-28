@@ -130,6 +130,10 @@ fish_add_path $HOME/.cargo/bin
 
 fish_add_path $HOME/.local/bin
 
+set -x VCPKG_ROOT $HOME/Developer/vcpkg
+set -gx CPATH (brew --prefix)/include
+set -gx LIBRARY_PATH (brew --prefix)/lib
+
 ################################################## starts stuff ##################################################
 
 fzf --fish | source
