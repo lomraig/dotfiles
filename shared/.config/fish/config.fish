@@ -130,6 +130,40 @@ fish_add_path $HOME/.cargo/bin
 
 fish_add_path $HOME/.local/bin
 
+
+################################################## encoding ##################################################
+
+function encode
+    bash -c '
+trap "rm -f \"\$output\"; echo; echo \"Stopped. Removed unfinished: \$output\"; exit 1" INT
+shopt -s globstar
+files=()
+for f in **/*.mkv; do [[ $f == done/* ]] || files+=("$f"); done
+total=${#files[@]}
+i=0
+for f in "${files[@]}"; do
+    i=$((i+1))
+    output="done/$f"
+    if [[ -e $output ]]; then
+        echo "[$i/$total] skip (already done): $f"
+        continue
+    fi
+    echo "[$i/$total] $f"
+    mkdir -p "$(dirname "$output")"
+    ffmpeg -nostdin -hide_banner -loglevel error -stats -i "$f" -map 0 -c:v libx265 -preset slow -crf 23 -pix_fmt yuv420p10le -x265-params "log-level=error:deblock=-3,-3:keyint=240:min-keyint=24:limit-refs=1:no-sao=1:aq-mode=3:psy-rd=2:rdoq-level=2:psy-rdoq=1.0" -c:a libopus -b:a 96k -ac 2 -c:s copy "$output" || rm -f "$output"
+done
+echo "All done"
+'
+end
+
+function encode-pause
+    pkill -STOP ffmpeg; and echo "paused"
+end
+
+function encode-resume
+    pkill -CONT ffmpeg; and echo "resumed"
+end
+
 ################################################## starts stuff ##################################################
 
 fzf --fish | source
